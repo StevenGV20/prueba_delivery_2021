@@ -1,0 +1,28 @@
+package com.veterinaria.services;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.veterinaria.entity.Categoria;
+import com.veterinaria.entity.Producto;
+
+public interface ProductoService {
+	
+	//CATEGORIA
+	public abstract List<Categoria> listaCategeoria();
+	
+	//PRODUCTO
+	public abstract List<Producto> listaProducto();
+	public abstract Producto mantenerProducto(Producto bean);
+	public abstract Optional<Producto> buscaProductoPorId(int idproducto);
+	public abstract void eliminaProducto(int idproducto);
+	
+	//SUBIR ARCHIVOS
+	public abstract void saveFile(MultipartFile file) throws Exception;
+	
+	public abstract void saveFotos(List<MultipartFile> files) throws IOException;
+	
+}
