@@ -50,4 +50,9 @@ public class ServicioServiceImpl  implements ServicioService{
 		}
 	}
 
+	@Override
+	public Servicio detalleServicioXID(int id) {
+		return repository.findById(id).orElse(null);
+	}
+
 }

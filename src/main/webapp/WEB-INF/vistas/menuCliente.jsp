@@ -18,6 +18,10 @@
 	.nav .dropdown-item:hover{
 		color:black;
 	}
+	.img_card{
+        		width:100%;
+        		height:400px;
+        	}
 </style>
 <!-- <div class="top-bar">
             <div class="container-fluid">
@@ -46,7 +50,7 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="index.jsp" class="nav-item nav-link">INICIO</a>
+                            <a href="/" class="nav-item nav-link">INICIO</a>
                             <a href="verListaProductos" class="nav-item nav-link">Productos</a>
                             <a href="verListaServicios" class="nav-item nav-link">Servicios</a>
                             <a href="verDetalleProducto" class="nav-item nav-link">Detalle Producto</a>

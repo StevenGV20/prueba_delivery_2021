@@ -5,10 +5,10 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Nuestros Productos</title>
+        <title>Producto</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-		<!-- Favicon -->
+        
+        <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
 
         <!-- Google Fonts -->
@@ -22,84 +22,52 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style_theme_blue.css" rel="stylesheet">
-		
+        <style type="text/css">
+        	.img_card{
+        		width:100%;
+        		height:400px;
+        	}
+        </style>
     </head>
 
     <body>
-         <!-- Top bar Start -->
+       <!-- Top bar Start -->
 		<jsp:include page="menuCliente.jsp"></jsp:include>
         <!-- Nav Bar End -->      
-            
+           
         
+        <!-- Bottom Bar End --> 
         
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="#">Productos</a></li>
-                    <li class="breadcrumb-item active">Lista de Productos</li>
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Products</a></li>
+                    <li class="breadcrumb-item active">Product Detail</li>
                 </ul>
             </div>
         </div>
         <!-- Breadcrumb End -->
         
-        <!-- Product List Start -->
-        <div class="product-view">
+        <!-- Product Detail Start -->
+        <div class="product-detail">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-8">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="product-view-top">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="product-search">
-                                                <input type="email" value="Search">
-                                                <button><i class="fa fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="product-short">
-                                                <div class="dropdown">
-                                                    <div class="dropdown-toggle" data-toggle="dropdown">Product short by</div>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Newest</a>
-                                                        <a href="#" class="dropdown-item">Popular</a>
-                                                        <a href="#" class="dropdown-item">Most sale</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="product-price-range">
-                                                <div class="dropdown">
-                                                    <div class="dropdown-toggle" data-toggle="dropdown">Product price range</div>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">$0 to $50</a>
-                                                        <a href="#" class="dropdown-item">$51 to $100</a>
-                                                        <a href="#" class="dropdown-item">$101 to $150</a>
-                                                        <a href="#" class="dropdown-item">$151 to $200</a>
-                                                        <a href="#" class="dropdown-item">$201 to $250</a>
-                                                        <a href="#" class="dropdown-item">$251 to $300</a>
-                                                        <a href="#" class="dropdown-item">$301 to $350</a>
-                                                        <a href="#" class="dropdown-item">$351 to $400</a>
-                                                        <a href="#" class="dropdown-item">$401 to $450</a>
-                                                        <a href="#" class="dropdown-item">$451 to $500</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div class="product-detail-top">
+                            <div class="row align-items-center">
+                                <div class="col-md-5">
+                                    <div class="product-slider-single normal-slider">
+                                        <img src="img/${requestScope.objServicio.foto}" alt="No existe">
                                     </div>
+                                   <!-- <div class="product-slider-single-nav normal-slider">
+                                        <div class="slider-nav-img"><img src="img/${requestScope.objServicio.foto}" alt="No existe"></div>
+                                    </div> --> 
                                 </div>
-                            </div>
-                            
-                            <!-- LISTA DE PRODUCTOS -->
-                        <c:forEach items="${sessionScope.LISTAPRODUCTOS}" var="item">
-                             <div class="col-md-4">
-                                <div class="product-item">
-                                    <div class="product-title">
-                                        <a href="verDetalleProducto?id=${item.idproducto}">${item.nombre}</a>
+                                <div class="col-md-7">
+                                    <div class="product-content">
+                                        <div class="title"><h2>${requestScope.objServicio.nombre}</h2></div>
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -107,43 +75,139 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <a href="verDetalleProducto?id=${item.idproducto}">
-                                            <img src="img/${item.foto1}" class="img_card" alt="Product Image">
-                                        </a>
-                                        <div class="product-action">
-                                            <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                            <a href="#"><i class="fa fa-heart"></i></a>
-                                            <a href="verDetalleProducto?id=${item.idproducto}"><i class="fa fa-search"></i></a>
+                                        <div class="price">
+                                            <h4>Precio:</h4>
+                                            <p>S/. ${requestScope.objServicio.precio} <!--<span>$149</span>--></p>
                                         </div>
-                                    </div>
-                                    <div class="product-price">
-                                        <h3><span>S/. </span>${item.precio}</h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                        <div class="quantity">
+                                           <input type="text" value="${requestScope.objServicio.idservicio}" id="#idCodigo" name="idproducto">
+                                            <h4>Cantidad:</h4>
+                                            <div class="qty">
+                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                <input type="text" value="1" id="#idCantidad" name="cantidad">
+                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="action">
+                                            <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>Agregar al carrito</a>
+                                            <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Solicitar</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </c:forEach>
                         </div>
-                        <!-- Pagination Start -->
-                        <div class="col-md-12">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        
+                        <div class="row product-detail-bottom">
+                            <div class="col-lg-12">
+                                <ul class="nav nav-pills nav-justified">
+                                    <li class="nav-item">
+                                        <a class="nav-link active text-light" data-toggle="pill" href="#description">Description</a>
                                     </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
+                                   <!--  <li class="nav-item">
+                                        <a class="nav-link" data-toggle="pill" href="#specification">Specification</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="pill" href="#reviews">Reviews (1)</a>
+                                    </li> -->
                                 </ul>
-                            </nav>
+
+                                <div class="tab-content">
+                                    <div id="description" class="container tab-pane active color-white">
+                                       <div>${requestScope.objServicio.descripcion}</div>
+                                    </div>
+                                   	<!--
+                                    <div id="specification" class="container tab-pane fade">
+                                        <h4>Product specification</h4>
+                                        <ul>
+                                            <li>Lorem ipsum dolor sit amet</li>
+                                            <li>Lorem ipsum dolor sit amet</li>
+                                            <li>Lorem ipsum dolor sit amet</li>
+                                            <li>Lorem ipsum dolor sit amet</li>
+                                            <li>Lorem ipsum dolor sit amet</li>
+                                        </ul>
+                                    </div>
+                                    <div id="reviews" class="container tab-pane fade">
+                                        <div class="reviews-submitted">
+                                            <div class="reviewer">Phasellus Gravida - <span>01 Jan 2020</span></div>
+                                            <div class="ratting">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                            <p>
+                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+                                            </p>
+                                        </div>
+                                        <div class="reviews-submit">
+                                            <h4>Give your Review:</h4>
+                                            <div class="ratting">
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <div class="row form">
+                                                <div class="col-sm-6">
+                                                    <input type="text" placeholder="Name">
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <input type="email" placeholder="Email">
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <textarea placeholder="Review"></textarea>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <button>Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
                         </div>
-                        <!-- Pagination Start -->
-                    </div>           
+                    
+                        <div class="product">
+                            <div class="section-header">
+                                <h1>Otros Servicios</h1>
+                            </div>
+
+                            <div class="row align-items-center product-slider product-slider-3">
+	                             <c:forEach items="${sessionScope.LISTASERVICIOS}" var="item">
+	                                <div class="col-lg-3">
+	                                    <div class="product-item">
+	                                        <div class="product-title">
+	                                            <a href="verDetalleServicio?id=${item.idservicio}">${item.nombre}</a>
+	                                            <div class="ratting">
+	                                                <i class="fa fa-star"></i>
+	                                                <i class="fa fa-star"></i>
+	                                                <i class="fa fa-star"></i>
+	                                                <i class="fa fa-star"></i>
+	                                                <i class="fa fa-star"></i>
+	                                            </div>
+	                                        </div>
+	                                        <div class="product-image">
+	                                            <a href="verDetalleServicio?id=${item.idservicio}">
+	                                                <img src="img/${item.foto}" class="img_card" alt="Product Image">
+	                                            </a>
+	                                            <div class="product-action">
+	                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+	                                                <a href="#"><i class="fa fa-heart"></i></a>
+	                                                <a href="verDetalleServicio?id=${item.idservicio}"><i class="fa fa-search"></i></a>
+	                                            </div>
+	                                        </div>
+	                                        <div class="product-price">
+	                                            <h3><span>S/. </span>${item.precio}</h3>
+	                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Comprar</a>
+	                                        </div>
+	                                    </div>
+	                                </div>
+                                </c:forEach>  
+                            </div>
+                        </div>
+                    </div>
                     
                     <!-- Side Bar Start -->
                     <div class="col-lg-4 sidebar">
@@ -185,33 +249,7 @@
                                     </div>
                                     <div class="product-image">
                                         <a href="product-detail.html">
-                                            <img src="img/product-10.jpg" alt="Product Image">
-                                        </a>
-                                        <div class="product-action">
-                                            <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                            <a href="#"><i class="fa fa-heart"></i></a>
-                                            <a href="#"><i class="fa fa-search"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-price">
-                                        <h3><span>$</span>99</h3>
-                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
-                                    </div>
-                                </div>
-                                <div class="product-item">
-                                    <div class="product-title">
-                                        <a href="#">Product Name</a>
-                                        <div class="ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                    </div>
-                                    <div class="product-image">
-                                        <a href="product-detail.html">
-                                            <img src="img/product-9.jpg" alt="Product Image">
+                                            <img src="img/product-7.jpg" alt="Product Image">
                                         </a>
                                         <div class="product-action">
                                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -238,6 +276,32 @@
                                     <div class="product-image">
                                         <a href="product-detail.html">
                                             <img src="img/product-8.jpg" alt="Product Image">
+                                        </a>
+                                        <div class="product-action">
+                                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                            <a href="#"><i class="fa fa-heart"></i></a>
+                                            <a href="#"><i class="fa fa-search"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="product-price">
+                                        <h3><span>$</span>99</h3>
+                                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                    </div>
+                                </div>
+                                <div class="product-item">
+                                    <div class="product-title">
+                                        <a href="#">Product Name</a>
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product-image">
+                                        <a href="product-detail.html">
+                                            <img src="img/product-9.jpg" alt="Product Image">
                                         </a>
                                         <div class="product-action">
                                             <a href="#"><i class="fa fa-cart-plus"></i></a>
@@ -285,7 +349,7 @@
                 </div>
             </div>
         </div>
-        <!-- Product List End -->  
+        <!-- Product Detail End -->
         
         <!-- Brand Start -->
         <div class="brand">

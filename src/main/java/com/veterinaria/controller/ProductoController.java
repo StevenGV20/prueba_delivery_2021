@@ -23,24 +23,8 @@ import com.veterinaria.util.Constantes;
 public class ProductoController {
 	@Autowired
 	private ProductoService service;
-	
-	//METODOS PARA VISTA
-	@RequestMapping("/verCrudProductos")
-	public String verCrudProductos() {
-		return "crudProductos";
-	}
-	
-	@RequestMapping("/verDetalleProducto")
-	public String verDetalleProducto() {
-		return "detalleProducto";
-	}
-	
-	@RequestMapping("/verListaProductos")
-	public String verListaProductos() {
-		return "listaProductos";
-	}
-	
-	//METODOS DE LISTAS
+		
+	//METODOS GET DE LISTAS O CONSULTAS 
 	@RequestMapping("/listaCategorias")
 	@ResponseBody
 	public List<Categoria> listaCategoria(){
@@ -62,8 +46,16 @@ public class ProductoController {
 		return producto;
 	}
 	
-	//METODOS PARA CRUD
+	//METODOS PARA CARRITO
+	@RequestMapping("/detalleProductoXID")
+	@ResponseBody
+	public String detalleProductoXID(int id,RedirectAttributes salida){
+		Optional<Producto> producto= service.buscaProductoPorId(id);
+		salida.addFlashAttribute("producto", producto);
+		return "crudProducto";
+	}
 	
+	//METODOS PARA CRUD
 	@PostMapping("/registraFoto")
 	public String guardarImagenes(@RequestParam(name = "foto",required= false)
 		MultipartFile foto, Producto obj,RedirectAttributes flash) {
@@ -118,9 +110,16 @@ public class ProductoController {
 				service.saveFotos(files);
 				int c=0;
 				for(MultipartFile file:files) {
-					if(c==0) obj.setFoto1(file.getOriginalFilename());
-					else if(c==1)obj.setFoto2(file.getOriginalFilename());
-					else if(c==2) obj.setFoto3(file.getOriginalFilename());
+					if(!file.getOriginalFilename().equals("")) {
+						if(c==0) obj.setFoto1(file.getOriginalFilename());
+						else if(c==1)obj.setFoto2(file.getOriginalFilename());
+						else if(c==2) obj.setFoto3(file.getOriginalFilename());						
+					}else {
+						if(c==0) obj.setFoto1("image-not-found.png");
+						else if(c==1)obj.setFoto2("image-not-found.png");
+						else if(c==2) obj.setFoto3("image-not-found.png");
+					}
+					System.out.println(c);
 					c++;
 				}
 				//if(!files.get(0).isEmpty()) obj.setFoto1(files.get(0).getOriginalFilename());
@@ -169,7 +168,7 @@ public class ProductoController {
 		try {
 			if(option.isPresent()) {
 				service.eliminaProducto(id);
-				salida.put("mensaje", Constantes.MENSAJE_ELI_ERROR);
+				salida.put("mensaje", Constantes.MENSAJE_ELI_EXITOSO);
 			}else {
 				salida.put("mensaje", Constantes.MENSAJE_ELI_NO_EXISTE_ID);
 			}

@@ -24,22 +24,6 @@ public class ServicioController {
 	@Autowired
 	private ServicioService service;
 	
-	//METODOS PARA VISTA
-	@RequestMapping("/verCrudServicios")
-	public String verCrudServicios() {
-		return "crudServicios";
-	}
-	
-	@RequestMapping("/verListaServicios")
-	public String verListaServicios() {
-		return "listaServicios";
-	}
-	
-	@RequestMapping("/verDetalleServicio")
-	public String verDetalleServicio() {
-		return "detalleServicio";
-	}
-	
 	//METODOS DE LISTAS
 	@RequestMapping("/listaServicios")
 	@ResponseBody
@@ -84,12 +68,13 @@ public class ServicioController {
 	@RequestMapping("/eliminaServicio")
 	@ResponseBody
 	public Map<String, Object> eliminaServicio(int id){
+		System.out.println("elcodigo es: "+id);
 		Map<String, Object> salida=new HashMap<String, Object>();
 		Optional<Servicio> option=service.buscarServicioxID(id);
 		try {
 			if(option.isPresent()) {
 				service.eliminaServicio(id);
-				salida.put("mensaje", Constantes.MENSAJE_ELI_ERROR);
+				salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
 			}else {
 				salida.put("mensaje", Constantes.MENSAJE_ELI_NO_EXISTE_ID);
 			}

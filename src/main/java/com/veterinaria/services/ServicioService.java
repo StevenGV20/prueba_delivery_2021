@@ -13,7 +13,7 @@ public interface ServicioService {
 	public abstract Servicio mantenerServicio(Servicio obj);
 	public abstract Optional<Servicio> buscarServicioxID(int id);
 	public abstract void eliminaServicio(int id);
-	
+	public abstract Servicio detalleServicioXID(int id);
 	//SUBIR ARCHIVOS
 	public abstract void guardarFotoServicio(MultipartFile file) throws Exception;
 	

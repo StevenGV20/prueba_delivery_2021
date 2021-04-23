@@ -14,27 +14,35 @@
 
     <title>Vendedor Admin - Servicios</title>
     
-    <link rel="stylesheet" href="./css/reset.css">
+    
+    <link rel="stylesheet" href="css/reset.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
-	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="css/main.css">
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- EDITOR TEXT HTML 
+    <link href="css/editor.css" type="text/css" rel="stylesheet"/>
+    -->
+	
     
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 	<link rel="stylesheet" href="css/estilos.css">
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
-    <!-- CSS only -->
+    
+    <script src="js/ckeditor.js"></script>
+	<script src="js/sample.js"></script>
+	<link rel="stylesheet" href="css/neo.css">
+	
+   <link href="css/dataTables.bootstrap.min.css" rel="stylesheet"> 
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrapValidator.css"/>
+    <!-- CSS only 
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>-->
 
  <style>
   	.forms input{
@@ -177,7 +185,7 @@
                       <div class="row">
                         <div class="col-md-6">
                           <fieldset class="form-group">
-                         	<input type="hidden" value="0" class="input"  name="idservicio" id="idCodServicio">
+                         	<input type="text" value="0" class="input"  name="idservicio" id="idCodServicio" hidden="true">
 							<input type="text" class="input"  name="nombre" id="idNombre" placeholder="Ingresar nombre">
                           </fieldset>
                         </div>
@@ -201,6 +209,16 @@
 							<input type="date" class="input"  name="fecha" id="idFecha" placeholder="Ingresar Fecha del Servicio">
                           </fieldset>
                         </div>
+                        
+                        <div class="col-md-6">
+                          <fieldset>
+                         	<label>Elige una categoria::</label>    
+							<select id="idCategoria"  class="input" name="idcategoria.idcategoria">	
+								<option>[ Seleccione ]</option>
+							</select>
+						 </fieldset>
+                        </div>
+                        
                        <div class="col-md-6">
                           <fieldset>
                          	<label>Subir Imagen:</label>                           	
@@ -208,13 +226,6 @@
                           </fieldset>
                         </div>
                         
-                        <div class="col-md-6">
-                          <fieldset>
-							<select id="idCategoria"  class="input" name="idcategoria.idcategoria">	
-								<option>[ Seleccione ]</option>
-							</select>
-						 </fieldset>
-                        </div>
                        
                         <div class="col-md-12 mt-2">
                           <button type="submit" class="btn__submit" id="btnRegistrar">Registrar</button>  		
@@ -231,6 +242,33 @@
     </div>
   </div>
 </div>
+
+
+<div class="modal fade bd-example-modal-lg" id="eliminar"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+      	 <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar?</h5>
+      </div>
+      <!-- Modal body -->
+        <div class="modal-body">
+        	¿Seguro de eliminar el Producto? 
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <form action="eliminaServicio" method="post" name="formDelete" id="id_form_elimina">	
+		  	  <input type="hidden" id="idEliminar" name="id">
+	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	          <button type="button" id="btn_eliminar" data-dismiss="modal" class="btn btn-primary">Eliminar</button>
+            </form>
+        </div>
+        
+    </div>
+  </div>
+</div>
+
+
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -272,7 +310,7 @@
         </div>
     </div>
     
-    <script src="assets/js/browser.min.js"></script>
+     <script src="assets/js/browser.min.js"></script>
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/transition.js"></script>
     <script src="assets/js/owl-carousel.js"></script>
@@ -289,16 +327,21 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
+	<script src="js/global.js"></script>
+    <script src="popup.js"></script>
+    
+	
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+	<script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrapValidator.js"></script>
+	
+	<!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
-    
-    <script src="popup.js"></script>
-   <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
+	
+   
     <script type="text/javascript">
 
 $(document).on("click","#btnDetalles",(function(){
@@ -325,6 +368,12 @@ $(document).on("click","#btnEditar",(function(){
 	bloquear(false);
 }));
 
+
+$(document).on("click","#btnEliminar",(function(){
+	var cod=$(this).parents('tr').find("td")[0].innerHTML;
+	$("#idEliminar").val(cod);
+}));
+
 $(document).on("click","#btnEditar",(function(){
 	var cod=$(this).parents('tr').find("td")[0].innerHTML;
 	$("#idEliminar").val(cod);
@@ -340,9 +389,10 @@ function bloquear(b){
 function listarTabla(){
 	$.getJSON("listaServicios",{},function(lista, q, t){
 		console.log(lista);
+		$("#tbServicios tbody").empty();
 		//var detalles="<button type='button' class='btn btn-info' id='btnDetalles' data-toggle='modal'  data-target='#idModalFoto'>Subir Foto</button>";
 		var editar="<button type='button' class='btn btn-success' id='btnEditar' data-toggle='modal'  data-target='#nuevo'>Editar</button>";
-		var eliminar="<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#myModal' id='btnEliminar'>Eliminar</button>";
+		var eliminar="<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#eliminar' id='btnEliminar'>Eliminar</button>";
 		$.each(lista,function(index,item){
 			$("#tbServicios tbody").append("<tr><td>"+item.idservicio+"</td><td>"+item.nombre+"</td><td style='width:40%;'>"+item.descripcion+"</td><td>"+item.horario+"</td><td>"+
 					item.precio+"</td><td>"+item.idcategoria.nombre+"</td><td><img src='img/"+item.foto+"'  alt='No existe' style='width: 200px;'/></td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
@@ -380,6 +430,23 @@ $(document).ready( function () {
 		$("#idRegistrar").data("bootstrapValidator").resetForm(true);
 		$("#idCodServicio").val("0");
     });
+     
+     $("#btn_eliminar").click(function(){
+    	 $("#eliminar").modal("hide");
+     	$.ajax({
+             type: "POST",
+             url: "eliminaServicio", 
+             data: $('#id_form_elimina').serialize(),
+             success: function(data){
+            	 
+	           	 listarTabla();
+	           	 mostrarMensaje(data.mensaje);
+             },
+             error: function(){
+           	  mostrarMensaje(MSG_ERROR);
+             }
+        });
+     });
     
 } );
 </script>
@@ -402,34 +469,58 @@ $(document).ready( function () {
                        },    
                    }    
                },
-           Descripcion: {
-	    	selector:'#idDescripcion',   
-               validators: {    
-                   notEmpty: {    
-                       message: 'Ingrese Descripcion del Producto'    
-                   },  
-               }    
-           },
-           Precio: {
-   	    	selector:'#idPrecio',   
-                  validators: {    
-                      notEmpty: {    
-                          message: 'Ingrese Precio del Producto'    
-                      },      
-                      numeric: {        
-                          message: 'Ingrese un numero con formato: ###.##'    
-                      },    
-                  }    
-          },
-          Categoria: {
+               Precio: {
+          	    	selector:'#idPrecio',   
+                         validators: {    
+                             notEmpty: {    
+                                 message: 'Ingrese Precio del Servicio'    
+                             },      
+                             numeric: {        
+                                 message: 'Ingrese un numero con formato: ###.##'    
+                             },    
+                         }    
+                 },
+	           Descripcion: {
+		    	selector:'#idDescripcion',   
+	               validators: {    
+	                   notEmpty: {    
+	                       message: 'Ingrese Descripcion del Servicios'    
+	                   },  
+	               }    
+	           },
+	           Horario: {
+	      	    	selector:'#idHorario',   
+	                     validators: {    
+	                         notEmpty: {    
+	                             message: 'Ingrese Horario del Servicio'    
+	                         }, 
+	                     }    
+	             },
+           Fecha: {
+      	    	selector:'#idFecha',   
+                     validators: {    
+                         notEmpty: {    
+                             message: 'Ingrese Horario del Servicio'    
+                         }, 
+                     }    
+             },
+         	Categoria: {
      	    	selector:'#idCategoria',   
                     validators: {    
                         notEmpty: {    
                             message: 'Elija una categoria'    
                         },
                         integer:{
-                            message:"Elija una categoria";
+                            message:"Elija una categoria"
                         },    
+                    }    
+            },
+         	Foto: {
+     	    	selector:'#idFoto',   
+                    validators: {    
+                        notEmpty: {    
+                            message: 'Ingresa una foto'    
+                        },  
                     }    
             }
        	 }

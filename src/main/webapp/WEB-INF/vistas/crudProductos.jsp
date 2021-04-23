@@ -155,7 +155,6 @@
 								            <th></th>
 								            <th></th>
 								            <th></th>
-								            <th></th>
 								        </tr>
                                     </thead>
                                     <tfoot>
@@ -166,6 +165,7 @@
 								            <th>Stock</th>
 								            <th>Precio(S/.)</th>
 								            <th>Categoria</th>
+								            <th></th>
 								            <th></th>
 								            <th></th>
                                         </tr>
@@ -198,7 +198,7 @@
                       <div class="row">
                         <div class="col-md-6">
                           <fieldset>
-                          <input type="hidden" class="input"  name="idproducto" value="0" id="idCodProducto" placeholder="Ingresar Nombre">
+                          <input type="text" hidden="true" class="input"  name="idproducto" value="0" id="idCodProducto" placeholder="Ingresar Nombre">
 							<input type="text" class="input"  name="nombre" id="idNombre" placeholder="Ingresar Nombre">
                           </fieldset>
                         </div>
@@ -296,7 +296,7 @@
           <form action="" method="post" name="formDelete" id="id_form_elimina">	
 		  	  <input type="hidden" id="idEliminar" name="id">
 	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	          <button type="submit" id="btn_eliminar" class="btn btn-primary">Eliminar</button>
+	          <button type="button" id="btn_eliminar" data-dismiss="modal" class="btn btn-primary">Eliminar</button>
             </form>
         </div>
         
@@ -369,10 +369,15 @@
     
 	
 	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+	<!-- <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script> -->
 	<script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/bootstrapValidator.js"></script>
+	
+	<!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+	
 	
 	<script>
 		
@@ -456,13 +461,14 @@ function limpiar(){
 }
 
 function listarTabla(){
+	$("#idTableProductos tbody").empty();
 	$.getJSON("listaProductos",{},function(lista, q, t){
 		console.log(lista);
 		//var detalles="<button type='button' class='btn btn-info' id='btnDetalles' data-toggle='modal'  data-target='#idModalFoto'>Subir Foto</button>";
 		var editar="<button type='button' class='btn btn-success' id='btnEditar' data-toggle='modal'  data-target='#nuevo'>Editar</button>";
 		var eliminar="<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#eliminar' id='btnEliminar'>Eliminar</button>";
 		$.each(lista,function(index,item){
-			$("#idTableProductos tbody").append("<tr><td>"+item.idproducto+"</td><td>"+item.nombre+"</td><td style='width:40%;'>"+item.descripcionSimple+"</td><td>"+item.stock+"</td><td>"+
+			$("#idTableProductos tbody").append("<tr><td>"+item.idproducto+"</td><td>"+item.nombre+"</td><td style='width:40%;'>"+item.descripcionHTML+"</td><td>"+item.stock+"</td><td>"+
 					item.precio+"</td><td>"+item.idcategoria.nombre+"</td><td><img src='img/"+item.foto1+"' class='card-img-top' alt='No existe'/></td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
 		})
 		  $("#idTableProductos").DataTable();
@@ -506,7 +512,8 @@ $(document).ready( function () {
     });
     
     $("#btn_eliminar").click(function(){
-        
+
+     	  $("#eliminar").modal("hide");
     	$.ajax({
             type: "POST",
             url: "eliminaProducto", 

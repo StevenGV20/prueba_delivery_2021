@@ -19,7 +19,7 @@ public interface ProductoService {
 	public abstract Producto mantenerProducto(Producto bean);
 	public abstract Optional<Producto> buscaProductoPorId(int idproducto);
 	public abstract void eliminaProducto(int idproducto);
-	
+	public abstract Producto detalleProductoXID(int idproducto);
 	//SUBIR ARCHIVOS
 	public abstract void saveFile(MultipartFile file) throws Exception;
 	

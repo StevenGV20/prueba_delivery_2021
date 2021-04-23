@@ -73,6 +73,11 @@ public class ProductoServiceImpl implements ProductoService {
 			Files.write(path, bytes);
 		}
 	}
+
+	@Override
+	public Producto detalleProductoXID(int idproducto) {
+		return repository.findById(idproducto).orElse(null);
+	}
 	
 	
 		

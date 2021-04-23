@@ -6,9 +6,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MascotaController {
 
-	@RequestMapping("/verCrudMascotas")
-	public String verCliente() {
-		return "crudMascota";
-	}
-	
 }
