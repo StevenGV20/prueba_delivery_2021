@@ -57,45 +57,46 @@
                 <div class="row">
                     <div class="col-lg-6">    
                         <div class="register-form">
-                        <form action="registrarCliente" method='post'>
+                        <form action="registrarMascota" method='post'>
                             <div class="row">
-                            	<h4 align="center" class="col-md-12">Datos del Cliente</h4>
+                            	<h4 align="center" class="col-md-12">Datos de la Mascota</h4>
                                 <div class="col-md-6">
 	                                <label for="staticEmail">Nombre</label>
 									<input class="form-control" id="idNombre" name="nombre" placeholder="Ingrese Nombre"/>
 	                             </div>    
 	                             <div class="col-md-6">
-	                                <label for="staticEmail">Apellido</label>
-								   	<input class="form-control" id="idApellido" name="apellido" placeholder="Ingrese Apellido">
+	                                <label for="staticEmail">Raza</label>
+								   	<input class="form-control" id="idRaza" name="raza" placeholder="Ingrese Raza">
 	                              </div>
 	                              <div class="col-md-6">
+	                                <label for="staticEmail">Edad</label>
+								   	<input class="form-control" id="idEdad" name="edad" placeholder="Ingrese Edad">
+	                              </div>
+	                              
+	                              <div class="col-md-6">
                          			 <fieldset class="block">
-                         				 <label>Elija un Distrito</label>
-											<select id="idDistrito"  class="input" name="iddistrito">	
+                         				 <label>Sexo</label>
+											<select id="idSexo"  class="input" name="sexo">	
+											<option>[ Seleccione ]</option>
+											<option>Hembra</option>
+											<option>Macho</option>
+											</select>
+						 			</fieldset>
+                        			</div>
+                        			<div class="col-md-6">
+                          			<fieldset>
+                          			<label>Fecha de Nacimiento</label>                           	
+									<input type="text" class="input"  name="fechaNacimiento" id="idFechaNac" placeholder="Ingresar Fecha Nacimiento">
+                          			</fieldset>
+                       				</div>
+	                             	<div class="col-md-6">
+                         			 <fieldset class="block">
+                         				 <label>Elija una Especie</label>
+											<select id="idEspecie"  class="input" name="idespecie">	
 											<option>[ Seleccione ]</option>
 											</select>
 						 			</fieldset>
                         			</div>
-	                              <div class="col-md-6">
-	                                <label for="staticEmail">Direccion</label>
-									<input class="form-control" id="idDireccion" name="direccion" placeholder="Ingrese Direccion"/>
-	                              </div> 
-	                              <div class="col-md-6">
-									<label for="staticEmail">Telefono</label>
-									<input class="form-control" id="idTelefono" name="telefono" placeholder="Ingrese Telefono"/>
-	                              </div>
-	                              <div class="col-md-6">
-									<label for="staticEmail">Dni</label>
-									<input class="form-control" id="idDni" name="dni" placeholder="Ingrese Dni"/>
-	                              </div>
-	                              <div class="col-md-6">
-									<label for="staticEmail">Correo</label>
-									<input class="form-control" id="idCorreo" name="correo" placeholder="Ingrese Correo"/>
-	                              </div>
-	                              <div class="col-md-6">
-									<label for="staticEmail">Password</label>
-									<input class="form-control" type="password" id="idPassword" name="password" placeholder="Ingrese Contraseña"/>
-	                              </div>
                                 <div class="col-md-12">
                           		<button type="submit" class="btn__submit" id="btnRegistrar">Registrar</button>  		
                                 </div>
@@ -103,7 +104,7 @@
                             </form>
                         </div>
                     </div>
-                 </div>
+                </div>
             </div>
         </div>
        <!-- Login End -->
@@ -154,17 +155,17 @@
 	});
     
    
-    $.getJSON("listaDistritos",{},function(data, q,t){
+    $.getJSON("listaEspecies",{},function(data, q,t){
         console.log(data);
 		$.each(data,function(index,item){
-			$("#idDistrito").append("<option value='"+item.iddistrito+"'>"+item.nombre+"</option>");
+			$("#idEspecie").append("<option value='"+item.idespecie+"'>"+item.nombre+"</option>");
 		})
     })
  
     $("#btnRegistrar").click(function(){
  
 		//alert("¿Está seguro de enviar?");
-		$("#idRegistrar").action("registrarCliente");
+		$("#idRegistrar").action("registrarMascota");
 		$("#idRegistrar").submit();
     });
     
@@ -191,19 +192,7 @@
                        },    
                    }    
                },
-               Apellido: {
-       	    	selector:'#idApellido',   
-                      validators: {    
-                          notEmpty: {    
-                              message: 'Ingrese apellido'    
-                          },      
-                          regexp: {    
-                              regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\w]+$/,    
-                              message: 'Letras y números'    
-                          },    
-                      }    
-                  },
-                  Distrito: {
+              Distrito: {
            	    	selector:'#idDistrito',   
                           validators: {    
                               notEmpty: {    

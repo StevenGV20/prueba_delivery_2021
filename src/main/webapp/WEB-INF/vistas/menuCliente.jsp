@@ -56,6 +56,7 @@
                             <a href="verDetalleProducto" class="nav-item nav-link">Detalle Producto</a>
                             <a href="verCarrito" class="nav-item nav-link">Mi Carrito</a>
                             <a href="verTracking" class="nav-item nav-link">Mis Ordenes</a>
+                            <a href="verCrudMascotas" class="nav-item nav-link">Mis Mascotas</a>
                             <!-- <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mis Ordenes</a>
                                 <div class="dropdown-menu">

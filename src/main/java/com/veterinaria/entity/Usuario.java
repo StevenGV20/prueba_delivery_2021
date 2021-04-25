@@ -31,6 +31,7 @@ public class Usuario {
 	private String nombre;
 	private String apellido;
 	private String direccion;
+	private String dni;
 	private String telefono;
 	private String correo;
 	private String password;

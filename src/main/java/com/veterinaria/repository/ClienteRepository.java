@@ -6,4 +6,5 @@ import com.veterinaria.entity.Usuario;
 
 public interface ClienteRepository extends JpaRepository<Usuario, Integer>{
 
+	
 }

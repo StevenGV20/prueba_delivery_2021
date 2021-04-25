@@ -2,7 +2,11 @@ package com.veterinaria.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,12 +26,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table (name = "trabajador")
-public class Trabajador extends Usuario{
-	/*@Id
+public class Trabajador{
+	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name = "idtrabajador")
 	private int idtrabajador;
-	*/
+	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaContrato;

@@ -78,10 +78,10 @@ public class OpcionController {
 	public String verTablesIncidencias() {
 		return "tablesIncidencias";
 	}
-
-	@RequestMapping("/verCrudMascotas")
-	public String verMascota() {
-		return "crudMascota";
+//-----------------MIREEEEEEEEN ESTOOOOO---------------
+	@RequestMapping("/verCrudMascotas2")
+	public String verMascota2() {
+		return "crudMascota2";
 	}
 	
 	@RequestMapping("/verCrudProductos")
@@ -131,5 +131,10 @@ public class OpcionController {
 	@RequestMapping("/verTablesVendedor")
 	public String verTablesVendedor() {
 		return "tablesVendedor";
+	}
+	
+	@RequestMapping("/verCrudMascotas")
+	public String verCrudMascotas() {
+		return "registrarMascota";
 	}
 }
