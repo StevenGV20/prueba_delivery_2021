@@ -98,7 +98,7 @@
 						</div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="tbClientes" width="100%" cellspacing="0">
                                     <thead>
                                          <tr>
 								            <th>ID</th>
@@ -126,17 +126,7 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-								            <td class="">1/td>
-								           	<td class="">Carlos</td>
-								            <td class="">Guiterrez</td>
-								           	<td class="">987456123</td>
-								           	<td class="">09874521</td>
-								           	<td class="">carlos@gmail.com</td>
-								            <td class=""><a href="#" id="btnDetalles"  class="btn btn-info" data-toggle="modal" data-target="#nuevo">Detalles</a></td>
-								            <td class=""><a href="#" id="btnEditar"  class="btn btn-success" data-toggle="modal" data-target="#nuevo">Editar</a></td>
-								            <td class=""><a href="#" id="btnEliminar"  class="btn btn-danger" data-toggle="modal" data-target="#eliminar">Eliminar</a></td>
-								        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>

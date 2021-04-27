@@ -31,5 +31,10 @@ public class ClienteServiceImpl implements ClienteService {
 		bean.setIdrol(objRol);
 		return repository.save(bean);
 	}
+
+	@Override
+	public Usuario ultimoClienteRegistrado() {
+		return repository.listarUltimoUsuarioRegistrado().orElse(null);
+	}
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.veterinaria.entity.Distrito;
+import com.veterinaria.entity.Rol;
 import com.veterinaria.entity.Usuario;
 import com.veterinaria.services.ClienteService;
 import com.veterinaria.util.Constantes;
@@ -29,22 +30,33 @@ public class ClienteController {
 		return listaDistrito;
 	}
 	
-	@PostMapping("/registrarCliente")
-	public String registraCliente (Usuario obj){
+	@RequestMapping("/registrarCliente")
+	@ResponseBody
+	public Map<String, Object> registraCliente (Usuario obj){
 		Map<String, Object> salida = new HashMap<String, Object>();
-		Usuario objSalida = null;
+		//Usuario objSalida = null;
 		try {
-			objSalida = clienteService.registrarCiente(obj);
-			if (objSalida == null) {
+			/*Rol rol=new Rol();
+			rol.setIdrol(1);
+			obj.setIdrol(rol);*/
+			//objSalida = clienteService.registrarCiente(obj);
+			clienteService.registrarCiente(obj);
+			/*if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			} else {
+				Usuario u=clienteService.ultimoClienteRegistrado();
+				salida.put("USUARIO",u);
 				salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
-				return "redirect:/verLogin";
-			}
+				//return salida;
+			}*/
+			salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
+			Usuario u=clienteService.ultimoClienteRegistrado();
+			salida.put("USUARIO",u);
 		} catch (Exception e) {
+			e.printStackTrace();
 			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 		}
 
-		return "redirect:/";
+		return salida;
 }
 	}

@@ -469,7 +469,8 @@ function listarTabla(){
 		var eliminar="<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#eliminar' id='btnEliminar'>Eliminar</button>";
 		$.each(lista,function(index,item){
 			$("#idTableProductos tbody").append("<tr><td>"+item.idproducto+"</td><td>"+item.nombre+"</td><td style='width:40%;'>"+item.descripcionHTML+"</td><td>"+item.stock+"</td><td>"+
-					item.precio+"</td><td>"+item.idcategoria.nombre+"</td><td><img src='img/"+item.foto1+"' class='card-img-top' alt='No existe'/></td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
+					item.precio+"</td><td>"+item.idcategoria.nombre+"</td><td><img src='img/"+item.foto1+
+					"' class='' style='width:100%;height:200px' alt='No existe'/></td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
 		})
 		  $("#idTableProductos").DataTable();
     })

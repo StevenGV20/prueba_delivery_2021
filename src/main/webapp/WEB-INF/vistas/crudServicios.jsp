@@ -206,7 +206,7 @@
                         </div>
                         <div class="col-md-6">
                           <fieldset>
-							<input type="date" class="input"  name="fecha" id="idFecha" placeholder="Ingresar Fecha del Servicio">
+							<input type="text" class="input"  name="fecha" id="idFecha" placeholder="Ingresar Fecha del Servicio">
                           </fieldset>
                         </div>
                         

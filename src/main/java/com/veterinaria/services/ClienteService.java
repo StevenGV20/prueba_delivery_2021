@@ -9,5 +9,6 @@ public interface ClienteService {
 	public abstract List<Distrito> listaDistrito();
 	
 	public abstract Usuario registrarCiente(Usuario bean);
+	public abstract Usuario ultimoClienteRegistrado();
 
 }

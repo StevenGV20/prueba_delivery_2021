@@ -12,7 +12,7 @@ public class Constantes {
 	public static final String MENSAJE_ACT_NO_EXISTE_ID = "No existe el ID que se desea actualizar.";
 	
 	public static final String MENSAJE_ELI_ERROR = "No se elimino, ya que el registro esta relacionado.";
-	public static final String MENSAJE_ELI_EXITOSO = "Se elimino; correctamente.";
+	public static final String MENSAJE_ELI_EXITOSO = "Se elimino correctamente.";
 	public static final String MENSAJE_ELI_NO_EXISTE_ID = "No existe el ID que se desea eliminar.";
 	
 	

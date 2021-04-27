@@ -125,13 +125,17 @@ public class ProductoController {
 				//if(!files.get(0).isEmpty()) obj.setFoto1(files.get(0).getOriginalFilename());
 				//if(!file.)
 			}
+			Optional<Producto> option = service.buscaProductoPorId(obj.getIdproducto());
 			service.mantenerProducto(obj);
-			flash.addFlashAttribute("CORRECTO", Constantes.MENSAJE_REG_EXITOSO);
+			if(!option.isPresent())
+				flash.addFlashAttribute("CORRECTO", Constantes.MENSAJE_REG_EXITOSO);
+			else 
+				flash.addFlashAttribute("CORRECTO", Constantes.MENSAJE_ACT_EXITOSO);
 			return "redirect:/verCrudProductos";	
 			
 		} catch (Exception e) {
 			flash.addFlashAttribute("ERROR", Constantes.MENSAJE_REG_ERROR);
-			return "redirect:/";
+			return "redirect:/verCrudProductos";
 		}
 	}
 	

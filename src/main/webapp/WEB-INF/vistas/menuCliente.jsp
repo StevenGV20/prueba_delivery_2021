@@ -67,6 +67,7 @@
                             </div> -->
                         </div>
                         <div class="navbar-nav ml-auto">
+                             <a href="verRegistroDeCliente" class="nav-item nav-link">Registrarse</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mi cuenta</a>
                                 <div class="dropdown-menu">

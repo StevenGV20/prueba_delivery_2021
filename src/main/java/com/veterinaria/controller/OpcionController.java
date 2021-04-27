@@ -137,4 +137,9 @@ public class OpcionController {
 	public String verCrudMascotas() {
 		return "registrarMascota";
 	}
+	
+	@RequestMapping("/verRegistroDeCliente")
+	public String verRegistroDeCliente() {
+		return "registroCliente";
+	}
 }

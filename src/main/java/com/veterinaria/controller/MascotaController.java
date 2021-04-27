@@ -58,8 +58,9 @@ public class MascotaController {
 		
 		//METODOS PARA CRUD
 	
-		@PostMapping("/registrarMascota")
-		public String registraMascota (Mascota obj){
+		@RequestMapping("/registrarMascota")
+		@ResponseBody
+		public Map<String, Object> registraMascota (Mascota obj){
 			Map<String, Object> salida = new HashMap<String, Object>();
 			Mascota objSalida = null;
 			try {
@@ -68,13 +69,13 @@ public class MascotaController {
 					salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 				}else {
 						salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
-						return "redirect:/verCrudMascotas";
+						//return "redirect:/verCrudMascotas";
 				}
 			} catch (Exception e) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			}
 
-			return "redirect:/";
+			return salida;
 }
 	
 		/*@RequestMapping("/actualizaMascota")

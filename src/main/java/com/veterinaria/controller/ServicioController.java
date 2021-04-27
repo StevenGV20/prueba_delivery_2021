@@ -54,9 +54,13 @@ public class ServicioController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			Optional<Servicio> option = service.buscarServicioxID(obj.getIdservicio());
 			service.mantenerServicio(obj);
 			//flash.addFlashAttribute("CORRECTO","Foto subida");
-			flash.addFlashAttribute("CORRECTO","Se registro correctamente");
+			if(!option.isPresent())
+				flash.addFlashAttribute("CORRECTO","Se registro correctamente");
+			else 
+				flash.addFlashAttribute("CORRECTO","Se actualizo correctamente");
 			return "redirect:/verCrudServicios";
 		}
 		else {
@@ -74,7 +78,7 @@ public class ServicioController {
 		try {
 			if(option.isPresent()) {
 				service.eliminaServicio(id);
-				salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
+				salida.put("mensaje", Constantes.MENSAJE_ELI_EXITOSO);
 			}else {
 				salida.put("mensaje", Constantes.MENSAJE_ELI_NO_EXISTE_ID);
 			}
