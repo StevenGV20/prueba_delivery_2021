@@ -615,34 +615,25 @@ $(document).ready( function () {
            Foto1: {
      	    	selector:'#idImagen1',   
                     validators: {    
-                    	isEmpty: {    
+                    	notEmpty: {    
                             message: 'Elija un archivo'    
-                        },
-                        file: {       
-                            message: 'Por favor elija un archivo válido'    
                         },    
                     }    
             },
            Foto2: {
      	    	selector:'#idImagen2',   
                     validators: {    
-                    	Empty: {    
+                    	notEmpty: {    
                             message: 'Elija uns archivo'    
-                        },
-                        file: {       
-                            message: 'Por favor elija un archivo válido'    
-                        },    
+                        },   
                     }    
             },
            Foto3: {
      	    	selector:'#idImagen3',   
                     validators: {    
-                        Empty: {    
+                    	notEmpty: {    
                             message: 'Elija un archivo'    
-                        },
-                        file: {       
-                            message: 'Por favor elija un archivo válido'    
-                        },    
+                        },  
                     }    
             }
        	 }

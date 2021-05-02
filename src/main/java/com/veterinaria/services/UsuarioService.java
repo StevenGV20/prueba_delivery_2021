@@ -11,7 +11,7 @@ import com.veterinaria.entity.Usuario;
 public interface UsuarioService {
 	
 	//DISTRITO
-	public abstract List<Distrito> listaDistrito();
+	//public abstract List<Distrito> listaDistrito();
 	
 	//ROL
 	public abstract List<Rol> listaRol();
@@ -20,11 +20,13 @@ public interface UsuarioService {
 	public abstract List<Usuario> listaUsuario();
 	public abstract Usuario registraUsuario(Usuario bean);
 	public abstract Optional<Usuario> buscaUsuarioPorId(int idusuario);
+	public abstract Usuario buscarUsuarioXRol(int idusuario);
 	public abstract void eliminaUsuario(int idusuario);
 	public abstract List<Usuario> listaUsuarioPorRol(int idrol);
 	
 	//TRABAJADOR
 	public abstract Trabajador mantenerTrabajador(Trabajador bean);
+	
 	
 	
 	

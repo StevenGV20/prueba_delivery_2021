@@ -52,7 +52,7 @@
                                 <div class="col-md-12 text-center">
 	                                <div class="col-md-12">
 	                                    <div class="custom-control custom-checkbox">	                                    	
-	                                		<label class="">¿Estas registrado? <a href="registrarCliente.jsp">Registrate aquí</a></label>
+	                                		<label class="">¿Estas registrado? <a href="verRegistroDeCliente">Registrate aquí</a></label>
 	                                        <!-- <input type="checkbox" class="custom-control-input" id="newaccount">
 	                                        <label class="custom-control-label" for="newaccount">Keep me signed in</label> -->
 	                                    </div>

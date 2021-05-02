@@ -74,7 +74,7 @@
                                     <a href="verLogin" class="dropdown-item">Iniciar Sesion</a>
                                     <a href="verLogin" class="dropdown-item">Mi Perfil</a>
                                     <a href="verInicioAdmin" class="dropdown-item">Ir a Administracion</a>
-                                    <a href="verRegistroCliente" class="dropdown-item">Registrarse</a>
+                                    <a href="verRegistroDeCliente" class="dropdown-item">Registrarse</a>
                                 </div>
                             </div>
                         </div>

@@ -10,5 +10,9 @@ public interface ClienteService {
 	
 	public abstract Usuario registrarCiente(Usuario bean);
 	public abstract Usuario ultimoClienteRegistrado();
+	
+	/*public abstract Usuario buscarUsuarioByID(int id);
+	public abstract void eliminaUsuario(int id);*/
+	public abstract List<Usuario> listaCliente();
 
 }

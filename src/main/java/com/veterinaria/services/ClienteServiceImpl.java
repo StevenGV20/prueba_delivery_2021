@@ -36,5 +36,10 @@ public class ClienteServiceImpl implements ClienteService {
 	public Usuario ultimoClienteRegistrado() {
 		return repository.listarUltimoUsuarioRegistrado().orElse(null);
 	}
+
+	@Override
+	public List<Usuario> listaCliente() {
+		return repository.listaClientes();
+	}
 	
 }

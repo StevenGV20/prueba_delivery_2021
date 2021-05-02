@@ -34,7 +34,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
     <!-- CSS only -->
-
+	
  <style>
   	.forms input{
   		margin-bottom: 0px;
@@ -104,8 +104,8 @@
 								            <th>ID</th>
 								            <th>Nombre</th>
 								            <th>Apellidos</th>
-								            <th>Telefono</th>
 								            <th>Dni</th>
+								            <th>Telefono</th>
 								            <th>Correo</th>
 								            <th></th>
 								            <th></th>
@@ -117,8 +117,8 @@
                                           	<th>ID</th>
 								            <th>Nombre</th>
 								            <th>Apellidos</th>
-								            <th>Telefono</th>
 								            <th>Dni</th>
+								            <th>Telefono</th>
 								            <th>Correo</th>
 								            <th></th>
 								            <th></th>
@@ -153,50 +153,54 @@
                       <div class="row">
                         <div class="col-md-6">
                           <fieldset class="form-group">
-                         	
-							<input type="text" class="input"  name="" id="idNombre" placeholder="Ingresar nombre">
+                         	<input type="text" hidden="" class="input" value="0" name="idusuario" id="idCodigo" placeholder="Ingresar nombre">
+							<input type="text" class="input"  name="nombre" id="idNombre" placeholder="Ingresar nombre">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset class="form-group">
                          	
-							<input type="text" class="input"  name="" id="idApellido" placeholder="Ingresar apellidos">
+							<input type="text" class="input"  name="apellido" id="idApellido" placeholder="Ingresar apellidos">
                           </fieldset>
                         </div>
                         <div class="col-md-12">
                           <fieldset class="form-group">
                          	
-							<input type="text" class="input"  name="" id="idDireccion" placeholder="Ingresar direccion">
+							<input type="text" class="input"  name="direccion" id="idDireccion" placeholder="Ingresar direccion">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset class="form-group">
                          	
-							<input type="text" class="input"  name="" id="idTelefono" placeholder="Ingresar telefono">
+							<input type="text" class="input"  name="telefono" id="idTelefono" placeholder="Ingresar telefono">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset class="form-group">                         	
-							<input type="text" class="input"  name="" id="idDni" placeholder="Ingresar dni">
+							<input type="text" class="input"  name="dni" id="idDni" placeholder="Ingresar dni">
                           </fieldset>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                           <fieldset>                           	
-							<input type="text" class="input"  name="" id="idCorreo" placeholder="Ingresar Correo">
+							<input type="text" class="input"  name="correo" id="idCorreo" placeholder="Ingresar Correo">
+                         </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                          <fieldset>                           	
+							<input type="password" class="input"  name="password" id="idPassword" placeholder="Ingresar Password">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset>
-							<select id="idDistrito"  class="input" name="distrito">	
+                          	<label>Distrito</label>
+							<select id="idDistrito"  class="input" name="iddistrito">	
 								<option>[ Seleccione ]</option>
-								<option value="0">Caninos</option>
-								<option value="1">Felinos</option>
 							</select>
 						 </fieldset>
                         </div>
                        
                         <div class="col-md-12 mt-2">
-                          <button type="submit" class="btn__submit" id="btnRegistrar">Registrar</button>  		
+                          <button type="button" class="btn__submit" id="btnRegistrar">Registrar</button>  		
         				  <button type="button" class="btn__reset" id="btnCancelar" data-dismiss="modal">Cancelar</button>
                         </div>
                         
@@ -207,6 +211,31 @@
               </div>
             </section>
       
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" id="eliminar"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+      	 <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar?</h5>
+      </div>
+      <!-- Modal body -->
+        <div class="modal-body">
+        	¿Seguro de eliminar el Ciente? 
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <form action="" method="post" name="formDelete" id="id_form_elimina">	
+		  	  <input type="hidden" id="idEliminar" name="id">
+	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	          <button type="button" id="btn_eliminar" data-dismiss="modal" class="btn btn-primary">Eliminar</button>
+            </form>
+        </div>
+        
     </div>
   </div>
 </div>
@@ -275,30 +304,30 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    
+    	<script src="js/global.js"></script>
     <script src="popup.js"></script>
    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
     <script type="text/javascript">
 
-$(document).on("click","#btnDetalles",(function(){
-	var cod=$(this).parents('tr').find("td")[0].innerHTML;
-	$("#titleModal").text("Detalles del Producto");
-	$.getJSON("",{codigo:cod},function(data){
-		
-	})
-	bloquear(true);
-}));
 
 $(document).on("click","#btnEditar",(function(){
 	var cod=$(this).parents('tr').find("td")[0].innerHTML;
 	$("#titleModal").text("Editar Area");
-	$.getJSON("",{codigo:cod},function(data){
-		
+	$.getJSON("buscaUsuarioXID",{id:cod},function(data){
+		$("#idCodigo").val(data.idusuario);
+		$("#idNombre").val(data.nombre);
+		$("#idApellido").val(data.apellido);
+		$("#idDireccion").val(data.direccion);
+		$("#idTelefono").val(data.telefono);
+		$("#idDni").val(data.dni);
+		$("#idCorreo").val(data.correo);
+		$("#idPassword").val(data.password);
+		$("#idDistrito").val(data.iddistrito.iddistrito);
 	})
 	bloquear(false);
 }));
 
-$(document).on("click","#btnEditar",(function(){
+$(document).on("click","#btnEliminar",(function(){
 	var cod=$(this).parents('tr').find("td")[0].innerHTML;
 	$("#idEliminar").val(cod);
 }));
@@ -310,6 +339,32 @@ function bloquear(b){
 	$("#btnRegistrar").prop("disabled",b);
 }
 
+function limpiarFormCliente(){
+	//bloquear(false);
+	$("#idRegistrar").trigger("reset");
+	$("#idRegistrar").data("bootstrapValidator").resetForm(true);
+	$("#idDistrito").val("[ Seleccione ]");
+	$("#idCodigo").val("0");
+}
+
+//LISTAR CLIENTES/USUARIOS
+function listarTablas(){
+	$.getJSON("listaClientes",{},function(listar, q, t){
+		console.log(listar);
+		
+		var editar="<button type='button' class='btn btn-success' id='btnEditar' data-toggle='modal'  data-target='#nuevo'>Editar</button>";
+		var eliminar="<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#eliminar' id='btnEliminar'>Eliminar</button>";
+
+		$("#tbClientes tbody").empty();
+		$.each(listar,function(index,item){
+			$("#tbClientes tbody").append("<tr><td>"+item.idusuario+"</td><td>"+item.nombre+"</td><td>"+item.apellido+"</td><td>"+item.dni+
+					"</td><td>"+item.telefono+"</td><td>"+item.correo+"</td><td>"+item.iddistrito.nombre+"</td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
+		})
+		  $("#tbClientes").DataTable();
+    })
+	
+}
+
 $(document).ready( function () {
 
 	$("#success-alert").fadeTo(2000,500).slideUp(500,function(){
@@ -317,6 +372,14 @@ $(document).ready( function () {
 	});
     
     //alert("Hola");
+    listarTablas();
+    
+    $.getJSON("listaDistritos",{},function(data, q,t){
+        console.log(data);
+		$.each(data,function(index,item){
+			$("#idDistrito").append("<option value='"+item.iddistrito+"'>"+item.nombre+"</option>");
+		})
+    })
     
     $("#btnCancelar").click(function(){
 		//alert("hola");
@@ -325,6 +388,43 @@ $(document).ready( function () {
 		$("#idRegistrar").data("bootstrapValidator").resetForm(true);
 		$("#idCodigo").val("0");
 		$("#idRegistrar select").val("[ Seleccione ]");
+    });
+    
+    $("#btnRegistrar").click(function(){
+    	var validator = $('#idRegistrar').data('bootstrapValidator');
+	    validator.validate();
+	    if (validator.isValid()) {
+	    	$.ajax({
+		          type: "POST",
+		          url: "registrarCliente", 
+		          data: $('#idRegistrar').serialize(),
+		          success: function(data){
+		        	listarTablas();
+		        	mostrarMensaje(data.mensaje);
+		        	limpiarFormCliente();
+		          },
+		          error: function(){
+		        	  mostrarMensaje(MSG_ERROR);
+		          }
+		     });
+		}
+		    
+	  });
+    
+    $("#btn_eliminar").click(function(){
+   	 $("#eliminar").modal("hide");
+    	$.ajax({
+            type: "POST",
+            url: "eliminaUsuario", 
+            data: $('#id_form_elimina').serialize(),
+            success: function(data){           	 
+	           	 listarTablas();
+	           	 mostrarMensaje(data.mensaje);
+            },
+            error: function(){
+          	  mostrarMensaje(MSG_ERROR);
+            }
+       });
     });
     
 } );
@@ -374,7 +474,7 @@ $(document).ready( function () {
                           message: 'Ingrese Telefono'    
                       },      
                       regexp: {    
-                    	  regexp: /^[0-9]{7,15}$/,  
+                    	  regexp: /^[0-9]{7,9}$/,  
                           message: 'Ingresar un numero entre 7 y 9 digitos'    
                       },     
                   }    
@@ -400,6 +500,14 @@ $(document).ready( function () {
                         emailAddress: {
                             message: 'Por favor introduce un correo válido'
                         },    
+                    }    
+            },
+            Password: {
+     	    	selector:'#idPassword',   
+                    validators: {    
+                        notEmpty: {    
+                            message: 'Ingrese password'    
+                        },   
                     }    
             },
           Distrito: {

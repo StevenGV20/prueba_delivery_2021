@@ -13,8 +13,9 @@
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
 
-        <!-- CSS Libraries -->
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <!-- CSS Libraries
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"> -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <link href="lib/slick/slick.css" rel="stylesheet">
         <link href="lib/slick/slick-theme.css" rel="stylesheet">
@@ -88,16 +89,13 @@
                             </form>
                     </div>
                     <div class="col-lg-6">
-                        <form class="login-form" id="formMascota">
+                        <form class="login-form" method="post"  id="formMascota" class="register-form" data-toggle="validator">
                             <div class="row">
                                 <h4 align="center" class="col-md-12">Datos de Mascota</h4>
-                                 <div class="col-md-6">
-	                            	<label for="staticEmail">Cliente:</label>
-									<input class="form-control" id="idCliente" name="idcliente.idusuario" placeholder="Ingrese Cliente"/>
-	                            </div> 
                                 <div class="col-md-6">
 	                            	<label for="staticEmail">Nombre</label>
-									<input class="form-control" id="idRaza" name="nombre" placeholder="Ingrese Raza"/>
+									<input class="form-control" id="idCliente" name="idcliente.idusuario" placeholder="Ingrese Cliente" hidden=""/>
+									<input class="form-control" id="idNombreMascota" name="nombre" placeholder="Ingrese Nombre de la mascota"/>
 	                            </div> 
 	                            <div class="col-md-6">
 	                            	<label for="staticEmail">Raza</label>
@@ -109,7 +107,7 @@
 	                            </div>
 	                            <div class="col-md-6">
 	                            	<label for="staticEmail">Fecha de Namiento</label>
-									<input type="date" class="form-control" id="idEdad" name="fechaNacimiento" placeholder="Ingrese Fecha de Namiento"/>
+									<input type="date" class="form-control" id="idFechaNac" name="fechaNacimiento" placeholder="Ingrese Fecha de Namiento"/>
 	                            </div>      
 	                             <div class="col-md-6">
                                     <label for="staticEmail">Sexo:</label>
@@ -247,16 +245,18 @@
 	<script src="js/global.js"></script>
     <script src="popup.js"></script>
     
-	
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<!-- <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script> 
+<!-- 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script> -->
 	<script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/bootstrapValidator.js"></script>
 	
-	<!-- Page level plugins -->
+	<!-- Page level plugins 
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
+       <!-- Template Javascript -->
+        <script src="js/main.js"></script>
 <script type="text/javascript"> 
 
 	function limpiarFormCliente(){
@@ -339,33 +339,27 @@
 		  });
 	
 	    $("#btnMascota").click(function(){
-	
-		  	$.ajax({
-		          type: "POST",
-		          url: "registrarMascota", 
-		          data: $('#formMascota').serialize(),
-		          success: function(data){
-		        	  //listarTabla();
-		        	  mostrarMensaje(data.mensaje + "\n Ya puede iniciar sesion");
-		        	  limpiarFormMascota();
-		        	  window.location.href = "/verLogin";
-		        	  bloquearCliente(true);
-		        	  bloquearMascota(true);
-		        	  //window.location.href = "/verLogin";
-		        	// $("#idCliente").val("USUARIO.idusuario");
-		          },
-		          error: function(){
-		        	  mostrarMensaje(MSG_ERROR);
-		          }
-		     });
+	    	var validator = $('#formMascota').data('bootstrapValidator');
+		    validator.validate();
+		    if (validator.isValid()) {
+			  	$.ajax({
+			          type: "POST",
+			          url: "registrarMascota", 
+			          data: $('#formMascota').serialize(),
+			          success: function(data){
+			        	  mostrarMensaje(data.mensaje + "\n Ya puede iniciar sesion");
+			        	  limpiarFormMascota();
+			        	  bloquearMascota(true);
+			        	  $(location).attr('href',"/verLogin");
+			          },
+			          error: function(){
+			        	  mostrarMensaje(MSG_ERROR);
+			          }
+			     });
+		    }
 		  });
 	    
-	});      
 
-</script>    
-
-<script type="text/javascript">  
-    $(document).ready(function(){    
 
         $('#idRegistrarCliente').bootstrapValidator({      
        	 fields:{
@@ -410,31 +404,154 @@
                          validators: {    
                              notEmpty: {    
                                  message: 'Ingrese direccion'    
-                             },      
-                             regexp: {    
-                                 regexp: /^[a-zA-Z·ÈÌÛ˙¡…Õ”⁄Ò—0-9\s\w]+$/,    
-                                 message: 'Letras y n˙meros'    
-                             },    
+                             },  
                          }    
                      },
                  Telefono: {
-               	    	selector:'#idTelefono',   
-                              validators: {    
-                                  notEmpty: {    
-                                      message: 'Ingrese telefono'    
-                                  },      
-                                  regexp: {    
-                                      regexp: /^[0-9]{15}/,    
-                                      message: 'Ingrese solo numeros'    
-                                  },    
-                              }    
-                          }
+         	    	selector:'#idTelefono',   
+                        validators: {    
+                            notEmpty: {    
+                                message: 'Ingrese telefono'    
+                            },      
+                            regexp: {    
+                                regexp: /^[0-9]{7,9}/, 
+                                	 message: ' '   
+                            },
+                            stringLength:{
+                          	  message: 'Ingrese un numero Fijo o de Celular',
+                          	  min: 7,
+                          	  max: 9
+                            },    
+                        }    
+                    },
+                    DNI: {
+           	    	selector:'#idDni',   
+                          validators: {    
+                              notEmpty: {    
+                                  message: 'Ingrese Dni'    
+                              },      
+                              regexp: {    
+                                  regexp: /^[0-9]{8}/,
+                                  message: ' '
+                              },
+                              stringLength:{
+                            	  message: 'El DNI es de 8 digitos',
+                            	  min: 8,
+                            	  max: 8
+                              },
+                          }    
+                      },
+                      Correo: {
+                 	    	selector:'#idCorreo',   
+                                validators: {    
+                                    notEmpty: {    
+                                        message: 'Ingrese telefono'    
+                                    },      
+                                    emailAddress: {   
+                                        message: 'Ingrese un correo valido'    
+                                    },    
+                                }    
+                            },
+                            Password: {
+                       	    	selector:'#idPassword',   
+                                      validators: {    
+                                          notEmpty: {    
+                                              message: 'Ingrese telefono'    
+                                          },
+                                      }    
+                                  }
                
             }
           
        	 });
-       }); 
+  
 
- </script>    
+        $('#formMascota').bootstrapValidator({      
+       	 fields:{
+       		 
+       		 Cliente: {
+    	    	selector:'#idCliente',   
+                   validators: {    
+                       notEmpty: {    
+                           message: 'Debe registrarse primero'    
+                       },   
+                   }    
+               },
+               Mascota: {
+       	    	selector:'#idNombreMascota',   
+                      validators: {    
+                          notEmpty: {    
+                              message: 'Ingrese nombre de la Mascota'    
+                          },      
+                          regexp: {    
+                              regexp: /^[a-zA-Z·ÈÌÛ˙¡…Õ”⁄Ò—0-9\s\w]+$/,    
+                              message: 'Letras y n˙meros'    
+                          },    
+                      }    
+                  },
+                  Raza: {
+           	    	selector:'#idRaza',   
+                          validators: {    
+                              notEmpty: {    
+                                  message: 'Elija una raza'    
+                              },      
+                              regexp: {    
+                                  regexp: /^[a-zA-Z·ÈÌÛ˙¡…Õ”⁄Ò—0-9\s\w]+$/,    
+                                  message: 'Letras y n˙meros'    
+                              },     
+                          }    
+                  },
+                  Edad: {
+             	    	selector:'#idEdad',   
+                            validators: {    
+                                notEmpty: {    
+                                    message: 'Ingrese edad en Meses'    
+                                },      
+                                integer: {   
+                                    message: 'Ingrese un numero entero'    
+                                },     
+                            }    
+                    },
+                 FechaNac: {
+         	    	selector:'#idFechaNac',   
+                        validators: {    
+                            notEmpty: {    
+                                message: 'Ingrese Fecha de Nacimiento'    
+                            },      
+                            date: {        
+                                message: 'Ingrese una fecha valida'    
+                            },    
+                        }    
+                    },
+                    Sexo: {
+           	    	selector:'#idSexo',   
+                          validators: {    
+                              notEmpty: {    
+                                  message: 'El campo sexo es obligatorio'    
+                              },      
+                              regexp: {     
+                            	  regexp: /^[a-zA-Z·ÈÌÛ˙¡…Õ”⁄Ò—\s\w]+$/,
+                                  message: 'Elija un sexo'    
+                              },    
+                          }    
+                      },
+                      Especie: {
+                 	    	selector:'#idEspecie',   
+                                validators: {    
+                                    notEmpty: {    
+                                        message: 'El campo Especie es obligatorio'    
+                                    },      
+                                    integer: {   
+                                        message: 'Elija una especie'    
+                                    },    
+                                }    
+                            }
+               
+            }
+          
+       	 });
+ }); 
+
+ </script>  
     </body>
 </html>
