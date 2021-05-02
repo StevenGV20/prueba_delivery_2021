@@ -98,6 +98,12 @@
 									<input class="form-control" id="idNombreMascota" name="nombre" placeholder="Ingrese Nombre de la mascota"/>
 	                            </div> 
 	                            <div class="col-md-6">
+                                    <label for="staticEmail">Tipo de Mascota</label>
+									<select id="idEspecie" name="idespecie.idespecie" class='form-control'>
+			                                 <option value=" " >[SELECCIONE]</option>
+			                         </select>
+	                            </div>
+	                              <div class="col-md-6">
 	                            	<label for="staticEmail">Raza</label>
 									<input class="form-control" id="idRaza" name="raza" placeholder="Ingrese Raza"/>
 	                            </div> 
@@ -117,12 +123,7 @@
 											<option>Macho</option>
 			                         </select>
 	                            </div>     
-                                <div class="col-md-6">
-                                    <label for="staticEmail">Tipo de Mascota</label>
-									<select id="idEspecie" name="idespecie.idespecie" class='form-control'>
-			                                 <option value=" " >[SELECCIONE]</option>
-			                         </select>
-	                            </div>
+
 	                                     
 	                   			<div class="modal-footer">
 						        	<button type="button" id="btnMascota" class="btn btn-primary">Registrar</button>
