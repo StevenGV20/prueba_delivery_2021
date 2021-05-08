@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.veterinaria.entity.Distrito;
+import com.veterinaria.entity.Opcion;
 import com.veterinaria.entity.Rol;
 import com.veterinaria.entity.Trabajador;
 import com.veterinaria.entity.Usuario;
@@ -27,12 +28,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+/*
 	@Override
 	public Trabajador mantenerTrabajador(Trabajador bean) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 	
 	@Override
 	public List<Rol> listaRol() {
@@ -66,6 +67,21 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public Usuario buscarUsuarioXRol(int idusuario) {
 		
 		return repository.findById(idusuario).orElse(null);
+	}
+
+	@Override
+	public Usuario login(Usuario bean) {
+		return repository.login(bean);
+	}
+
+	@Override
+	public List<Rol> traerRolesDeUsuario(int idUsuario) {
+		return null;
+	}
+
+	@Override
+	public List<Opcion> traerEnlacesDeUsuario(int idUsuario) {
+		return repository.traerEnlacesDeUsuario(idUsuario);
 	}
 
 

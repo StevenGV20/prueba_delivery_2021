@@ -5,11 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.veterinaria.entity.Opcion;
 import com.veterinaria.entity.Rol;
 import com.veterinaria.entity.Usuario;
 import com.veterinaria.services.UsuarioService;
@@ -108,4 +113,39 @@ public class UsuarioController {
 			}
 			return salida;
 		}
+		
+		@RequestMapping("/login")
+		public String login(Usuario user, HttpSession session, HttpServletRequest request) {
+			Usuario usuario = service.login(user);
+			if (usuario == null) {
+				request.setAttribute("MENSAJE", "El usuario no existe");
+				return "login";
+			} else {
+				List<Opcion> menus = service.traerEnlacesDeUsuario(usuario.getIdusuario());
+				//List<Rol> roles = service.traerRolesDeUsuario(usuario.getIdusuario());
+
+				session.setAttribute("objUsuario", usuario);
+				session.setAttribute("objMenus", menus);
+				//session.setAttribute("objRoles", roles);
+
+				return "index";
+			}
+		}
+
+		@RequestMapping("/logout")
+		public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+			//session.invalidate();
+			session.setAttribute("objUsuario",null);
+			session.setAttribute("objMenus", null);
+			
+			response.setHeader("Cache-control", "no-cache");
+			response.setHeader("Expires", "0");
+			response.setHeader("Pragma", "no-cache");
+
+			request.setAttribute("mensaje", "El usuario salió de sesión");
+			return "login";
+
+		}
+
+		
 }

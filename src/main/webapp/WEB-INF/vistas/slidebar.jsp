@@ -1,4 +1,6 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -28,15 +30,23 @@
                 Opciones
             </div>
 
-
-            <!-- Nav Item - Tables -->
+            
+            <c:forEach items="${sessionScope.objMenus}" var="item">
+            	<li class="nav-item">
+	                <a class="nav-link" href="${item.ruta}">
+	                    <i class="fas ${item.icono}"></i>
+	                    <span>${item.nombre}</span>
+                    </a>
+	            </li>
+            </c:forEach>
+            
+<!-- 
             <li class="nav-item">
                 <a class="nav-link" href="verTablesConsultas">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Registro Consultas</span></a>
             </li>
             
-            <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="verTablesIncidencias">
                     <i class="fas fa-fw fa-table"></i>
@@ -63,7 +73,7 @@
 		                </ul>
 				    </div>
             </li>
-            
+             -->
 
             <!-- Divider -->
 			<hr class="sidebar-divider my-0">

@@ -1,4 +1,6 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <style>
 	.product-item .product-price .btn{
 		color:white;
@@ -67,14 +69,25 @@
                             </div> -->
                         </div>
                         <div class="navbar-nav ml-auto">
-                             <a href="verRegistroDeCliente" class="nav-item nav-link">Registrarse</a>
+                        			<c:if test="${sessionScope.objUsuario==null}">
+	                                    <a href="verRegistroDeCliente" class="nav-item nav-link">Registrarse</a>
+	                                </c:if>
+	                            <c:if test="${sessionScope.objUsuario!=null}">
+                               		 <div class="nav-item text-light">${sessionScope.objUsuario.nombre} ${sessionScope.objUsuario.apellido}</div>
+                                </c:if>
+                             
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mi cuenta</a>
                                 <div class="dropdown-menu">
-                                    <a href="verLogin" class="dropdown-item">Iniciar Sesion</a>
+	                                <c:if test="${sessionScope.objUsuario==null}">
+	                                    <a href="verLogin" class="dropdown-item">Iniciar Sesion</a>
+                                    	<a href="verRegistroDeCliente" class="dropdown-item">Registrarse</a>
+	                                </c:if>
+                                    <c:if test="${sessionScope.objUsuario!=null}">
+                                   		<a href="verInicioAdmin" class="dropdown-item">Ir a Administracion</a>
                                     <a href="verLogin" class="dropdown-item">Mi Perfil</a>
-                                    <a href="verInicioAdmin" class="dropdown-item">Ir a Administracion</a>
-                                    <a href="verRegistroDeCliente" class="dropdown-item">Registrarse</a>
+                                   		<a href="logout" class="dropdown-item">Cerrar Session</a>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>

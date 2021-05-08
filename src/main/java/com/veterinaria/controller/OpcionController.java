@@ -79,9 +79,9 @@ public class OpcionController {
 		return "tablesIncidencias";
 	}
 //-----------------MIREEEEEEEEN ESTOOOOO---------------
-	@RequestMapping("/verCrudMascotas2")
-	public String verMascota2() {
-		return "crudMascota2";
+	@RequestMapping("/verCrudMascotas")
+	public String verCrudMascotas() {
+		return "crudMascotas";
 	}
 	
 	@RequestMapping("/verCrudProductos")
@@ -133,8 +133,8 @@ public class OpcionController {
 		return "tablesVendedor";
 	}
 	
-	@RequestMapping("/verCrudMascotas")
-	public String verCrudMascotas() {
+	@RequestMapping("/verRegistroMascotas")
+	public String verRegistroMascotas() {
 		return "registrarMascota";
 	}
 	

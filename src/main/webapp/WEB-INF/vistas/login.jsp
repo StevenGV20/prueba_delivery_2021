@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -37,28 +40,37 @@
         <!-- Login Start -->
         <div class="login">
             <div class="container-fluid">
+            <c:if test="${requestScope.MENSAJE!=null}">
+			<div class="alert alert-warning alert-dismissible fade show" role="alert" id="success-alert">
+			  <strong></strong> ${requestScope.MENSAJE}
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			</c:if>
+			<c:remove var="CORRECTO"/>
                 <div class="row">
                     <div class="col-md-3 mx-auto" style="width: 200px;">
-                        <form class="login-form"action="tableProductos.jsp">
+                        <form class="login-form" action="login" method="post">
                             <div class="block text-left">
                                 <div class="col-md-12">
                                     <label>Correo:</label>
-                                    <input class="form-control" type="text" id="idCorreo" placeholder="Correo">
+                                    <input class="form-control" type="text" id="idCorreo" placeholder="Correo" name="correo"/>
                                 </div>
                                 <div class="col-md-12">
-                                    <label>Contraseña:</label>
-                                    <input class="form-control" type="text" id="idClave" placeholder="Contraseña">
+                                    <label>ContraseÃ±a:</label>
+                                    <input class="form-control" type="password" id="idClave" placeholder="ContraseÃ±a" name="password"/>
                                 </div>
                                 <div class="col-md-12 text-center">
 	                                <div class="col-md-12">
 	                                    <div class="custom-control custom-checkbox">	                                    	
-	                                		<label class="">¿Estas registrado? <a href="verRegistroDeCliente">Registrate aquí</a></label>
+	                                		<label class="">Â¿Estas registrado? <a href="verRegistroDeCliente">Registrate aquÃ­</a></label>
 	                                        <!-- <input type="checkbox" class="custom-control-input" id="newaccount">
 	                                        <label class="custom-control-label" for="newaccount">Keep me signed in</label> -->
 	                                    </div>
 	                                </div>
 	                                <div class="col-md-12">
-	                                    <button class="btn" id="btnLogin">Iniciar Sesion</button>
+	                                    <button class="btn" id="btnLogin" type="submit">Iniciar Sesion</button>
 	                                </div>                                
                                 </div>
                             </div>
