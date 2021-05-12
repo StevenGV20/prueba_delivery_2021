@@ -142,4 +142,13 @@ public class OpcionController {
 	public String verRegistroDeCliente() {
 		return "registroCliente";
 	}
+	
+	@RequestMapping("/verRegistroConsultas")
+	public String verRegistroConsultas() {	return "registroConsultas";	}
+	
+	@RequestMapping("/verRegistroIncidencia")
+	public String verRegistroIncidencia() {	return "registroIncidencia";	}
+	
+	@RequestMapping("/verRegistroPedido")
+	public String verRegistroPedido() {	return "registroPedido";	}
 }

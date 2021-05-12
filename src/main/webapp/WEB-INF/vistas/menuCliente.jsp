@@ -59,6 +59,10 @@
                             <a href="verCarrito" class="nav-item nav-link">Mi Carrito</a>
                             <a href="verTracking" class="nav-item nav-link">Mis Ordenes</a>
                             <a href="verCrudMascotas" class="nav-item nav-link">Mis Mascotas</a>
+                            
+                            <a href="verRegistroConsultas" class="nav-item nav-link">Consultas</a>
+                            <a href="verRegistroIncidencia" class="nav-item nav-link">Incidencias</a>
+                            <a href="verRegistroPedido" class="nav-item nav-link">Pedidos Mayoristas</a>
                             <!-- <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mis Ordenes</a>
                                 <div class="dropdown-menu">

@@ -30,6 +30,35 @@
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+    <!-- CSS only -->
+
+<style>
+  	.forms input{
+  		margin-bottom: 0px;
+  	}
+  	.forms select{
+  		margin-bottom: 0px;
+  	}
+  	.forms fieldset{
+  		margin-top: 10px;
+  		display: flex;
+  		flex-direction: column; 
+  	}
+  	section.forms{
+  		margin-top:30px;
+  		margin-bottom:10px;
+  	}
+  	.forms h2{
+  		margin-bottom:0px;
+  	}
+  	small{
+  		color:red;
+  		margin-bottom: 10px;
+  	}
+  </style>
+  
+</head>
 
 </head>
 
@@ -66,44 +95,24 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="tbIncidencia" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                        	<th>ID</th>
                                             <th>Nombre de mascota</th>
                                             <th>Incidencia</th>
                                             <th>Fecha del historial</th>
-                                            <th>Registrar</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                        	<th>ID</th>
                                             <th>Nombre de mascota</th>
                                             <th>Incidencia</th>
                                             <th>Fecha del historial</th>
-                                            <th>Registrar</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger</td>
-                                            <td>Patita rota</td>
-                                            <td>2011/04/25</td>
-                                         <td><button id="btn-abrir-popup" class="btn-abrir-popup">Registrar</button></td>
-                                            <td><div class="overlay" id="overlay">
-											<div class="popup" id="popup">
-												<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
-												<h3>Registrar nueva incidencia</h3>
-												<form action="">
-												<input class="input" type="text" placeholder="&#128100;  Nombre del Agente" required autofocus>
-									            <input class="input" type="text" placeholder="&#8962;  Incidencia" required>
-										            <div class="btn__form">
-										            	<input class="btn__submit" type="submit" value="REGISTRAR">
-										            	<input class="btn__reset" type="reset" value="LIMPIAR">	
-										            </div>
-												</form>
-											</div>
-										</div></td>
-										</tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -115,6 +124,94 @@
 
             </div>
             <!-- End of Main Content -->
+
+           
+<div class="modal fade bd-example-modal-lg" id="nuevo"  data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+ 		 <section class="forms ml-4 mr-4 m-4">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="section-heading">
+                      <h2>Registrar consultas</h2>
+                    </div>
+                    <form  method="post" action="" id="idRegistrar" data-toggle="validator" class="mt-3 form-horizontal">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <fieldset class="form-group">
+                         	<input type="text" hidden="" class="input" value="0" name="idincidencia" id="idCodigo" placeholder="Ingresar nombre">
+							<input type="text" class="input"  name="nombre" id="idnombre" placeholder="Ingresar nombre">
+                          </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                          <fieldset class="form-group">
+                         	
+							<input type="text" class="input"  name="regIncidencia" id="idregIncidencia" placeholder="Ingresar incidencia">
+                          </fieldset>
+                        </div>
+                        <div class="col-md-12">
+                          <fieldset class="form-group">
+                         	
+							<input type="text" class="input"  name="fechaHistorial" id="idfechaHistorial" placeholder="Ingresar fecha">
+                          </fieldset>
+                        </div>
+                       
+                        <div class="col-md-12 mt-2">
+                          <button type="button" class="btn__submit" id="btnRegistrar">Registrar</button>  		
+        				  <button type="button" class="btn__reset" id="btnCancelar" data-dismiss="modal">Cancelar</button>
+                        </div>
+                        
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </section>
+      
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" id="eliminar"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+      	 <h5 class="modal-title" id="exampleModalLabel">Atendiendo Incidencias</h5>
+      </div>
+      <!-- Modal body -->
+        <div class="modal-body">
+        <div class="col-md-12">
+        	<div class="row">
+                        <div class="col-md-6">
+                          <fieldset class="form-group">
+                          <label for="staticEmail">Ingresar Nombre del agente</label>
+							<input type="text" class="input"  name="prueba" id="idnomprue">
+                          </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                          <fieldset class="form-group">	
+                          <label for="staticEmail">Ingresar respuesta para el cliente</label>
+							<input type="text" class="input"  name="prueba2" id="idregprue" >
+                          </fieldset>
+                        </div>    
+                      </div>
+                      </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <form action="" method="post" name="formDelete" id="id_form_elimina">	
+		  	  <input type="hidden" id="idEliminar" name="id">
+	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	          <button type="button" id="btn_eliminar" data-dismiss="modal" class="btn btn-primary">Responder</button>
+            </form>
+        </div>
+        
+    </div>
+  </div>
+</div>
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -175,6 +272,155 @@
     <script src="js/demo/datatables-demo.js"></script>
     
     <script src="popup.js"></script>
+    
+    <script type="text/javascript">  
+
+
+$(document).on("click","#btnEditar",(function(){
+	var cod=$(this).parents('tr').find("td")[0].innerHTML;
+	$("#titleModal").text("Editar Area");
+	$.getJSON("buscaConsulta2XID",{id:cod},function(data){
+		$("#idCodigo").val(data.idincidencia);
+		$("#idnombre").val(data.nombre);
+		$("#idregIncidencia").val(data.regIncidencia);
+		$("#idfechaHistorial").val(data.fechaHistorial);
+	})
+	bloquear(false);
+}));
+
+
+$(document).on("click","#btnEliminar",(function(){
+	var cod=$(this).parents('tr').find("td")[0].innerHTML;
+	$("#idEliminar").val(cod);
+}));
+
+function limpiarFormConsulta(){
+	//bloquear(false);
+	$("#idRegistrar").trigger("reset");
+	$("#idRegistrar").data("bootstrapValidator").resetForm(true);
+	$("#idCodigo").val("0");
+}
+
+//LISTAR CLIENTES/USUARIOS
+function listarTablas(){
+	$.getJSON("listaIncidencia2",{},function(listar, q, t){
+		console.log(listar);
+		
+		var editar="<button type='button' class='btn btn-success' id='btnEditar' data-toggle='modal'  data-target='#nuevo'>Editar</button>";
+		var eliminar="<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#eliminar' id='btnEliminar'>RESPONDER</button>";
+
+		$("#tbIncidencia tbody").empty();
+		$.each(listar,function(index,item){
+			$("#tbIncidencia tbody").append("<tr><td>"+item.idincidencia+"</td><td>"+item.nombre+"</td><td>"+item.regIncidencia+"</td><td>"+item.fechaHistorial+
+					"</td><td>"+eliminar+"</td></tr>");
+		})
+		  $("#tbIncidencia").DataTable();
+    })
+	
+}
+
+
+$(document).ready( function () {
+
+	$("#success-alert").fadeTo(2000,500).slideUp(500,function(){
+		$("#success-alert").slideUp(500);	
+	});
+    
+    //alert("Hola");
+    listarTablas();
+    
+    $("#btnCancelar").click(function(){
+		//alert("hola");
+		bloquear(false);
+    	$("#idRegistrar").trigger("reset");
+		$("#idRegistrar").data("bootstrapValidator").resetForm(true);
+		$("#idCodigo").val("0");
+		$("#idRegistrar select").val("[ Seleccione ]");
+    });
+    
+    $("#btnRegistrar").click(function(){
+    	var validator = $('#idRegistrar').data('bootstrapValidator');
+	    validator.validate();
+	    if (validator.isValid()) {
+	    	$.ajax({
+		          type: "POST",
+		          url: "registroIncidencia", 
+		          data: $('#nuevo').serialize(),
+		          success: function(data){
+		        	listarTablas();
+		        	mostrarMensaje(data.mensaje);
+		        	limpiarFormConsulta();
+		          },
+		          error: function(){
+		        	  mostrarMensaje(MSG_ERROR);
+		          }
+		     });
+		}
+		    
+	  });
+    
+    
+    $("#btn_eliminar").click(function(){
+   	 $("#eliminar").modal("hide");
+    	$.ajax({
+            type: "POST",
+            url: "eliminaIncidencia2", 
+            data: $('#id_form_elimina').serialize(),
+            success: function(data){           	 
+	           	 listarTablas();
+	           	 mostrarMensaje(data.mensaje);
+            },
+            error: function(){
+          	  mostrarMensaje(MSG_ERROR);
+            }
+       });
+    });
+    
+    $(document).ready(function(){    
+        $('#idRegistrar').bootstrapValidator({      
+       	 fields:{
+       		nombre: {
+    	    	selector:'#idnombre',   
+                   validators: {    
+                       notEmpty: {    
+                           message: 'Ingrese Nombre'    
+                       },      
+                       regexp: {    
+                           regexp: /^[a-zA-Z·ÈÌÛ˙¡…Õ”⁄\s\w]+$/,    
+                           message: 'Letras y n˙meros'    
+                       },    
+                   }    
+               },
+            regIncidencia: {
+ 	    	selector:'#idregIncidencia',   
+                validators: {    
+                    notEmpty: {    
+                        message: 'Ingrese Consulta'    
+                    },      
+                    regexp: {    
+                        regexp: /^[a-zA-Z·ÈÌÛ˙¡…Õ”⁄\s\w]+$/,    
+                        message: 'Letras y n˙meros'    
+                    },    
+                }    
+            },
+          fechaHistorial: {
+	    	selector:'#idfechaHistorial',   
+               validators: {    
+            	   date: {
+                       format: 'DD/MM/YYYY',
+                           message: 'El formato es dd/mm/yyyy'
+                   },
+                   notEmpty: {
+                   message: 'El campo no puede estar vacio' 
+                   },  
+               }    
+           }
+       	 }
+       }); 
+    }); 
+    
+} );
+ </script> 
 
 </body>
 
