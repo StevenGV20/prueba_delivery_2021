@@ -13,7 +13,9 @@ public interface MascotaService {
 		
 
 		public abstract List<Mascota> listaMascota();
+		public abstract List<Mascota> listaMascotaByCliente(int cliente);
 		public abstract Mascota mantenerMascota(Mascota bean);
 		public abstract Optional<Mascota> buscaMascotaPorId(int idmascota);
+		public abstract void eliminaMascota(int id);
 
 }

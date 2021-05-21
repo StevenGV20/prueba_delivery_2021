@@ -198,6 +198,8 @@
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
     
+        <script type="text/javascript" src="js/carrito_js.js"></script>
+        <script type="text/javascript" src="js/verCarrito.js"></script>
     
 <!-- Template Javascript -->
 <script src="js/main.js"></script>

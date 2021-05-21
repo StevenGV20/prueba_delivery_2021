@@ -1,6 +1,7 @@
 package com.veterinaria.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,7 +19,6 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.veterinaria.util.FunctionUtil;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,32 +30,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table (name = "mascota")
-public class Mascota {
+@Table(name = "pedido")
+public class Pedido {
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column (name = "idmascota")
-	private int idmascota;
-	private String nombre;
-	private String raza;
-	private String edad;
-	private String sexo;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="idpedido")
+	private int idpedido;
+	private String estado;
 	
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date fechaNacimiento;
-	
-	public String getStrFechaNacFormateada() {
-		return FunctionUtil.toFechaString(fechaNacimiento);
-	}
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date fechaRegistro=new Date();
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idcliente")
 	private Usuario cliente;
 	
-	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idespecie")
-	private Especie idespecie;
+	@OneToMany(fetch =FetchType.LAZY, mappedBy = "pedido" )
+	private List<DetallePedido> detalle;
 }

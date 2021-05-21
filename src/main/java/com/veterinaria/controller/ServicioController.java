@@ -32,6 +32,39 @@ public class ServicioController {
 		return lista;
 	}
 	
+	@RequestMapping("/listaServiciosByName")
+	@ResponseBody
+	public List<Servicio> listaServiciosByName(String nombre){
+		List<Servicio> lista= service.listaServicioByNombre(nombre);
+		return lista;
+	}
+	@RequestMapping("/listaServiciosByNameAZ")
+	@ResponseBody
+	public List<Servicio> listaServiciosByNameAZ(){
+		List<Servicio> lista= service.listaServicioByAaZ();
+		return lista;
+	}
+	@RequestMapping("/listaServiciosByNameZA")
+	@ResponseBody
+	public List<Servicio> listaServiciosByNameZA(){
+		List<Servicio> lista= service.listaServicioByZaA();
+		return lista;
+	}
+	@RequestMapping("/listaServiciosByPrecioMenor")
+	@ResponseBody
+	public List<Servicio> listaServiciosByPrecioMenor(){
+		List<Servicio> lista= service.listaServicioByPrecioMenor();
+		return lista;
+	}
+	@RequestMapping("/listaServiciosByPrecioMayor")
+	@ResponseBody
+	public List<Servicio> listaServiciosByPrecioMayor(){
+		List<Servicio> lista= service.listaServicioByPrecioMayor();
+		return lista;
+	}
+	
+	
+	
 	@RequestMapping("/buscaServicioXID")
 	@ResponseBody
 	public Optional<Servicio> buscaServicioXID(int id){

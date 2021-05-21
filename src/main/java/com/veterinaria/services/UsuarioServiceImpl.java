@@ -6,10 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.veterinaria.entity.Distrito;
 import com.veterinaria.entity.Opcion;
 import com.veterinaria.entity.Rol;
-import com.veterinaria.entity.Trabajador;
 import com.veterinaria.entity.Usuario;
 import com.veterinaria.repository.RolRepository;
 import com.veterinaria.repository.UsuarioRepository;
@@ -82,6 +80,11 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Override
 	public List<Opcion> traerEnlacesDeUsuario(int idUsuario) {
 		return repository.traerEnlacesDeUsuario(idUsuario);
+	}
+
+	@Override
+	public List<Usuario> verificarRegistro(Usuario bean) {
+		return repository.verificarRegistro(bean);
 	}
 
 

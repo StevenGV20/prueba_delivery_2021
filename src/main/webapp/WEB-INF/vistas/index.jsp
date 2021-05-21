@@ -27,7 +27,8 @@
         		width:100%;
         		height:400px;
         	}
-        	img{
+        	.img_card{
+        		width:100%;
         		height:400px;
         	}
         </style>
@@ -129,14 +130,14 @@
 	                                    <img src="img/${item.foto1}" class="img_card" alt="Product Image">
 	                                </a>
 	                                <div class="product-action">
-	                                    <a href="#"><i class="fa fa-cart-plus"></i></a>
-	                                    <a href="#"><i class="fa fa-heart"></i></a>
+	                                    <!-- <a href="#"><i class="fa fa-cart-plus"></i></a>
+	                                    <a href="#"><i class="fa fa-heart"></i></a> -->
 	                                    <a href="verDetalleProducto?id=${item.idproducto}"><i class="fa fa-search"></i></a>
 	                                </div>
 	                            </div>
 	                            <div class="product-price">
 	                                <h3><span>S/. </span>${item.precio}</h3>
-	                                <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Comprar</a>
+	                                <a class="btn" href="verDetalleProducto?id=${item.idproducto}"><i class="fa fa-shopping-cart"></i>Comprar</a>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -153,12 +154,12 @@
                     <div class="col-md-6">
                         <h1>Nuestros Servicios</h1>
                     </div>
-                    <div class="col-md-6">
+                    <!--<div class="col-md-6">
                         <div class="form">
                             <input type="email" value="Your email here">
                             <button>Submit</button>
                         </div>
-                    </div>
+                    </div>  -->
                 </div>
             </div>
         </div>
@@ -186,17 +187,17 @@
 	                            </div>
 	                            <div class="product-image">
 	                                <a href="verDetalleServicio?id=${item.idservicio}">
-	                                    <img src="img/${item.foto}" alt="Product Image">
+	                                    <img src="img/${item.foto}" class="img_card" alt="Product Image">
 	                                </a>
 	                                <div class="product-action">
-	                                    <a href="#"><i class="fa fa-cart-plus"></i></a>
-	                                    <a href="#"><i class="fa fa-heart"></i></a>
+	                                    <!-- <a href="#"><i class="fa fa-cart-plus"></i></a>
+	                                    <a href="#"><i class="fa fa-heart"></i></a> -->
 	                                    <a href="verDetalleServicio?id=${item.idservicio}"><i class="fa fa-search"></i></a>
 	                                </div>
 	                            </div>
 	                            <div class="product-price">
 	                                <h3><span>S/. </span>${item.precio}</h3>
-	                                <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+	                                <a class="btn" href="verDetalleServicio?id=${item.idservicio}"><i class="fa fa-shopping-cart"></i>Solicitar</a>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -347,18 +348,19 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        
         <script src="lib/easing/easing.min.js"></script>
         <script src="lib/slick/slick.min.js"></script>
+        
+	    <script src="js/sweetalert2.min.js"></script>
+        <script type="text/javascript" src="js/carrito_js.js"></script>
+        <script type="text/javascript" src="js/verCarrito.js"></script>
         
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
     </body>
     
     <script type="text/javascript">
-    
-    $(document).ready( function () {
-    	//listarProductos();
-    	//listarServicios();
-    });
     </script>
 </html>

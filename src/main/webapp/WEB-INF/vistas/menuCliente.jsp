@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/popper.min.js"></script>
+    <link rel="stylesheet" href="css/sweetalert2.min.css">
+    <link rel="stylesheet" href="css/css_carrito.css">
 <style>
 	.product-item .product-price .btn{
 		color:white;
@@ -21,8 +26,14 @@
 		color:black;
 	}
 	.img_card{
-        		width:100%;
-        		height:400px;
+   		width:100%;
+   		height:350px;
+   	}
+   	#dropdown01:hover{
+   		color:black;
+   	}
+     form small{
+        		color:red;
         	}
 </style>
 <!-- <div class="top-bar">
@@ -55,15 +66,15 @@
                             <a href="/" class="nav-item nav-link">INICIO</a>
                             <a href="verListaProductos" class="nav-item nav-link">Productos</a>
                             <a href="verListaServicios" class="nav-item nav-link">Servicios</a>
-                            <a href="verDetalleProducto" class="nav-item nav-link">Detalle Producto</a>
-                            <a href="verCarrito" class="nav-item nav-link">Mi Carrito</a>
-                            <a href="verTracking" class="nav-item nav-link">Mis Ordenes</a>
-                            <a href="verCrudMascotas" class="nav-item nav-link">Mis Mascotas</a>
-                            
-                            <a href="verRegistroConsultas" class="nav-item nav-link">Consultas</a>
-                            <a href="verRegistroIncidencia" class="nav-item nav-link">Incidencias</a>
-                            <a href="verRegistroPedido" class="nav-item nav-link">Pedidos Mayoristas</a>
+	                       	<a href="verRegistroConsultas" class="nav-item nav-link">Consultas</a>
+	                            <c:if test="${sessionScope.objUsuario.idrol.idrol==1}">
+		                            <a href="verTracking" class="nav-item nav-link">Mis Ordenes</a>
+		                            <a href="verMisMascotas?cod=${objUsuario.idusuario}" class="nav-item nav-link">Mis Mascotas</a>
+		                            <a href="verRegistroIncidencia" class="nav-item nav-link">Incidencias</a>
+		                            <a href="verRegistroPedido" class="nav-item nav-link">Pedidos Mayoristas</a>
+	                            </c:if>
                             <!-- <div class="nav-item dropdown">
+                            <a href="verCarrito" class="nav-item nav-link">Mi Carrito</a>
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mis Ordenes</a>
                                 <div class="dropdown-menu">
                                     <a href="wishlist.html" class="dropdown-item">Wishlist</a>
@@ -71,29 +82,58 @@
                                     <a href="contact.html" class="dropdown-item">Contact Us</a>
                                 </div>
                             </div> -->
+                            
                         </div>
+                        
                         <div class="navbar-nav ml-auto">
-                        			<c:if test="${sessionScope.objUsuario==null}">
-	                                    <a href="verRegistroDeCliente" class="nav-item nav-link">Registrarse</a>
-	                                </c:if>
+	                        <div class="nav-item dropdown mr-5">
+	                            	<span class="nav-item dropdown-toggle img-fluid text-light" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+	                                    aria-expanded="false">Mi carrito<i class="fa fa-shopping-cart"> (<span id="idCanProductos"></span>)</i></span>
+	                                <div id="carrito" class="dropdown-menu" aria-labelledby="navbarCollapse">
+	                                    <table id="lista-carrito" class="table alert-info">
+	                                        <thead>
+	                                            <tr>
+	                                                <th>Imagen</th>
+	                                                <th>Detalle</th>
+	                                                <th></th>
+	                                                <th></th>
+	                                                <th></th>
+	                                                <th>Total</th>
+	                                                <th></th>
+	                                                <th></th>
+	                                            </tr>
+	                                        </thead>
+	                                        <tbody></tbody>
+	                                    </table>
+	                                    <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>   
+	                                    <c:if test="${sessionScope.objUsuario==null}">
+		                                   		<small class="col-md-12 text-light text-center">Para continuar Inicie Sesion o Registrese</small>
+			                                    <a href="verLogin" class="btn btn-info btn-block nav-link" id="#" onclick="window.location='verLogin'">Iniciar sesion</a>
+			                                    <a href="verRegistroCliente" class="btn btn-danger btn-block nav-link" id="#" onclick="window.location='verRegistroCliente'">Registrarse</a>
+		                                </c:if> 
+		                                <c:if test="${sessionScope.objUsuario!=null}">
+	                                    	<a href="verCarrito" id="procesar-pedido" class="btn btn-danger btn-block">ProcesarCompra</a>
+		                                </c:if>                        
+	                                </div>
+	                            </div>
+                       			<c:if test="${sessionScope.objUsuario==null}">
+                                    <a href="verRegistroCliente" class="nav-item nav-link">Registrarse</a>
+                                    <a href="verLogin" class="nav-item nav-link">Iniciar Sesion</a>
+                                </c:if>
 	                            <c:if test="${sessionScope.objUsuario!=null}">
-                               		 <div class="nav-item text-light">${sessionScope.objUsuario.nombre} ${sessionScope.objUsuario.apellido}</div>
+                              		 <div class="nav-item dropdown mr-5">
+		                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">${sessionScope.objUsuario.nombre} ${sessionScope.objUsuario.apellido}</a>
+		                                <div class="dropdown-menu">
+		                                    <c:if test="${sessionScope.objUsuario!=null}">
+		                                   		<a href="verInicioAdmin" class="nav-link dropdown-item">Ir a Administracion</a>
+		                                    	<a href="verLogin" class="nav-link dropdown-item">Mi Perfil</a>
+		                                   		<a href="logout" class="nav-link dropdown-item">Cerrar Session</a>
+		                                    </c:if>
+		                               	</div>
+                            		</div>
                                 </c:if>
                              
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Mi cuenta</a>
-                                <div class="dropdown-menu">
-	                                <c:if test="${sessionScope.objUsuario==null}">
-	                                    <a href="verLogin" class="dropdown-item">Iniciar Sesion</a>
-                                    	<a href="verRegistroDeCliente" class="dropdown-item">Registrarse</a>
-	                                </c:if>
-                                    <c:if test="${sessionScope.objUsuario!=null}">
-                                   		<a href="verInicioAdmin" class="dropdown-item">Ir a Administracion</a>
-                                    <a href="verLogin" class="dropdown-item">Mi Perfil</a>
-                                   		<a href="logout" class="dropdown-item">Cerrar Session</a>
-                                    </c:if>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </nav>
@@ -118,18 +158,20 @@
                             <button><i class="fa fa-search"></i></button>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3"><!-- 
                         <div class="user">
-                            <a href="listaProductos.jsp" class="btn wishlist">
+                            <a href="verListaProductos" class="btn wishlist">
                                 <i class="fa fa-heart"></i>
                                 <span>(0)</span>
                             </a>
-                            <a href="carritoCompras.jsp" class="btn cart">
+                            <a href="verCarrito" class="btn cart">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>(0)</span>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
+        
+        

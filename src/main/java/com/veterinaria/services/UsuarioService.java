@@ -3,10 +3,8 @@ package com.veterinaria.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.veterinaria.entity.Distrito;
 import com.veterinaria.entity.Opcion;
 import com.veterinaria.entity.Rol;
-import com.veterinaria.entity.Trabajador;
 import com.veterinaria.entity.Usuario;
 
 public interface UsuarioService {
@@ -26,6 +24,7 @@ public interface UsuarioService {
 	public abstract List<Usuario> listaUsuarioPorRol(int idrol);
 	
 	public abstract Usuario login(Usuario bean);
+	public abstract List<Usuario> verificarRegistro(Usuario bean);
 
 	public abstract List<Opcion> traerEnlacesDeUsuario(int idUsuario);
 	public abstract List<Rol> traerRolesDeUsuario(int idUsuario);

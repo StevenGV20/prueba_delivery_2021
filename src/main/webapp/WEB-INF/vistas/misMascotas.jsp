@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,8 +94,9 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Lista de Masacotas</h6>
                         </div>
+                               
                         <div class="cont_mant ml-2">
-							<button type="button" class="btn btn-info mt-4" data-toggle="modal" data-target="#nuevo">Nuevo <i class="fa fa-plus-circle" aria-hidden="true"></i></button>  
+							<button type="button" class="btn btn-info mt-4" id="btnNuevo" data-toggle="modal" data-target="#nuevo">Nuevo <i class="fa fa-plus-circle" aria-hidden="true"></i></button>  
 						</div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -128,18 +130,19 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-								            <td class="">1</td>
-								            <td class="">Drogo</td>
-								            <td class="">Bulldog</td>
-								            <td class="">Macho</td>
-								            <td class="">15-02-20</td>
-								            <td class="">Perro</td>
-								            <td class="">Carlos</td>
-								            <td class=""><a href="#" id="btnDetalles"  class="btn btn-info" data-toggle="modal" data-target="#nuevo">Detalles</a></td>
-								            <td class=""><a href="#" id="btnEditar"  class="btn btn-success" data-toggle="modal" data-target="#nuevo">Editar</a></td>
-								            <td class=""><a href="#" id="btnEliminar"  class="btn btn-danger" data-toggle="modal" data-target="#eliminar">Eliminar</a></td>
-								        </tr>
+                                    	<c:forEach items="${requestScope.mascotas}" var="item">
+	                                        <tr>
+									            <td class="">${item.idmascota}</td>
+									            <td class="">${item.nombre}</td>
+									            <td class="">${item.raza}</td>
+									            <td class="">${item.sexo}</td>
+									            <td class="">${item.fechaNacimiento}</td>
+									            <td class="">${item.idespecie.nombre}</td>
+									            <td class="">${item.cliente.nombre}</td>
+									            <td class=""><a href="#" id="btnEditar"  class="btn btn-success" data-toggle="modal" data-target="#nuevo">Editar</a></td>
+									            <td class=""><a href="#" id="btnEliminar"  class="btn btn-danger" data-toggle="modal" data-target="#eliminar">Eliminar</a></td>
+									        </tr>
+                                    	</c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -166,49 +169,45 @@
                       <div class="row">
                         <div class="col-md-6">
                           <fieldset class="form-group">
-                         	<input type="text" class="input"  name="" id="idCodigo" hidden="">
-                          	<input type="text" class="input"  name="" id="idNombre" placeholder="Ingresar nombre">
+                         	<input type="text" class="input" value="0"  name="idmascota" id="idCodigo" hidden="">
+                         	<input type="number" class="input"  name="cliente.idusuario" id="idCodCliente" hidden="" value="${requestScope.codCliente}">
+                          	<input type="text" class="input"  name="nombre" id="idNombre" placeholder="Ingresar nombre">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset>                           	
-							<input type="text" class="input"  name="" id="idRaza" placeholder="Ingresar Raza">
+							<input type="text" class="input"  name="raza" id="idRaza" placeholder="Ingresar Raza">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset>                           	
-							<input type="text" class="input"  name="" id="idEdad" placeholder="Ingresar Edad">
+							<input type="text" class="input"  name="edad" id="idEdad" placeholder="Ingresar Edad">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset>                           	
-							<input type="text" class="input"  name="" id="idSexo" placeholder="Ingresar Sexo">
+                          	<label>Sexo::</label>
+							<select id="idSexo"  class="input" name="sexo">	
+								<option>[ Seleccione ]</option>
+								<option>Macho</option>
+								<option>Hembra</option>
+							</select>
                           </fieldset>
                         </div>                        
                         <div class="col-md-6">
-                          <fieldset>                           	
-							<input type="text" class="input"  name="" id="idFechaNac" placeholder="Ingresar Fecha Nacimiento">
+                          <fieldset>   
+                            <label>Fecha de Nacimiento::</label>                      	
+							<input type="date" class="input"  name="fechaNacimiento" id="idFechaNac" placeholder="Ingresar Fecha Nacimiento">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset>
-							<select id="idEspecie"  class="input" name="especie">	
+                          <label>Especie:</label>
+							<select id="idEspecie"  class="input" name="idespecie.idespecie">	
 								<option>[ Seleccione ]</option>
-								<option>Caninos</option>
-								<option>Felinos</option>
 							</select>
 						 </fieldset>
-                        </div>
-                        <div class="col-md-6">
-                          <fieldset>
-							<select id="idCliente"  class="input" name="cliente">	
-								<option>[ Seleccione ]</option>
-								<option value="0">Caninos</option>
-								<option>Felinos</option>
-							</select>
-						 </fieldset>
-                        </div>
-                       
+                        </div>                       
                         <div class="col-md-12 mt-2">
                           <button type="submit" class="btn__submit" id="btnRegistrar">Registrar</button>  		
         				  <button type="button" class="btn__reset" id="btnCancelar" data-dismiss="modal">Cancelar</button>
@@ -224,6 +223,34 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade bd-example-modal-lg" id="eliminar"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+      	 <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar?</h5>
+      </div>
+      <!-- Modal body -->
+        <div class="modal-body">
+        	¿Seguro de eliminar a la Mascota? 
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <form action="" method="post" name="formDelete" id="id_form_elimina">	
+		  	  <input type="hidden" id="idEliminar" name="id">
+	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	          <button type="button" id="btn_eliminar" data-dismiss="modal" class="btn btn-primary">Eliminar</button>
+            </form>
+        </div>
+        
+    </div>
+  </div>
+</div>
+
+
+
+
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -289,30 +316,40 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    	<script src="js/global.js"></script>
     
     <script src="popup.js"></script>
    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
     <script type="text/javascript">
 
-$(document).on("click","#btnDetalles",(function(){
-	var cod=$(this).parents('tr').find("td")[0].innerHTML;
-	$("#titleModal").text("Detalles del Producto");
-	$.getJSON("",{codigo:cod},function(data){
-		
-	})
-	bloquear(true);
-}));
+
+/*
+$("#tbClientes").on("click","tbody tr",(function(){
+	var cod=$(this).children("td:eq(0)").html();
+	var nom=$(this).children("td:eq(1)").html();
+	var ape=$(this).children("td:eq(2)").html();
+	$("#nomCliente").val(nom+" "+ape);
+	$("#idCodCliente").val(cod);
+	$("#btnNuevo").prop("disabled",false);
+	//bloquear(true);
+}));*/
 
 $(document).on("click","#btnEditar",(function(){
 	var cod=$(this).parents('tr').find("td")[0].innerHTML;
-	$("#titleModal").text("Editar Area");
-	$.getJSON("",{codigo:cod},function(data){
-		
+	$("#titleModal").text("Editar Mascota");
+	$.getJSON("buscarMascotaById",{cod:cod},function(data){
+		$("#idCodigo").val(data.idmascota);
+		$("#idCodCliente").val(data.cliente.idusuario);
+		$("#idNombre").val(data.nombre);
+		$("#idEdad").val(data.edad);
+		$("#idFechaNac").val(data.fechaNacimiento);
+		$("#idSexo").val(data.sexo);
+		$("#idEspecie").val(data.idespcie.idespecie);
 	})
-	bloquear(false);
+	//bloquear(false);
 }));
 
-$(document).on("click","#btnEditar",(function(){
+$(document).on("click","#btnEliminar",(function(){
 	var cod=$(this).parents('tr').find("td")[0].innerHTML;
 	$("#idEliminar").val(cod);
 }));
@@ -324,22 +361,95 @@ function bloquear(b){
 	$("#btnRegistrar").prop("disabled",b);
 }
 
+function listarMascotas(){
+	var cod=$("#idCodCliente").val();
+	$.getJSON("listaMascotasByCliente",{cod:cod},function(listar, q, t){
+		console.log(listar);
+		
+		var editar="<button type='button' class='btn btn-success' id='btnEditar' data-toggle='modal'  data-target='#nuevo'>Editar</button>";
+		var eliminar="<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#eliminar' id='btnEliminar'>Eliminar</button>";
+
+		$("#dataTable tbody").empty();
+		$.each(listar,function(index,item){
+			$("#dataTable tbody").append("<tr><td>"+item.idmascota+"</td><td>"+item.nombre+"</td><td>"+item.raza+"</td><td>"+item.sexo+
+					"</td><td>"+item.fechaNacimiento+"</td><td>"+item.idespecie.nombre+"</td><td>"+
+					item.cliente.nombre+" "+item.cliente.apellido+"</td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
+		})
+		  $("#dataTable").DataTable();
+    })
+	
+}
+
+function limpiarFormMascota(){
+	var cod=$("#idCodCliente").val();
+	$("#idRegistrar").trigger("reset");
+	$("#idRegistrar").data("bootstrapValidator").resetForm(true);
+	$("#idCodigo").val("0");
+	$("#idCodCliente").val(cod);
+	$("#idSexo").val("[ Seleccione ]");
+	$("#idEspecie").val("[ Seleccione ]");
+}
+
 $(document).ready( function () {
 
 	$("#success-alert").fadeTo(2000,500).slideUp(500,function(){
 		$("#success-alert").slideUp(500);	
 	});
+	
+	 $.getJSON("listaEspecies",{},function(data, q,t){
+	        console.log(data);
+			$.each(data,function(index,item){
+				$("#idEspecie").append("<option value='"+item.idespecie+"'>"+item.nombre+"</option>");
+			})
+	    })
     
     //alert("Hola");
     
     $("#btnCancelar").click(function(){
 		//alert("hola");
-		bloquear(false);
-    	$("#idRegistrar").trigger("reset");
-		$("#idRegistrar").data("bootstrapValidator").resetForm(true);
-		$("#idCodigo").val("0");
-		$("#idRegistrar select").val("[ Seleccione ]");
+		//bloquear(false);
+    	limpiarFormMascota();
     });
+    
+	 $("#btnRegistrar").click(function(){
+	    	var validator = $('#idRegistrar').data('bootstrapValidator');
+		    validator.validate();
+		    if (validator.isValid()) {
+			  	$.ajax({
+			          type: "POST",
+			          url: "registrarMascota", 
+			          data: $('#idRegistrar').serialize(),
+			          success: function(data){
+			        	  mostrarMensaje(data.mensaje);
+			        	  limpiarFormMascota();
+			        	  listarMascotas();
+			          },
+			          error: function(){
+			        	  mostrarMensaje(MSG_ERROR);
+			          }
+			     });
+		    }
+		  });
+	 
+	  $("#btn_eliminar").click(function(){
+
+     	  $("#eliminar").modal("hide");
+    	$.ajax({
+            type: "POST",
+            url: "eliminaMascota", 
+            data: $('#id_form_elimina').serialize(),
+            success: function(data){
+          	  listarMascotas();
+          	  mostrarMensaje(data.mensaje);
+            },
+            error: function(){
+          	  mostrarMensaje(MSG_ERROR);
+            }
+      	 });
+      });
+	  
+	 
+		
     
 } );
 </script>
@@ -405,7 +515,6 @@ $(document).ready( function () {
                                message: 'Ingrese una fecha de Nacimiento'    
                            },      
                            date: {
-                        	   format: 'YYYY/MM/DD',
                                message: 'La fecha tiene formato YYYY/MM/DD'
                            },    
                        }    

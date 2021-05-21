@@ -55,4 +55,29 @@ public class ServicioServiceImpl  implements ServicioService{
 		return repository.findById(id).orElse(null);
 	}
 
+	@Override
+	public List<Servicio> listaServicioByNombre(String nombre) {
+		return repository.listaServicioByName(nombre+"%");
+	}
+
+	@Override
+	public List<Servicio> listaServicioByAaZ() {
+		return repository.listaServicioByNameAaZ();
+	}
+
+	@Override
+	public List<Servicio> listaServicioByZaA() {
+		return repository.listaServicioByNameZaA();
+	}
+
+	@Override
+	public List<Servicio> listaServicioByPrecioMenor() {
+		return repository.listaServicioByPrecioMenor();
+	}
+
+	@Override
+	public List<Servicio> listaServicioByPrecioMayor() {
+		return repository.listaServicioByPrecioMayor();
+	}
+
 }

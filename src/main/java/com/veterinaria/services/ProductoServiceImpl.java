@@ -78,6 +78,31 @@ public class ProductoServiceImpl implements ProductoService {
 	public Producto detalleProductoXID(int idproducto) {
 		return repository.findById(idproducto).orElse(null);
 	}
+
+	@Override
+	public List<Producto> listaProductoByNombre(String nombre) {
+		return repository.listaProductoByName(nombre+"%");
+	}
+
+	@Override
+	public List<Producto> listaProductoByNombreAaZ() {
+		return repository.listaProductoByNameAaZ();
+	}
+
+	@Override
+	public List<Producto> listaProductoByNombreZaA() {
+		return repository.listaProductoByNameZaA();
+	}
+
+	@Override
+	public List<Producto> listaProductoByPrecioMenorMayor() {
+		return repository.listaProductoByPrecioMenor();
+	}
+
+	@Override
+	public List<Producto> listaProductoByPrecioMayoraMenor() {
+		return repository.listaProductoByPrecioMayor();
+	}
 	
 	
 		

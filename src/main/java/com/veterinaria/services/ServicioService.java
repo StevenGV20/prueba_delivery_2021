@@ -16,5 +16,10 @@ public interface ServicioService {
 	public abstract Servicio detalleServicioXID(int id);
 	//SUBIR ARCHIVOS
 	public abstract void guardarFotoServicio(MultipartFile file) throws Exception;
-	
+	//CONSULTAS
+	public abstract List<Servicio> listaServicioByNombre(String nombre);
+	public abstract List<Servicio> listaServicioByAaZ();
+	public abstract List<Servicio> listaServicioByZaA();
+	public abstract List<Servicio> listaServicioByPrecioMenor();
+	public abstract List<Servicio> listaServicioByPrecioMayor();
 }

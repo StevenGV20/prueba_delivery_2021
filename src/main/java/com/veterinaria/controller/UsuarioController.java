@@ -128,7 +128,7 @@ public class UsuarioController {
 				session.setAttribute("objMenus", menus);
 				//session.setAttribute("objRoles", roles);
 
-				return "index";
+				return "redirect:/";
 			}
 		}
 
@@ -143,7 +143,7 @@ public class UsuarioController {
 			response.setHeader("Pragma", "no-cache");
 
 			request.setAttribute("mensaje", "El usuario salió de sesión");
-			return "login";
+			return "redirect:/verLogin";
 
 		}
 

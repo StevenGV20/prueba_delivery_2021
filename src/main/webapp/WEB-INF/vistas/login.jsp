@@ -64,13 +64,13 @@
                                 <div class="col-md-12 text-center">
 	                                <div class="col-md-12">
 	                                    <div class="custom-control custom-checkbox">	                                    	
-	                                		<label class="">¿Estas registrado? <a href="verRegistroDeCliente">Registrate aquí</a></label>
+	                                		<label class="">¿Estas registrado? <a href="verRegistroCliente">Registrate aquí</a></label>
 	                                        <!-- <input type="checkbox" class="custom-control-input" id="newaccount">
 	                                        <label class="custom-control-label" for="newaccount">Keep me signed in</label> -->
 	                                    </div>
 	                                </div>
 	                                <div class="col-md-12">
-	                                    <button class="btn" id="btnLogin" type="submit">Iniciar Sesion</button>
+	                                    <button class="btn border" id="btnLogin" type="submit">Iniciar Sesion</button>
 	                                </div>                                
                                 </div>
                             </div>
@@ -179,6 +179,8 @@
         <script src="lib/easing/easing.min.js"></script>
         <script src="lib/slick/slick.min.js"></script>
         
+        <script type="text/javascript" src="js/carrito_js.js"></script>
+        <script type="text/javascript" src="js/verCarrito.js"></script>
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
     </body>

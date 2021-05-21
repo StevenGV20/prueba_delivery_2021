@@ -7,13 +7,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.veterinaria.entity.Distrito;
-import com.veterinaria.entity.Rol;
-import com.veterinaria.entity.Servicio;
 import com.veterinaria.entity.Usuario;
 import com.veterinaria.services.ClienteService;
 import com.veterinaria.services.UsuarioService;
@@ -50,9 +47,7 @@ public class ClienteController {
 		Map<String, Object> salida = new HashMap<String, Object>();
 		//Usuario objSalida = null;
 		try {
-			
 			Optional<Usuario> option = usuarioService.buscaUsuarioPorId(obj.getIdusuario());
-			clienteService.registrarCiente(obj);
 			/*if (objSalida == null) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			} else {
@@ -62,14 +57,23 @@ public class ClienteController {
 				//return salida;
 			}*/
 			if(!option.isPresent()) {
-				salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
-				Usuario u=clienteService.ultimoClienteRegistrado();
-				salida.put("USUARIO",u);				
+				List<Usuario> verific=usuarioService.verificarRegistro(obj);
+				if(!verific.isEmpty()) {
+					salida.put("state",0);
+					salida.put("mensaje", Constantes.MENSAJE_REG_YA_EXISTE+" Verifique sus datos por favor");
+				}else {
+					clienteService.registrarCiente(obj);
+					salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
+					Usuario u=clienteService.ultimoClienteRegistrado();
+					salida.put("USUARIO",u);						
+				}			
 			}else {
+				clienteService.registrarCiente(obj);
 				salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			salida.put("state",0);
 			salida.put("mensaje", "Hubo un error en el proceso. Consulte con su administrador.");
 		}
 

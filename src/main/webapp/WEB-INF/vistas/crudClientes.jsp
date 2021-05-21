@@ -358,7 +358,9 @@ function listarTablas(){
 		$("#tbClientes tbody").empty();
 		$.each(listar,function(index,item){
 			$("#tbClientes tbody").append("<tr><td>"+item.idusuario+"</td><td>"+item.nombre+"</td><td>"+item.apellido+"</td><td>"+item.dni+
-					"</td><td>"+item.telefono+"</td><td>"+item.correo+"</td><td>"+item.iddistrito.nombre+"</td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
+					"</td><td>"+item.telefono+"</td><td>"+item.correo+"</td><td>"+item.iddistrito.nombre+
+					"</td><td><a href='verMisMascotas?cod="+item.idusuario+"' class='btn btn-warning' target='_blank'>Admin. Mascotas</a></td><td>"+
+					editar+"</td><td>"+eliminar+"</td></tr>");
 		})
 		  $("#tbClientes").DataTable();
     })

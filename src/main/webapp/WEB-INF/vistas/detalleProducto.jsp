@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+	<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Producto</title>
+        <title>${requestScope.objProducto.nombre}</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         
         <!-- Favicon -->
@@ -37,14 +38,14 @@
            
         
         <!-- Bottom Bar End --> 
-        
+        <div class="container">
         <!-- Breadcrumb Start -->
         <div class="breadcrumb-wrap">
             <div class="container-fluid">
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Products</a></li>
-                    <li class="breadcrumb-item active">Product Detail</li>
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item"><a href="verListaProductos">Productos</a></li>
+                    <li class="breadcrumb-item active">Producto - ${requestScope.objProducto.nombre}</li>
                 </ul>
             </div>
         </div>
@@ -54,8 +55,8 @@
         <div class="product-detail">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <div class="product-detail-top">
+                    <div class="col-lg-12">
+                        <div class="product-detail-top" id="detalleProducto">
                             <div class="row align-items-center">
                                 <div class="col-md-5">
                                     <div class="product-slider-single normal-slider">
@@ -67,9 +68,9 @@
                                         <img src="img/${requestScope.objProducto.foto3}" alt="No existe">
                                     </div>
                                     <div class="product-slider-single-nav normal-slider col-md-12">
-                                        <div class="slider-nav-img"><img src="img/${requestScope.objProducto.foto1}" alt="No existe"></div>
-                                        <div class="slider-nav-img"><img src="img/${requestScope.objProducto.foto2}" alt="No existe"></div>
-                                        <div class="slider-nav-img"><img src="img/${requestScope.objProducto.foto3}" alt="No existe"></div>
+                                        <div class="slider-nav-img"><img src="img/${requestScope.objProducto.foto1}" id="idFoto1" alt="No existe"></div>
+                                        <div class="slider-nav-img"><img src="img/${requestScope.objProducto.foto2}" id="idFoto2"  alt="No existe"></div>
+                                        <div class="slider-nav-img"><img src="img/${requestScope.objProducto.foto3}" id="idFoto3"  alt="No existe"></div>
                                         <div class="slider-nav-img"><img src="img/${requestScope.objProducto.foto1}" alt="No existe"></div>
                                         <div class="slider-nav-img"><img src="img/${requestScope.objProducto.foto2}" alt="No existe"></div>
                                         <div class="slider-nav-img"><img src="img/${requestScope.objProducto.foto3}" alt="No existe"></div>
@@ -77,7 +78,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <div class="product-content">
-                                        <div class="title"><h2>${requestScope.objProducto.nombre}</h2></div>
+                                        <div class="title"><h2 id="idNombre">${requestScope.objProducto.nombre}</h2></div>
                                         <div class="ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -87,27 +88,37 @@
                                         </div>
                                         <div class="price">
                                             <h4>Precio:</h4>
-                                            <p>S/. ${requestScope.objProducto.precio} <!--<span>$149</span>--></p>
+                                            <p>S/. <strong id="idPrecio"> <fmt:formatNumber type = "number" minFractionDigits="2" maxFractionDigits = "2" value = "${requestScope.objProducto.precio}"/> 
+                                            	</strong> <!--<span>$149</span>-->
+                                            </p>
                                         </div>
                                         <div class="quantity">
-                                           <input type="text" value="${requestScope.objProducto.idproducto}" id="#idCodigo" name="idproducto">
+                                           <input type="text" value="${requestScope.objProducto.idproducto}" hidden="" id="idCodigo" name="idproducto">
                                             <h4>Cantidad:</h4>
                                             <div class="qty">
                                                 <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1" id="#idCantidad" name="cantidad">
+                                                <input type="text" value="1" id="idCantidad" name="cantidad">
                                                 <button class="btn-plus"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
                                         <div class="p-size">
-                                            <h4>Size:</h4>
-                                            <div class="btn-group btn-group-sm">
-                                                ${item.stock}
+                                            <h4>Stock:</h4>
+                                            <div class="btn-group btn-group-sm" id="idStock">
+                                                ${requestScope.objProducto.stock}
                                             </div> 
                                         </div>
-                                        <div class="action">
-                                            <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>Agregar al carrito</a>
-                                            <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Realizar compra</a>
-                                        </div>
+                                        <c:if test="${requestScope.objProducto.stock > 5}">
+	                                        <div class="action">
+	                                            <a class="btn border agregar-carrito" href="#"><i class="fa fa-shopping-cart"></i>Agregar al carrito</a>
+	                                            <a class="btn border" href="verListaProductos" onclick="window.location='verListaProductos'"><i class="fa fa-shopping-bag"></i>Seguir Comprando</a>
+	                                        </div>                                     
+                                        </c:if>
+                                         <c:if test="${requestScope.objProducto.stock < 6}">
+	                                        <div class="action">
+	                                            <p>En estos momentos no hay productos disponibles</p>
+	                                            <a class="btn border" href="verListaProductos" onclick="window.location='verListaProductos'"><i class="fa fa-shopping-bag"></i>Seguir Comprando</a>
+	                                        </div>                                     
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -131,56 +142,7 @@
                                     <div id="description" class="container tab-pane active">
                                        <div>${requestScope.objProducto.descripcionHTML}</div>
                                     </div>
-                                   	<!--
-                                    <div id="specification" class="container tab-pane fade">
-                                        <h4>Product specification</h4>
-                                        <ul>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                            <li>Lorem ipsum dolor sit amet</li>
-                                        </ul>
-                                    </div>
-                                    <div id="reviews" class="container tab-pane fade">
-                                        <div class="reviews-submitted">
-                                            <div class="reviewer">Phasellus Gravida - <span>01 Jan 2020</span></div>
-                                            <div class="ratting">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                            <p>
-                                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
-                                            </p>
-                                        </div>
-                                        <div class="reviews-submit">
-                                            <h4>Give your Review:</h4>
-                                            <div class="ratting">
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                                <i class="far fa-star"></i>
-                                            </div>
-                                            <div class="row form">
-                                                <div class="col-sm-6">
-                                                    <input type="text" placeholder="Name">
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input type="email" placeholder="Email">
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <textarea placeholder="Review"></textarea>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <button>Submit</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>-->
+                                   	
                                 </div>
                             </div>
                         </div>
@@ -190,7 +152,7 @@
                                 <h1>Otros Productos</h1>
                             </div>
 
-                            <div class="row align-items-center product-slider product-slider-3">
+                            <div class="row align-items-center product-slider product-slider-3" id="listaProductos">
 	                             <c:forEach items="${sessionScope.LISTAPRODUCTOS}" var="item">
 	                                <div class="col-lg-3">
 	                                    <div class="product-item">
@@ -209,23 +171,22 @@
 	                                                <img src="img/${item.foto1}" class="img_card" alt="Product Image">
 	                                            </a>
 	                                            <div class="product-action">
-	                                                <a href="#"><i class="fa fa-cart-plus"></i></a>
-	                                                <a href="#"><i class="fa fa-heart"></i></a>
 	                                                <a href="verDetalleProducto?id=${item.idproducto}"><i class="fa fa-search"></i></a>
 	                                            </div>
 	                                        </div>
 	                                        <div class="product-price">
 	                                            <h3><span>S/. </span>${item.precio}</h3>
-	                                            <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Comprar</a>
+	                                            <a class="btn" href="verDetalleProducto?id=${item.idproducto}"><i class="fa fa-shopping-cart"></i>Comprar</a>
 	                                        </div>
 	                                    </div>
 	                                </div>
-                                </c:forEach>  
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
                 
                     <!-- Side Bar Start -->
+                    <!-- 
                     <div class="col-lg-4 sidebar">
                         <div class="sidebar-widget category">
                             <h2 class="title">Category</h2>
@@ -360,13 +321,13 @@
                             <a href="#">orci luctus</a>
                             <a href="#">Nam lorem</a>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- Side Bar End -->
                 </div>
             </div>
         </div>
         <!-- Product Detail End -->
-        
+   </div>     
         <!-- Brand Start -->
         <div class="brand">
             <div class="container-fluid">
@@ -477,10 +438,34 @@
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        
+                        
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        
         <script src="lib/easing/easing.min.js"></script>
         <script src="lib/slick/slick.min.js"></script>
         
+	    <script src="js/sweetalert2.min.js"></script>
+	    
+	    
+        <script type="text/javascript" src="js/carrito_js.js"></script>
+        <script type="text/javascript" src="js/pedido_carrito.js"></script>
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+        
+        <script type="text/javascript">
+
+
+	 
+        	
+        </script>
+        
     </body>
 </html>

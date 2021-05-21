@@ -20,6 +20,14 @@ public interface ProductoService {
 	public abstract Optional<Producto> buscaProductoPorId(int idproducto);
 	public abstract void eliminaProducto(int idproducto);
 	public abstract Producto detalleProductoXID(int idproducto);
+	
+	//CONSULTAS
+	public abstract List<Producto> listaProductoByNombre(String nombre);
+	public abstract List<Producto> listaProductoByNombreAaZ();
+	public abstract List<Producto> listaProductoByNombreZaA();
+	public abstract List<Producto> listaProductoByPrecioMenorMayor();
+	public abstract List<Producto> listaProductoByPrecioMayoraMenor();
+	
 	//SUBIR ARCHIVOS
 	public abstract void saveFile(MultipartFile file) throws Exception;
 	

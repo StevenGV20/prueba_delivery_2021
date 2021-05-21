@@ -1,5 +1,7 @@
 package com.veterinaria.entity;
 
+import java.text.DecimalFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.NumberFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -29,6 +33,7 @@ public class Producto {
 	@Column (name = "idproducto")
 	private int idproducto;
 	private String nombre;
+	@NumberFormat(pattern = "##.##")
 	private double precio;
 	private int stock;
 	private String marca;
@@ -44,4 +49,10 @@ public class Producto {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idcategoria")
 	private Categoria idcategoria;
+	
+	/*
+	public double getPrecio() {
+		DecimalFormat df=new DecimalFormat("####.##");
+		return Double.parseDouble(df.format(precio));
+	}*/
 }

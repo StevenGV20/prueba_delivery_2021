@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.veterinaria.entity.Incidencia2;
 import com.veterinaria.entity.Pedido2;
 
 public interface Pedido2Repository extends JpaRepository<Pedido2, Integer> {

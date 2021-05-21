@@ -38,4 +38,14 @@ public class MascotaServiceImpl implements MascotaService{
 	public Optional<Mascota> buscaMascotaPorId(int idmascota) {
 		return repository.findById(idmascota);
 	}
+
+	@Override
+	public List<Mascota> listaMascotaByCliente(int cliente) {
+		return repository.listaMascotaByCliente(cliente);
+	}
+
+	@Override
+	public void eliminaMascota(int id) {
+		repository.deleteById(id);
+	}
 }

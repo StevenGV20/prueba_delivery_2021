@@ -3,16 +3,18 @@ package com.veterinaria.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.veterinaria.entity.Especie;
 import com.veterinaria.entity.Mascota;
-
+import com.veterinaria.entity.Usuario;
 import com.veterinaria.services.MascotaService;
 import com.veterinaria.util.Constantes;
 
@@ -36,6 +38,29 @@ public class MascotaController {
 			List<Mascota> lista= mascotaService.listaMascota();
 			return lista;
 		}
+		
+		@RequestMapping("/listaMascotasByCliente")
+		@ResponseBody
+		public List<Mascota> listaMascotasByCliente(int cod){
+			List<Mascota> lista= mascotaService.listaMascotaByCliente(cod);
+			return lista;
+		}
+		
+		@RequestMapping("/verMisMascotas")
+		public String verCrudMascotas(int cod,HttpServletRequest request) {
+			List<Mascota> lista= mascotaService.listaMascotaByCliente(cod);
+			request.setAttribute("mascotas", lista);
+			request.setAttribute("codCliente", cod);
+			return "misMascotas";
+		}
+		
+		@RequestMapping("/buscarMascotaById")
+		@ResponseBody
+		public Optional<Mascota> buscarMascotaById(int cod){
+			Optional<Mascota> mascota= mascotaService.buscaMascotaPorId(cod);
+			return mascota;
+		}
+		
 		
 		/*@PostMapping("/registrarMascota")
 		public String registraMascota (Mascota obj){
@@ -76,32 +101,29 @@ public class MascotaController {
 			}
 
 			return salida;
-}
+		}
 	
-		/*@RequestMapping("/actualizaMascota")
+		
+		@RequestMapping("/eliminaMascota")
 		@ResponseBody
-		public Map<String, Object> actualizaMascota(Mascota bean){
+		public Map<String, Object> eliminaMascota(int id){
 			Map<String, Object> salida=new HashMap<String, Object>();
-			Optional<Mascota> option = mascotaService.buscaMascotaPorId(bean.getIdmascota());
+			Optional<Mascota> option=mascotaService.buscaMascotaPorId(id);
 			try {
 				if(option.isPresent()) {
-					Producto objSalida= service.mantenerProducto(bean);
-					if(objSalida == null) {
-						salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
-					}else {
-						salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
-					}
+					mascotaService.eliminaMascota(id);
+					salida.put("mensaje", Constantes.MENSAJE_ELI_EXITOSO);
 				}else {
-					salida.put("mensaje", Constantes.MENSAJE_ACT_NO_EXISTE_ID);
-				}			
+					salida.put("mensaje", Constantes.MENSAJE_ELI_NO_EXISTE_ID);
+				}
 			} catch (Exception e) {
-				salida.put("mensaje", Constantes.MENSAJE_ACT_ERROR);
+				salida.put("mensaje", Constantes.MENSAJE_ELI_ERROR);
 			}finally {
-				List<Producto> lista = service.listaProducto();
+				List<Mascota> lista=mascotaService.listaMascotaByCliente(option.get().getCliente().getIdusuario());
 				salida.put("lista", lista);
 			}
 			return salida;
-		}*/
+		}
 		
 			
 

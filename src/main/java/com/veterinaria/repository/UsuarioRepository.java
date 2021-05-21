@@ -14,6 +14,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 	@Query("Select u from Usuario u where rol = :tipo")
 	public abstract List<Usuario> listaAlumnoPorNombreLike(@Param("tipo") String tipo);
 	
+	@Query("Select x from Usuario x where x.correo = :#{#usu.correo} or x.dni = :#{#usu.dni}")
+	public abstract List<Usuario> verificarRegistro(@Param(value = "usu") Usuario bean);
+	
 	@Query("Select x from Usuario x where x.correo = :#{#usu.correo} and x.password = :#{#usu.password}")
 	public abstract Usuario login(@Param(value = "usu") Usuario bean);
 	

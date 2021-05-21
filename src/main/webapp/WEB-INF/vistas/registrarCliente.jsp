@@ -22,8 +22,16 @@
         <link href="lib/slick/slick.css" rel="stylesheet">
         <link href="lib/slick/slick-theme.css" rel="stylesheet">
 
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrapValidator.css"/>
         <!-- Template Stylesheet -->
         <link href="css/style_theme_blue.css" rel="stylesheet">
+        
+          <style type="text/css">
+        	form small{
+        		color:red;
+        	}
+        </style>
     </head>
 
     <body>
@@ -54,10 +62,18 @@
         <!-- Login Start -->
         <div class="login">
             <div class="container-fluid">
+            <c:if test="${requestScope.MENSAJE!=null}">
+			<div class="alert alert-warning alert-dismissible fade show" role="alert" id="success-alert">
+			  <strong></strong> ${requestScope.MENSAJE}
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			</c:if>
+			<c:remove var="CORRECTO"/>
                 <div class="row">
-                    <div class="col-lg-6">    
-                        <div class="register-form">
-                        <form action="registrarCliente" method='post'>
+                    <div class="col-md-6 mx-auto" style="width: 200px;">
+                        <form action="registrarCliente" method="post" id="idRegistrarCliente" class="register-form" data-toggle="validator">
                             <div class="row">
                             	<h4 align="center" class="col-md-12">Datos del Cliente</h4>
                                 <div class="col-md-6">
@@ -69,12 +85,10 @@
 								   	<input class="form-control" id="idApellido" name="apellido" placeholder="Ingrese Apellido">
 	                              </div>
 	                              <div class="col-md-6">
-                         			 <fieldset class="block">
-                         				 <label>Elija un Distrito</label>
-											<select id="idDistrito"  class="input" name="iddistrito">	
-											<option>[ Seleccione ]</option>
-											</select>
-						 			</fieldset>
+                       				<label>Elija un Distrito</label>
+									<select id="idDistrito"  class="form-control" name="iddistrito">	
+										<option>[ Seleccione ]</option>
+									</select>
                         			</div>
 	                              <div class="col-md-6">
 	                                <label for="staticEmail">Direccion</label>
@@ -97,13 +111,12 @@
 									<input class="form-control" type="password" id="idPassword" name="password" placeholder="Ingrese Contraseña"/>
 	                              </div>
                                 <div class="col-md-12">
-                          		<button type="submit" class="btn__submit" id="btnRegistrar">Registrar</button>  		
+                                    <button class="btn border" type="button" id="btnCliente">Registrar</button>
                                 </div>
-                            </div>
+                                </div>
                             </form>
-                        </div>
                     </div>
-                 </div>
+                </div>
             </div>
         </div>
        <!-- Login End -->
@@ -143,6 +156,28 @@
         <script src="lib/easing/easing.min.js"></script>
         <script src="lib/slick/slick.min.js"></script>
         
+             
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	
+	<script src="js/global.js"></script>
+    <script src="popup.js"></script>
+    
+	<script type="text/javascript" src="js/bootstrap.min.js"></script> 
+<!-- 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script> -->
+	<script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrapValidator.js"></script>
+        
+        <script type="text/javascript" src="js/carrito_js.js"></script>
+        <script type="text/javascript" src="js/verCarrito.js"></script>
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         
@@ -168,83 +203,135 @@
 		$("#idRegistrar").submit();
     });
     
-    
-} );      
+    $("#btnCliente").click(function(){
+    	var validator = $('#idRegistrarCliente').data('bootstrapValidator');
+	    validator.validate();
+	    if (validator.isValid()) {
+	    	$.ajax({
+		          type: "POST",
+		          url: "registrarCliente", 
+		          data: $('#idRegistrarCliente').serialize(),
+		          success: function(data){
+		        	 mostrarMensaje(data.mensaje);
+		        	 if(data.state==0){}
+		        	 else{
+		        		 $(location).attr('href',"/verLogin");
+			        	 limpiarFormCliente();
+		        	 }
+		        	 
+		          },
+		          error: function(){
+		        	  mostrarMensaje(MSG_ERROR);
+		          }
+		     });
+		}		    
+	  });
 
-</script>    
-
-<script type="text/javascript">  
-    $(document).ready(function(){    
-
-        $('#idRegistrar').bootstrapValidator({      
-       	 fields:{
-       		 
-       		 Nombre: {
-    	    	selector:'#idNombre',   
-                   validators: {    
-                       notEmpty: {    
-                           message: 'Ingrese nombre'    
-                       },      
-                       regexp: {    
-                           regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\w]+$/,    
-                           message: 'Letras y números'    
-                       },    
-                   }    
-               },
-               Apellido: {
-       	    	selector:'#idApellido',   
-                      validators: {    
-                          notEmpty: {    
-                              message: 'Ingrese apellido'    
-                          },      
-                          regexp: {    
-                              regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\w]+$/,    
-                              message: 'Letras y números'    
-                          },    
-                      }    
-                  },
-                  Distrito: {
-           	    	selector:'#idDistrito',   
-                          validators: {    
-                              notEmpty: {    
-                                  message: 'Elija un distrito'    
-                              },
-                              integer: {       
-                                  message: 'Por favor elija un distrito'    
-                              },    
-                          }    
-                  },
-                 Direccion: {
-          	    	selector:'#idDireccion',   
+    $('#idRegistrarCliente').bootstrapValidator({      
+      	 fields:{
+      		 
+      		 Nombre: {
+   	    	selector:'#idNombre',   
+                  validators: {    
+                      notEmpty: {    
+                          message: 'Ingrese nombre'    
+                      },      
+                      regexp: {    
+                   	   regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\w]+$/,    
+                          message: 'Letras y números'    
+                      },    
+                  }    
+              },
+              Apellido: {
+      	    	selector:'#idApellido',   
+                     validators: {    
+                         notEmpty: {    
+                             message: 'Ingrese apellido'    
+                         },      
+                         regexp: {    
+                             regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\w]+$/,    
+                             message: 'Letras y números'    
+                         },    
+                     }    
+                 },
+                 Distrito: {
+          	    	selector:'#idDistrito',   
                          validators: {    
                              notEmpty: {    
-                                 message: 'Ingrese direccion'    
-                             },      
-                             regexp: {    
-                                 regexp: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s\w]+$/,    
-                                 message: 'Letras y números'    
+                                 message: 'Elija un distrito'    
+                             },
+                             integer: {       
+                                 message: 'Por favor elija un distrito'    
                              },    
                          }    
+                 },
+                Direccion: {
+         	    	selector:'#idDireccion',   
+                        validators: {    
+                            notEmpty: {    
+                                message: 'Ingrese direccion'    
+                            },  
+                        }    
+                    },
+                Telefono: {
+        	    	selector:'#idTelefono',   
+                       validators: {    
+                           notEmpty: {    
+                               message: 'Ingrese telefono'    
+                           },      
+                           regexp: {    
+                               regexp: /^[0-9]{7,9}/, 
+                               	 message: ' '   
+                           },
+                           stringLength:{
+                         	  message: 'Ingrese un numero Fijo o de Celular',
+                         	  min: 7,
+                         	  max: 9
+                           },    
+                       }    
+                   },
+                   DNI: {
+          	    	selector:'#idDni',   
+                         validators: {    
+                             notEmpty: {    
+                                 message: 'Ingrese Dni'    
+                             },      
+                             regexp: {    
+                                 regexp: /^[0-9]{8}/,
+                                 message: ' '
+                             },
+                             stringLength:{
+                           	  message: 'El DNI es de 8 digitos',
+                           	  min: 8,
+                           	  max: 8
+                             },
+                         }    
                      },
-                 Telefono: {
-               	    	selector:'#idTelefono',   
-                              validators: {    
-                                  notEmpty: {    
-                                      message: 'Ingrese telefono'    
-                                  },      
-                                  regexp: {    
-                                      regexp: /^[0-9]{15}/,    
-                                      message: 'Ingrese solo numeros'    
-                                  },    
-                              }    
-                          },
-               
-            },
-          
-            }
-       	 }
-       }); 
-    });
+                     Correo: {
+                	    	selector:'#idCorreo',   
+                               validators: {    
+                                   notEmpty: {    
+                                       message: 'Ingrese telefono'    
+                                   },      
+                                   emailAddress: {   
+                                       message: 'Ingrese un correo valido'    
+                                   },    
+                               }    
+                           },
+                           Password: {
+                      	    	selector:'#idPassword',   
+                                     validators: {    
+                                         notEmpty: {    
+                                             message: 'Ingrese telefono'    
+                                         },
+                                     }    
+                                 }
+              
+           }
+         
+      	 });  
+    
+  });
  </script>    
 </body>
     

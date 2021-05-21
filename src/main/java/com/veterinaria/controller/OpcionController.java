@@ -33,10 +33,8 @@ public class OpcionController {
 	*/
 	@RequestMapping("/")
 	public String verInicio(ModelMap flash) {
-		//Map<String, Object> salida=new HashMap<String,Object>();
 		List<Producto> productos= productoService.listaProducto();
 		List<Servicio> servicios= servicioService.listaServicios();
-		//flash.addAttribute("CONFIRMA", "Confirmo entrega");
 		flash.addAttribute("LISTAPRODUCTOS", productos);
 		flash.addAttribute("LISTASERVICIOS", servicios);
 		return "index";
@@ -97,7 +95,9 @@ public class OpcionController {
 	}
 	
 	@RequestMapping("/verListaProductos")
-	public String verListaProductos() {
+	public String verListaProductos(ModelMap flash) {
+		List<Producto> productos= productoService.listaProducto();
+		flash.addAttribute("LISTAPRODUCTOS", productos);
 		return "listaProductos";
 	}
 	
@@ -107,7 +107,9 @@ public class OpcionController {
 	}
 	
 	@RequestMapping("/verListaServicios")
-	public String verListaServicios() {
+	public String verListaServicios(ModelMap flash) {
+		List<Servicio> servicios= servicioService.listaServicios();
+		flash.addAttribute("LISTASERVICIOS", servicios);
 		return "listaServicios";
 	}
 	

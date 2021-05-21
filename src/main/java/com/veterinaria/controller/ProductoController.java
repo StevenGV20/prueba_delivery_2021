@@ -39,6 +39,39 @@ public class ProductoController {
 		return lista;
 	}
 	
+	@RequestMapping("/listaProductosByNombre")
+	@ResponseBody
+	public List<Producto> listaProductosByNombre(String nombre){
+		List<Producto> lista= service.listaProductoByNombre(nombre);
+		return lista;
+	}
+	
+	@RequestMapping("/listaProductosByNombreAaZ")
+	@ResponseBody
+	public List<Producto> listaProductosByAaZ(){
+		List<Producto> lista= service.listaProductoByNombreAaZ();
+		return lista;
+	}
+	@RequestMapping("/listaProductosByNombreZaA")
+	@ResponseBody
+	public List<Producto> listaProductosByNombreZaA(){
+		List<Producto> lista= service.listaProductoByNombreZaA();
+		return lista;
+	}
+	@RequestMapping("/listaProductoByPrecioMenorMayor")
+	@ResponseBody
+	public List<Producto> listaProductoByPrecioMenorMayor(){
+		List<Producto> lista= service.listaProductoByPrecioMenorMayor();
+		return lista;
+	}
+	@RequestMapping("/listaProductoByPrecioMayoraMenor")
+	@ResponseBody
+	public List<Producto> listaProductoByPrecioMayoraMenor(){
+		List<Producto> lista= service.listaProductoByPrecioMayoraMenor();
+		return lista;
+	}
+	
+	
 	@RequestMapping("/buscaProductoXID")
 	@ResponseBody
 	public Optional<Producto> buscaProductoXID(int id){

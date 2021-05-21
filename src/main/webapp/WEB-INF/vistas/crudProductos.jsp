@@ -327,25 +327,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">Ã</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+
     
     <script src="assets/js/browser.min.js"></script>
     <script src="assets/js/breakpoints.min.js"></script>
@@ -470,7 +452,7 @@ function listarTabla(){
 		$.each(lista,function(index,item){
 			$("#idTableProductos tbody").append("<tr><td>"+item.idproducto+"</td><td>"+item.nombre+"</td><td style='width:40%;'>"+item.descripcionHTML+"</td><td>"+item.stock+"</td><td>"+
 					item.precio+"</td><td>"+item.idcategoria.nombre+"</td><td><img src='img/"+item.foto1+
-					"' class='' style='width:100%;height:200px' alt='No existe'/></td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
+					"' class='' style='width:100%;height:200px' alt='No existe'/></td><td><a href='verDetalleProducto?id="+item.idproducto+"' target='_blank'><i class='fas fa-eye'></i></a></td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
 		})
 		  $("#idTableProductos").DataTable();
     })

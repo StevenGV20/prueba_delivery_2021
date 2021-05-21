@@ -24,4 +24,6 @@ public class Especie {
 	@Column(name = "idespecie")
 	private int idespecie;
 	private String nombre;
+	
+
 }

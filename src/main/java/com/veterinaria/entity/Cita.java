@@ -17,44 +17,47 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.veterinaria.util.FunctionUtil;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table (name = "mascota")
-public class Mascota {
+@Table(name = "cita")
+public class Cita {
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column (name = "idmascota")
-	private int idmascota;
-	private String nombre;
-	private String raza;
-	private String edad;
-	private String sexo;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idcita")
+	private int idcita;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date fechaRegistro=new Date();
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date fechaNacimiento;
+	private Date fechaAtencion;
 	
-	public String getStrFechaNacFormateada() {
-		return FunctionUtil.toFechaString(fechaNacimiento);
-	}
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "HH:mm")
+	private Date horaAtencion;
+	
+	private String observacion;
+	private String estado;
+
+	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idservicio")
+	private Servicio servicio;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idcliente")
-	private Usuario cliente;
+	private Usuario cliente;;
 	
-	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idespecie")
-	private Especie idespecie;
 }
