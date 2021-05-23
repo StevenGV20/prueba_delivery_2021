@@ -11,8 +11,9 @@ import com.veterinaria.entity.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 	
-	@Query("Select u from Usuario u where rol = :tipo")
-	public abstract List<Usuario> listaAlumnoPorNombreLike(@Param("tipo") String tipo);
+	
+	@Query("Select u from Usuario u where u.idrol.idrol != 1")
+	public abstract List<Usuario> listaPersonalTrabajo();
 	
 	@Query("Select x from Usuario x where x.correo = :#{#usu.correo} or x.dni = :#{#usu.dni}")
 	public abstract List<Usuario> verificarRegistro(@Param(value = "usu") Usuario bean);

@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+    <c:if test="${sessionScope.objUsuario.idrol.idrol==null}">
+    	<c:redirect url="/"/>
+    </c:if>
+    <c:if test="${sessionScope.objUsuario.idrol.idrol==1}">
+    	<c:redirect url="/"/>
+    </c:if>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,7 +105,7 @@
 						</div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="tbPersonal" width="100%" cellspacing="0">
                                     <thead>
                                          <tr>
 								            <th>ID</th>
@@ -107,8 +114,8 @@
 								            <th>Telefono</th>
 								            <th>Dni</th>
 								            <th>Correo</th>
+								            <th>Distrito</th>
 								            <th>Cargo</th>
-								            <th></th>
 								            <th></th>
 								            <th></th>
 								        </tr>
@@ -121,25 +128,14 @@
 								            <th>Telefono</th>
 								            <th>Dni</th>
 								            <th>Correo</th>
+								            <th>Distrito</th>
 								            <th>Cargo</th>
-								            <th></th>
 								            <th></th>
 								            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-								            <td class="">1</td>
-								            <td class="">Alan</td>
-								            <td class="">Smith</td>
-								            <td class="">999555666</td>
-								            <td class="">00552266</td>
-								            <td class="">alan@gmail.com</td>
-								            <td class="">Veterianrio</td>
-								            <td class=""><a href="#" id="btnDetalles"  class="btn btn-info" data-toggle="modal" data-target="#nuevo">Detalles</a></td>
-								            <td class=""><a href="#" id="btnEditar"  class="btn btn-success" data-toggle="modal" data-target="#nuevo">Editar</a></td>
-								            <td class=""><a href="#" id="btnEliminar"  class="btn btn-danger" data-toggle="modal" data-target="#eliminar">Eliminar</a></td>
-								        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -166,59 +162,62 @@
                       <div class="row">
                         <div class="col-md-6">
                           <fieldset class="form-group">
-                         	
-							<input type="text" class="input"  name="" id="idNombre" placeholder="Ingresar nombre">
+							<input type="text" class="input" hidden="" name="idusuario" value="0" id="idCodigo" placeholder="Ingresar nombre">
+							<input type="text" class="input"  name="nombre" id="idNombre" placeholder="Ingresar nombre">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset class="form-group">
                          	
-							<input type="text" class="input"  name="" id="idApellido" placeholder="Ingresar apellidos">
+							<input type="text" class="input"  name="apellido" id="idApellido" placeholder="Ingresar apellidos">
                           </fieldset>
                         </div>
                         <div class="col-md-12">
                           <fieldset class="form-group">
                          	
-							<input type="text" class="input"  name="" id="idDireccion" placeholder="Ingresar direccion">
+							<input type="text" class="input"  name="direccion" id="idDireccion" placeholder="Ingresar direccion">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset class="form-group">
                          	
-							<input type="text" class="input"  name="" id="idTelefono" placeholder="Ingresar telefono">
+							<input type="text" class="input"  name="telefono" id="idTelefono" placeholder="Ingresar telefono">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset class="form-group">                         	
-							<input type="text" class="input"  name="" id="idDni" placeholder="Ingresar dni">
+							<input type="text" class="input"  name="dni" id="idDni" placeholder="Ingresar dni">
                           </fieldset>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                           <fieldset>                           	
-							<input type="text" class="input"  name="" id="idCorreo" placeholder="Ingresar Correo">
+							<input type="text" class="input"  name="correo" id="idCorreo" placeholder="Ingresar Correo">
+                          </fieldset>
+                        </div>
+                        <div class="col-md-6" id="idDivPassword">
+                          <fieldset class="form-group">                         	
+							<input type="password" class="input"  name="password" id="idPassword" placeholder="Ingresar password">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset>
-							<select id="idDistrito"  class="input" name="distrito">	
+                          	<label>Distrito:</label>
+							<select id="idDistrito"  class="input" name="iddistrito">	
 								<option>[ Seleccione ]</option>
-								<option value="0">Caninos</option>
-								<option value="1">Felinos</option>
 							</select>
 						 </fieldset>
                         </div>
                         <div class="col-md-6">
                           <fieldset>
-							<select id="idRol"  class="input" name="rol">	
+                          	<label>Cargo:</label>
+							<select id="idRol"  class="input" name="idrol">	
 								<option>[ Seleccione ]</option>
-								<option value="0">Caninos</option>
-								<option value="1">Felinos</option>
 							</select>
 						 </fieldset>
                         </div>
                        
                         <div class="col-md-12 mt-2">
-                          <button type="submit" class="btn__submit" id="btnRegistrar">Registrar</button>  		
+                          <button type="button" class="btn__submit" id="btnRegistrar">Registrar</button>  		
         				  <button type="button" class="btn__reset" id="btnCancelar" data-dismiss="modal">Cancelar</button>
                         </div>
                         
@@ -232,6 +231,33 @@
     </div>
   </div>
 </div>
+
+
+
+<div class="modal fade bd-example-modal-lg" id="eliminar"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+      	 <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de eliminar?</h5>
+      </div>
+      <!-- Modal body -->
+        <div class="modal-body">
+        	¿Seguro de eliminar al Trabajador? 
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <form action="" method="post" name="formDelete" id="id_form_elimina">	
+		  	  <input type="hidden" id="idEliminar" name="id">
+	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	          <button type="button" id="btn_eliminar" data-dismiss="modal" class="btn btn-primary">Eliminar</button>
+            </form>
+        </div>
+        
+    </div>
+  </div>
+</div>
+
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -299,37 +325,63 @@
     <script src="js/demo/datatables-demo.js"></script>
     
     <script src="popup.js"></script>
+    <script src="js/global.js"></script>
    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
     <script type="text/javascript">
 
-$(document).on("click","#btnDetalles",(function(){
-	var cod=$(this).parents('tr').find("td")[0].innerHTML;
-	$("#titleModal").text("Detalles del Producto");
-	$.getJSON("",{codigo:cod},function(data){
-		
-	})
-	bloquear(true);
-}));
+    $(document).on("click","#btnEditar",(function(){
+    	var cod=$(this).parents('tr').find("td")[0].innerHTML;
+    	$("#idDivPassword").hide();
+    	$("#idCorreo").parent().parent().attr("class","col-md-12");
+    	$.getJSON("buscaUsuarioXID",{id:cod},function(data){
+    		$("#idCodigo").val(data.idusuario);
+    		$("#idNombre").val(data.nombre);
+    		$("#idApellido").val(data.apellido);
+    		$("#idDireccion").val(data.direccion);
+    		$("#idTelefono").val(data.telefono);
+    		$("#idDni").val(data.dni);
+    		$("#idCorreo").val(data.correo);
+    		$("#idPassword").val(data.password);
+    		$("#idDistrito").val(data.iddistrito.iddistrito);
+    		$("#idRol").val(data.idrol.idrol);
+    	})
+    }));
 
-$(document).on("click","#btnEditar",(function(){
-	var cod=$(this).parents('tr').find("td")[0].innerHTML;
-	$("#titleModal").text("Editar Area");
-	$.getJSON("",{codigo:cod},function(data){
-		
-	})
-	bloquear(false);
-}));
-
-$(document).on("click","#btnEditar",(function(){
+$(document).on("click","#btnEliminar",(function(){
 	var cod=$(this).parents('tr').find("td")[0].innerHTML;
 	$("#idEliminar").val(cod);
 }));
 
 
-function bloquear(b){
-	$("#idRegistrar input").prop("disabled",b);
-	$("#idRegistrar select").prop("disabled",b);
-	$("#btnRegistrar").prop("disabled",b);
+
+
+function listarTablas(){
+	$.getJSON("listaPersonalTrabajo",{},function(listar, q, t){
+		console.log(listar);
+		
+		var editar="<button type='button' class='btn btn-success' id='btnEditar' data-toggle='modal'  data-target='#nuevo'>Editar</button>";
+		var eliminar="<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#eliminar' id='btnEliminar'>Eliminar</button>";
+
+		$("#tbPersonal tbody").empty();
+		$.each(listar,function(index,item){
+			$("#tbPersonal tbody").append("<tr><td>"+item.idusuario+"</td><td>"+item.nombre+"</td><td>"+item.apellido+"</td><td>"+item.dni+
+					"</td><td>"+item.telefono+"</td><td>"+item.correo+"</td><td>"+item.iddistrito.nombre+
+					"</td><td>"+item.idrol.nombre+"</td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
+		})
+		  $("#tbPersonal").DataTable();
+    })
+	
+}
+
+function limpiarForm(){
+	//bloquear(false);
+	$("#idRegistrar").trigger("reset");
+	$("#idRegistrar").data("bootstrapValidator").resetForm(true);
+	$("#idDistrito").val("[ Seleccione ]");
+	$("#idRol").val("[ Seleccione ]");
+	$("#idCodigo").val("0");
+	$("#idDivPassword").show();
+	$("#idCorreo").parent().parent().attr("class","col-md-6");
 }
 
 $(document).ready( function () {
@@ -340,13 +392,62 @@ $(document).ready( function () {
     
     //alert("Hola");
     
+    listarTablas();
     $("#btnCancelar").click(function(){
-		//alert("hola");
-		bloquear(false);
-    	$("#idRegistrar").trigger("reset");
-		$("#idRegistrar").data("bootstrapValidator").resetForm(true);
-		$("#idCodigo").val("0");
-		$("#idRegistrar select").val("[ Seleccione ]");
+    	limpiarForm();
+    });
+
+    $.getJSON("listaDistritos",{},function(data, q,t){
+        console.log(data);
+		$.each(data,function(index,item){
+			$("#idDistrito").append("<option value='"+item.iddistrito+"'>"+item.nombre+"</option>");
+		})
+    })
+    
+    $.getJSON("listaRol",{},function(data, q,t){
+        console.log(data);
+		$.each(data,function(index,item){
+			if(item.idrol!=1)
+				$("#idRol").append("<option value='"+item.idrol+"'>"+item.nombre+"</option>");
+		})
+    })
+
+    $("#btnRegistrar").click(function(){
+    	var validator = $('#idRegistrar').data('bootstrapValidator');
+	    validator.validate();
+	    if (validator.isValid()) {
+	    	$.ajax({
+		          type: "POST",
+		          url: "registrarUsuario", 
+		          data: $('#idRegistrar').serialize(),
+		          success: function(data){
+		        	listarTablas();
+		        	limpiarForm();
+		        	mostrarMensaje(data.mensaje);
+		        	$("#nuevo").on("hide",function(){console.log('hide');});
+		          },
+		          error: function(){
+		        	  mostrarMensaje(MSG_ERROR);
+		          }
+		     });
+		}
+		    
+	  });
+    
+    $("#btn_eliminar").click(function(){
+   	 $("#eliminar").modal("hide");
+    	$.ajax({
+            type: "POST",
+            url: "eliminaUsuario", 
+            data: $('#id_form_elimina').serialize(),
+            success: function(data){           	 
+	           	 listarTablas();
+	           	 mostrarMensaje(data.mensaje);
+            },
+            error: function(){
+          	  mostrarMensaje(MSG_ERROR);
+            }
+       });
     });
     
 } );
@@ -397,7 +498,7 @@ $(document).ready( function () {
                           message: 'Ingrese Telefono'    
                       },      
                       regexp: {    
-                    	  regexp: /^[0-9]{7,15}$/,  
+                    	  regexp: /^[0-9]{7,9}$/,  
                           message: 'Ingresar un numero entre 7 y 9 digitos'    
                       },     
                   }    

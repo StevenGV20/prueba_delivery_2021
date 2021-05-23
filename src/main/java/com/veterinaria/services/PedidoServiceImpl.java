@@ -1,6 +1,9 @@
 package com.veterinaria.services;
 
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +40,31 @@ public class PedidoServiceImpl implements PedidoService {
 		}
 		
 		return obj;
+	}
+
+	@Override
+	public List<Pedido> listaPedido() {
+		return pedidoRepository.findAll();
+	}
+
+	@Override
+	public List<Pedido> listaPedidoByCliente(int usu) {
+		return pedidoRepository.listaPedidoByCliente(usu);
+	}
+
+	@Override
+	public List<Pedido> listaPedidoByEstado(String estado) {
+		return pedidoRepository.listaPedidoByEstado(estado);
+	}
+
+	@Override
+	public Pedido updateEstadoPedido(Pedido bean) {
+		return pedidoRepository.actualizaEstadoPedido(bean.getEstado(), bean.getIdpedido());
+	}
+
+	@Override
+	public List<DetallePedido> buscaDetallePedidoById(int id) {
+		return detalleRepository.buscaDetallePedidoById(id);
 	}
 
 }

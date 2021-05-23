@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.veterinaria.entity.Producto;
 import com.veterinaria.entity.Servicio;
+import com.veterinaria.services.MascotaService;
 import com.veterinaria.services.ProductoService;
 import com.veterinaria.services.ServicioService;
 
@@ -24,6 +25,7 @@ public class OpcionController {
 	
 	@Autowired
 	private ServicioService servicioService;
+	
 	
 	//VISTA CLIENTE
 	/*@RequestMapping("/index")
@@ -56,6 +58,7 @@ public class OpcionController {
 	public String verTracking() {
 		return "tracking";
 	}
+	
 		
 	@RequestMapping("/verRegistroCliente")
 	public String verRegistroCliente() {

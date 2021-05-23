@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+	xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8">
         <title>Veterinaria</title>
@@ -112,6 +113,7 @@
                     <h1>Nuestro Productos</h1>
                 </div>
                 <div class="row align-items-center product-slider product-slider-4" id="ltProductos">
+                
                     <c:forEach items="${sessionScope.LISTAPRODUCTOS}" var="item">
                     	<div class="col-lg-3">
 	                        <div class="product-item">
@@ -142,6 +144,8 @@
 	                        </div>
 	                    </div>
                     </c:forEach>
+                    
+                    
                 </div>
             </div>
         </div>
@@ -172,6 +176,7 @@
                     <h1>Nuestros Servicios</h1>
                 </div>
                 <div class="row align-items-center product-slider product-slider-4" id="ltServicios">
+                    
                     <c:forEach items="${sessionScope.LISTASERVICIOS}" var="item">
                     	<div class="col-lg-3">
 	                        <div class="product-item">

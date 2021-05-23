@@ -34,6 +34,14 @@ public class UsuarioController {
 			List<Usuario> lista= service.listaUsuario();
 			return lista;
 		}
+		
+		@RequestMapping("/listaPersonalTrabajo")
+		@ResponseBody
+		public List<Usuario> listaPersonalTrabajo(){
+			List<Usuario> lista= service.listaPersonalTrabajo();
+			return lista;
+		}
+		
 		@RequestMapping("/listaRol")
 		@ResponseBody
 		public List<Rol> listaRol(){
@@ -54,12 +62,23 @@ public class UsuarioController {
 			Map<String, Object> salida = new HashMap<String, Object>();
 			Usuario objSalida = null;
 			try {
-				objSalida = service.registraUsuario(obj);
-				if (objSalida == null) {
-					salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+				Optional<Usuario> option = service.buscaUsuarioPorId(obj.getIdusuario());
+				if(!option.isPresent()) {
+					List<Usuario> verific=service.verificarRegistro(obj);
+					if(!verific.isEmpty()) {
+						salida.put("state",0);
+						salida.put("mensaje", Constantes.MENSAJE_REG_YA_EXISTE+" Verifique sus datos por favor");
+					}else {
+						objSalida = service.registraUsuario(obj);
+						if (objSalida == null) {
+							salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+						}else {
+							salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
+						}
+					}
 				}else {
-						salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
-						//return "redirect:/url";
+					service.registraUsuario(obj);
+					salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
 				}
 			} catch (Exception e) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);

@@ -87,6 +87,11 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return repository.verificarRegistro(bean);
 	}
 
+	@Override
+	public List<Usuario> listaPersonalTrabajo() {
+		return repository.listaPersonalTrabajo();
+	}
+
 
 
 }

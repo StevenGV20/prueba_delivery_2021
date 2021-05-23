@@ -1,5 +1,6 @@
 package com.veterinaria.entity;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
 import javax.persistence.EmbeddedId;
@@ -19,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "detalle_pedido_productos")
-public class DetallePedido {
+public class DetallePedido implements Serializable{
 	@EmbeddedId
 	private DetallePedidoPK detallePK;
 	

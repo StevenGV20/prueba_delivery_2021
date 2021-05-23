@@ -3,9 +3,12 @@ package com.veterinaria.controller;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,33 @@ public class PedidoController {
 	@Autowired
 	private PedidoService pedidoService;
 	
+	/*
+	@RequestMapping("/listaMisPedidos")
+	@ResponseBody
+	public List<Pedido> listaPedidosByCliente(HttpSession session){
+		
+		return lista;
+	}*/
+	
+	@RequestMapping("/verMisPedidos")
+	public String verMisPedidos(HttpSession session,HttpServletRequest request) {
+		Usuario user=(Usuario)session.getAttribute("objUsuario");
+		List<Pedido> lista= pedidoService.listaPedidoByCliente(user.getIdusuario());
+		request.setAttribute("pedidos", lista);
+		return "misPedidos";
+	}
+	
+	@RequestMapping("/detallePedidoById")
+	@ResponseBody
+	public List<DetallePedido>  detallePedidoById(int id) {
+		List<DetallePedido> lista=pedidoService.buscaDetallePedidoById(id);
+		for(DetallePedido det:lista){
+			System.out.println(det.getPedido().getIdpedido());
+		}
+		return lista;
+	}
+	
+	
 	@RequestMapping("/procesarCarrito")
 	@ResponseBody
 	public Map<String, Object> procesarCarrito(String carrito,HttpSession session)  {
@@ -48,16 +78,6 @@ public class PedidoController {
 			pk.setIdproducto(det.getIdproducto());
 			
 			DetallePedido dp=new DetallePedido();
-		   /*
-			Pedido ped=new Pedido();
-			ped.setIdpedido(4);
-			
-			Producto pro=new Producto();
-			pro.setIdproducto(det.getIdproducto());
-			
-			dp.setProducto(pro);
-			dp.setPedido(ped);
-			*/
 			dp.setDetallePK(pk);
 			dp.setCantidad(det.getCantidad());
 			dp.setPrecioTotal(det.getPrecioTotal());
@@ -67,7 +87,7 @@ public class PedidoController {
 		}
 	    System.out.println(imp);
 		if(imp>500)
-			des=0.05;
+			des=0.05*imp;
 		igv=imp*0.18;
 		mon=imp+igv-des;
 		System.out.println("IM:"+imp+"I:"+igv+"D:"+des+"M:"+mon);

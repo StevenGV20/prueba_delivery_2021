@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+    <c:if test="${sessionScope.objUsuario.idrol.idrol==null}">
+    	<c:redirect url="/"/>
+    </c:if>
+    <c:if test="${sessionScope.objUsuario.idrol.idrol==1}">
+    	<c:redirect url="/"/>
+    </c:if>
 <!DOCTYPE html>
 <html lang="en">
 

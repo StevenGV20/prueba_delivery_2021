@@ -62,9 +62,9 @@ public class ClienteController {
 					salida.put("state",0);
 					salida.put("mensaje", Constantes.MENSAJE_REG_YA_EXISTE+" Verifique sus datos por favor");
 				}else {
-					clienteService.registrarCiente(obj);
+					Usuario u=clienteService.registrarCiente(obj);
 					salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
-					Usuario u=clienteService.ultimoClienteRegistrado();
+					//Usuario u=clienteService.ultimoClienteRegistrado();
 					salida.put("USUARIO",u);						
 				}			
 			}else {

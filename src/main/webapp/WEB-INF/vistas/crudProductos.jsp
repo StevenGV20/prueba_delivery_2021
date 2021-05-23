@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+    <c:if test="${sessionScope.objUsuario.idrol.idrol==null}">
+    	<c:redirect url="/"/>
+    </c:if>
+    <c:if test="${sessionScope.objUsuario.idrol.idrol==1}">
+    	<c:redirect url="/"/>
+    </c:if>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -80,7 +86,7 @@
   	}
   	
   	.card-img-top{
-  		width:50%;
+  		width:100%;
   	}
   	
   </style>
@@ -152,6 +158,7 @@
 								            <th>Stock</th>
 								            <th>Precio(S/.)</th>
 								            <th>Categoria</th>
+								            <th>Imagen</th>
 								            <th></th>
 								            <th></th>
 								            <th></th>
@@ -165,6 +172,7 @@
 								            <th>Stock</th>
 								            <th>Precio(S/.)</th>
 								            <th>Categoria</th>
+								            <th>Imagen</th>
 								            <th></th>
 								            <th></th>
 								            <th></th>
@@ -450,9 +458,9 @@ function listarTabla(){
 		var editar="<button type='button' class='btn btn-success' id='btnEditar' data-toggle='modal'  data-target='#nuevo'>Editar</button>";
 		var eliminar="<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#eliminar' id='btnEliminar'>Eliminar</button>";
 		$.each(lista,function(index,item){
-			$("#idTableProductos tbody").append("<tr><td>"+item.idproducto+"</td><td>"+item.nombre+"</td><td style='width:40%;'>"+item.descripcionHTML+"</td><td>"+item.stock+"</td><td>"+
+			$("#idTableProductos tbody").append("<tr><td>"+item.idproducto+"</td><td>"+item.nombre+"</td><td style='width:30%;'>"+item.descripcionSimple+"</td><td>"+item.stock+"</td><td>"+
 					item.precio+"</td><td>"+item.idcategoria.nombre+"</td><td><img src='img/"+item.foto1+
-					"' class='' style='width:100%;height:200px' alt='No existe'/></td><td><a href='verDetalleProducto?id="+item.idproducto+"' target='_blank'><i class='fas fa-eye'></i></a></td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
+					"' class='card-img-top' alt='No existe'/></td><td><a href='verDetalleProducto?id="+item.idproducto+"' target='_blank'><i class='fas fa-eye'></i></a></td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
 		})
 		  $("#idTableProductos").DataTable();
     })

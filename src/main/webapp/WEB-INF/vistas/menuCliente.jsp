@@ -68,7 +68,7 @@
                             <a href="verListaServicios" class="nav-item nav-link">Servicios</a>
 	                       	<a href="verRegistroConsultas" class="nav-item nav-link">Consultas</a>
 	                            <c:if test="${sessionScope.objUsuario.idrol.idrol==1}">
-		                            <a href="verTracking" class="nav-item nav-link">Mis Ordenes</a>
+		                            <a href="verMisPedidos" class="nav-item nav-link">Mis Ordenes</a>
 		                            <a href="verMisMascotas?cod=${objUsuario.idusuario}" class="nav-item nav-link">Mis Mascotas</a>
 		                            <a href="verRegistroIncidencia" class="nav-item nav-link">Incidencias</a>
 		                            <a href="verRegistroPedido" class="nav-item nav-link">Pedidos Mayoristas</a>
@@ -125,7 +125,13 @@
 		                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">${sessionScope.objUsuario.nombre} ${sessionScope.objUsuario.apellido}</a>
 		                                <div class="dropdown-menu">
 		                                    <c:if test="${sessionScope.objUsuario!=null}">
-		                                   		<a href="verInicioAdmin" class="nav-link dropdown-item">Ir a Administracion</a>
+			                                    <c:if test="${sessionScope.objUsuario.idrol.idrol!=1}">
+		                                   			<a href="verInicioAdmin" class="nav-link dropdown-item">Ir a Administracion</a>
+											    </c:if>
+											    <c:if test="${sessionScope.objUsuario.idrol.idrol==1}">
+		                                   			<a href="verMisMascotas?cod=${sessionScope.objUsuario.idusuario}" class="nav-link dropdown-item">Ir a Administracion</a>
+											    </c:if>
+		                                   		
 		                                    	<a href="verLogin" class="nav-link dropdown-item">Mi Perfil</a>
 		                                   		<a href="logout" class="nav-link dropdown-item">Cerrar Session</a>
 		                                    </c:if>

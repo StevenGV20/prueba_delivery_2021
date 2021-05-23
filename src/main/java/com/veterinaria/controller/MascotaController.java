@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,11 +47,20 @@ public class MascotaController {
 			return lista;
 		}
 		
-		@RequestMapping("/verMisMascotas")
-		public String verCrudMascotas(int cod,HttpServletRequest request) {
+		@RequestMapping("/verMascotasByCliente")
+		public String verMascotasByCliente(int cod,HttpServletRequest request) {
 			List<Mascota> lista= mascotaService.listaMascotaByCliente(cod);
 			request.setAttribute("mascotas", lista);
 			request.setAttribute("codCliente", cod);
+			return "misMascotas";
+		}
+		
+		@RequestMapping("/verMisMascotas")
+		public String verCrudMascotas(HttpSession session,HttpServletRequest request) {
+			Usuario usu=(Usuario) session.getAttribute("objUsuario");
+			List<Mascota> lista= mascotaService.listaMascotaByCliente(usu.getIdusuario());
+			request.setAttribute("mascotas", lista);
+			request.setAttribute("codCliente", usu.getIdusuario());
 			return "misMascotas";
 		}
 		

@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+    <c:if test="${sessionScope.objUsuario.idrol.idrol==null}">
+    	<c:redirect url="/"/>
+    </c:if>
+    <c:if test="${sessionScope.objUsuario.idrol.idrol==1}">
+    	<c:redirect url="/"/>
+    </c:if>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -312,7 +319,6 @@
 
 $(document).on("click","#btnEditar",(function(){
 	var cod=$(this).parents('tr').find("td")[0].innerHTML;
-	$("#titleModal").text("Editar Area");
 	$.getJSON("buscaUsuarioXID",{id:cod},function(data){
 		$("#idCodigo").val(data.idusuario);
 		$("#idNombre").val(data.nombre);
@@ -359,7 +365,7 @@ function listarTablas(){
 		$.each(listar,function(index,item){
 			$("#tbClientes tbody").append("<tr><td>"+item.idusuario+"</td><td>"+item.nombre+"</td><td>"+item.apellido+"</td><td>"+item.dni+
 					"</td><td>"+item.telefono+"</td><td>"+item.correo+"</td><td>"+item.iddistrito.nombre+
-					"</td><td><a href='verMisMascotas?cod="+item.idusuario+"' class='btn btn-warning' target='_blank'>Admin. Mascotas</a></td><td>"+
+					"</td><td><a href='verMascotasByCliente?cod="+item.idusuario+"' class='btn btn-warning' target='_blank'>Admin. Mascotas</a></td><td>"+
 					editar+"</td><td>"+eliminar+"</td></tr>");
 		})
 		  $("#tbClientes").DataTable();
