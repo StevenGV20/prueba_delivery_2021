@@ -99,13 +99,19 @@ public class MascotaController {
 			Map<String, Object> salida = new HashMap<String, Object>();
 			Mascota objSalida = null;
 			try {
-				objSalida = mascotaService.mantenerMascota(obj);
-				if (objSalida == null) {
-					salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
-				}else {
+				Optional<Mascota> option=mascotaService.buscaMascotaPorId(obj.getIdmascota());
+				if(!option.isPresent()) {
+					objSalida = mascotaService.mantenerMascota(obj);
+					if (objSalida == null) {
+						salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+					}else {
 						salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
-						//return "redirect:/verCrudMascotas";
+					}					
+				}else {
+					objSalida = mascotaService.mantenerMascota(obj);
+					salida.put("mensaje", Constantes.MENSAJE_ACT_EXITOSO);
 				}
+					
 			} catch (Exception e) {
 				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
 			}

@@ -32,7 +32,7 @@ public class Servicio {
 	private double precio;
 	private String descripcion;
 	private String horario;
-	private String fecha;
+	//private String fecha;
 	private String foto;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})

@@ -96,9 +96,9 @@
                                            <input type="text" value="${requestScope.objProducto.idproducto}" hidden="" id="idCodigo" name="idproducto">
                                             <h4>Cantidad:</h4>
                                             <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                <button class="btn-minus cantidad"><i class="fa fa-minus"></i></button>
                                                 <input type="text" value="1" id="idCantidad" name="cantidad">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                                <button class="btn-plus cantidad"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
                                         <div class="p-size">
@@ -462,7 +462,14 @@
         
         <script type="text/javascript">
 
-
+	$(document).ready(function(){
+		$(".cantidad").click(function(){
+			var can=$("#idCantidad").val();
+			if(can<1)
+				$("#idCantidad").val(1);
+			
+		});
+	});
 	 
         	
         </script>

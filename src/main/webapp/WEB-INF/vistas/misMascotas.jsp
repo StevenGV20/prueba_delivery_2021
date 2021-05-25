@@ -171,19 +171,22 @@
                     <form  method="post" action="" id="idRegistrar" data-toggle="validator" class="mt-3 form-horizontal">
                       <div class="row">
                         <div class="col-md-6">
-                          <fieldset class="form-group">
+                          <fieldset class="form-group">                           	
+                          	<label>Nombre:</label>
                          	<input type="text" class="input" value="0"  name="idmascota" id="idCodigo" hidden="">
                          	<input type="number" class="input"  name="cliente.idusuario" id="idCodCliente" hidden="" value="${requestScope.codCliente}">
                           	<input type="text" class="input"  name="nombre" id="idNombre" placeholder="Ingresar nombre">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
-                          <fieldset>                           	
+                          <fieldset>                            	
+                          	<label>Raza:</label>                          	
 							<input type="text" class="input"  name="raza" id="idRaza" placeholder="Ingresar Raza">
                           </fieldset>
                         </div>
                         <div class="col-md-6">
-                          <fieldset>                           	
+                          <fieldset>                            	
+                          	<label>Edad:</label>                          	
 							<input type="text" class="input"  name="edad" id="idEdad" placeholder="Ingresar Edad">
                           </fieldset>
                         </div>
@@ -212,7 +215,7 @@
 						 </fieldset>
                         </div>                       
                         <div class="col-md-12 mt-2">
-                          <button type="submit" class="btn__submit" id="btnRegistrar">Registrar</button>  		
+                          <button type="button" class="btn__submit" id="btnRegistrar">Registrar</button>  		
         				  <button type="button" class="btn__reset" id="btnCancelar" data-dismiss="modal">Cancelar</button>
                         </div>
                         
@@ -345,9 +348,10 @@ $(document).on("click","#btnEditar",(function(){
 		$("#idCodCliente").val(data.cliente.idusuario);
 		$("#idNombre").val(data.nombre);
 		$("#idEdad").val(data.edad);
+		$("#idRaza").val(data.raza);
 		$("#idFechaNac").val(data.fechaNacimiento);
 		$("#idSexo").val(data.sexo);
-		$("#idEspecie").val(data.idespcie.idespecie);
+		$("#idEspecie").val(data.idespecie.idespecie);
 	})
 	//bloquear(false);
 }));
@@ -365,6 +369,7 @@ function bloquear(b){
 }
 
 function listarMascotas(){
+	$('#dataTable tbody').append('<tr><td class="loading text-center mb-5" colspan="10"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</td> </tr>');
 	var cod=$("#idCodCliente").val();
 	$.getJSON("listaMascotasByCliente",{cod:cod},function(listar, q, t){
 		console.log(listar);

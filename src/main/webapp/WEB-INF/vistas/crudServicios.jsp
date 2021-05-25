@@ -142,8 +142,8 @@
 								            <th>ID</th>
 								            <th>Nombre</th>
 								            <th>Descripcion</th>
-								            <th>Precio(S/.)</th>
 								            <th>Horario</th>
+								            <th>Precio(S/.)</th>
 								            <th>Categoria</th>
 								            <th></th>
 								            <th></th>
@@ -210,12 +210,13 @@
 							<input type="text" class="input"  name="horario" id="idHorario" placeholder="Ingresar Horario del Servicio">
                           </fieldset>
                         </div>
+                        <!-- 
                         <div class="col-md-6">
                           <fieldset>
 							<input type="text" class="input"  name="fecha" id="idFecha" placeholder="Ingresar Fecha del Servicio">
                           </fieldset>
                         </div>
-                        
+                         -->
                         <div class="col-md-6">
                           <fieldset>
                          	<label>Elige una categoria::</label>    
@@ -369,7 +370,7 @@ $(document).on("click","#btnEditar",(function(){
 		$("#idDescripcion").val(data.descripcion);
 		$("#idHorario").val(data.horario);
 		$("#idCategoria").val(data.idcategoria.idcategoria);
-		$("#idFecha").val(data.fecha);
+		//$("#idFecha").val(data.fecha);
 	})
 	bloquear(false);
 }));
@@ -393,6 +394,7 @@ function bloquear(b){
 }
 
 function listarTabla(){
+	$('#tbServicios tbody').append('<tr><td class="loading text-center mb-5" colspan="10"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</td> </tr>');
 	$.getJSON("listaServicios",{},function(lista, q, t){
 		console.log(lista);
 		$("#tbServicios tbody").empty();
@@ -401,7 +403,7 @@ function listarTabla(){
 		var eliminar="<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#eliminar' id='btnEliminar'>Eliminar</button>";
 		$.each(lista,function(index,item){
 			$("#tbServicios tbody").append("<tr><td>"+item.idservicio+"</td><td>"+item.nombre+"</td><td style='width:40%;'>"+item.descripcion+"</td><td>"+item.horario+"</td><td>"+
-					item.precio+"</td><td>"+item.idcategoria.nombre+"</td><td><img src='img/"+item.foto+"'  alt='No existe' style='width: 200px;'/></td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
+					parseFloat(item.precio).toFixed(2)+"</td><td>"+item.idcategoria.nombre+"</td><td><img src='img/"+item.foto+"'  alt='No existe' style='width: 200px;'/></td><td>"+editar+"</td><td>"+eliminar+"</td></tr>");
 		})
 		//$("#tbServicios img").css("width","100%");
 	    $("#tbServicios").DataTable();

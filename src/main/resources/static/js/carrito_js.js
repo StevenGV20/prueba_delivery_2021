@@ -80,9 +80,9 @@ class Carrito {
                 type: 'info',
                 title: 'Oops...',
                 //text: 'El producto se actulizo correctamente',
-                text: 'El producto ya está agregado',
+                text: 'El producto ya está agregado. Ve al carrito de compras si deseas modificar la cantidad.',
                 showConfirmButton: false,
-                timer: 1000
+                timer: 3000
             })
         }
         else {

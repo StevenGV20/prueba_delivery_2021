@@ -1,6 +1,7 @@
 package com.veterinaria.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,21 @@ public class CitaServiceImpl implements CitaService{
 	@Override
 	public void eliminaCita(int codigo) {
 		repository.deleteById(codigo);
+	}
+
+	@Override
+	public List<Cita> listarCitaByCliente(int cod_usu) {
+		return repository.listaCitaByCliente(cod_usu);
+	}
+
+	@Override
+	public List<Cita> listarCitaByVeterinari(int cod_usu) {
+		return repository.listaCitaByVeterinario(cod_usu);
+	}
+
+	@Override
+	public Optional<Cita> listarCitaById(int cod) {
+		return repository.findById(cod);
 	}
 
 }

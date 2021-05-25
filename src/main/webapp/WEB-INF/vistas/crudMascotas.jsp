@@ -410,6 +410,7 @@ function bloquear(b){
 }
 
 function listarCliente(){
+	$('#tbClientes tbody').append('<tr><td class="loading text-center mb-5" colspan="10"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</td> </tr>');
 	$.getJSON("listaClientes",{},function(listar, q, t){
 		console.log(listar);
 		
@@ -427,6 +428,7 @@ function listarCliente(){
 }
 
 function listarMascotas(cod){
+	$('#dataTable tbody').append('<tr><td class="loading text-center mb-5" colspan="10"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</td> </tr>');
 	$.getJSON("listaMascotasByCliente",{cod:cod},function(listar, q, t){
 		console.log(listar);
 		

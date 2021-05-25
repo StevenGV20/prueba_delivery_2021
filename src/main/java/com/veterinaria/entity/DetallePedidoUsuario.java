@@ -1,7 +1,7 @@
 package com.veterinaria.entity;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
+import java.util.Date;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,41 +20,26 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "detalle_pedido_productos")
-public class DetallePedido implements Serializable{
+@Table(name = "detalle_pedido_usuario")
+public class DetallePedidoUsuario implements Serializable{
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
-	private DetallePedidoPK detallePK;
+	private DetallePedidoUsuarioPK detallePK;
 	
 	@ManyToOne
 	@JoinColumn(name = "idpedido",nullable = false, insertable = false, updatable = false)
 	private Pedido pedido;
-	
 	@ManyToOne
-	@JoinColumn(name = "idproducto", nullable = false, insertable = false, updatable = false)
-	private Producto producto;
+	@JoinColumn(name = "idusuario",nullable = false, insertable = false, updatable = false)
+	private Usuario usuario;
 	
-	private int cantidad;
-	private double precioTotal;
-	private double importe;
-	private double descuento;
-	private double igv;
-	private double montoTotal;
-	/*
-	public double getImporte() {
-		DecimalFormat df=new DecimalFormat();
-		Decimal
-		return importe;
-	}
-	public void setImporte(double importe) {
-		this.importe = importe;
-	}
-	*/
+	private String estado;
 	
-	
-	
+	@Timestamp(value = "yyyy-MM-dd HH:mm:ss")
+	private Date fechaModificacion = new Date();
 }

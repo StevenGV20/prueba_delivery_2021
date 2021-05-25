@@ -42,6 +42,14 @@ public class UsuarioController {
 			return lista;
 		}
 		
+		@RequestMapping("/listaUsuarioByRol")
+		@ResponseBody
+		public List<Usuario> listaUsuarioByRol(int cod){
+			List<Usuario> lista= service.listaUsuarioPorRol(cod);
+			return lista;
+		}
+		
+		
 		@RequestMapping("/listaRol")
 		@ResponseBody
 		public List<Rol> listaRol(){

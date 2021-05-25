@@ -23,8 +23,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	
 	@Override
 	public List<Usuario> listaUsuarioPorRol(int idrol) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.listaUsuarioByRol(idrol);
 	}
 /*
 	@Override

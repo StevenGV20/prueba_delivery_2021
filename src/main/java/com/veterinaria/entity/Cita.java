@@ -59,5 +59,9 @@ public class Cita {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idcliente")
 	private Usuario cliente;;
-	
+
+	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idveterinario")
+	private Usuario veterinario;;
 }

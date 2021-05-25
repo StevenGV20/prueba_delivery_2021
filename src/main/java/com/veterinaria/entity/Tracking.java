@@ -1,5 +1,7 @@
 package com.veterinaria.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,40 +14,43 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
-@AllArgsConstructor
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "usuario")
-public class Usuario {
+@Table(name = "trackingpedido")
+public class Tracking {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="idusuario")
-	private int idusuario;
-	private String nombre;
-	private String apellido;
-	private String direccion;
-	private String dni;
-	private String telefono;
-	private String correo;
-	private String password;
-	private String sexo;
+	@Column(name = "idtrackingPedido")
+	private int idtracking;
+	
+	@Timestamp(value = "dd/MM/yyyy")
+	private Date fechaEntrega;
+	
+	@Timestamp(value = "HH:mm:ss")
+	private Date horaEntrega;
+	
+	private String ubicacion;
+	private String estado;
+	private String motivo;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "iddistrito")
-	private Distrito iddistrito;
+	@JoinColumn(name = "idpedido")
+	private Pedido pedido;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idrol")
-	private Rol idrol;
+	@JoinColumn(name = "idtrabajador")
+	private Usuario trabajador;
 	
-
 }

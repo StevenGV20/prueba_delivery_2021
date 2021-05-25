@@ -235,10 +235,10 @@
         
     <script type="text/javascript">
 	    function listarServicios(url){
+    		$('#listaServicios').html('<div class="loading text-center col-md-12 mb-5" id="idLoading"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</div>');
 	    	$.getJSON(url,{},function(lista, q, t){
-	    		console.log(lista);
 	    		$("#listaServicios").empty();
-	    		//var detalles="<button type='button' class='btn btn-info' id='btnDetalles' data-toggle='modal'  data-target='#idModalFoto'>Subir Foto</button>";
+	    		console.log(lista);
 	    		$.each(lista,function(index,item){
 	    			$("#listaServicios").append("<div class='col-md-4'> "
 	    					+ "	<div class='product-item'> "
@@ -267,15 +267,17 @@
 	    					+ "	</div> "
 	    					+ "</div>");
 	    		})
+	    		$('#idLoading').hide();
 	    		//$("#tbServicios img").css("width","100%");
 	        })
 	    	
 	    }
 	    
 	    function listaServiciosByName(nom){
+    		$('#listaServicios').html('<div class="loading text-center col-md-12 mb-5" id="idLoading"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</div>');
 	    	$.getJSON("listaServiciosByName",{nombre:nom},function(lista, q, t){
-	    		console.log(lista);
 	    		$("#listaServicios").empty();
+	    		console.log(lista);
 	    		if(nom.trim().length>0)
 	    			$("#idTotalProductos").html("<h6>Resultados de búsqueda para '"+nom+"'</h6>");
 	    		else
@@ -309,6 +311,7 @@
 	    					+ "	</div> "
 	    					+ "</div>");
 	    		})
+	    		$('#idLoading').hide();
 	    		//$("#tbServicios img").css("width","100%");
 	        })
 	    	

@@ -183,5 +183,15 @@
         <script type="text/javascript" src="js/verCarrito.js"></script>
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+        <script type="text/javascript">
+        
+        	$(document).ready(function(){
+        		$("#success-alert").fadeTo(2000,500).slideUp(500,function(){
+        			$("#success-alert").slideUp(500);	
+        		});
+        	});
+        
+        </script>
+        
     </body>
 </html>

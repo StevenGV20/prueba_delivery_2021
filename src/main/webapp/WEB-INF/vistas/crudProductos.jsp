@@ -451,9 +451,10 @@ function limpiar(){
 }
 
 function listarTabla(){
-	$("#idTableProductos tbody").empty();
+	$('#idTableProductos tbody').append('<tr><td class="loading text-center mb-5" colspan="10"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</td> </tr>');
 	$.getJSON("listaProductos",{},function(lista, q, t){
 		console.log(lista);
+		$("#idTableProductos tbody").empty();
 		//var detalles="<button type='button' class='btn btn-info' id='btnDetalles' data-toggle='modal'  data-target='#idModalFoto'>Subir Foto</button>";
 		var editar="<button type='button' class='btn btn-success' id='btnEditar' data-toggle='modal'  data-target='#nuevo'>Editar</button>";
 		var eliminar="<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#eliminar' id='btnEliminar'>Eliminar</button>";
@@ -471,7 +472,7 @@ $(document).ready( function () {
 	$("#success-alert").fadeTo(2000,500).slideUp(500,function(){
 		$("#success-alert").slideUp(500);	
 	});
-    
+	localStorage.clear();
     //alert("Hola");
     
    //$("#id_table").DataTable();

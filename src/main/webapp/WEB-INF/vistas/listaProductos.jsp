@@ -75,6 +75,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="idTotalProductos" class="mb-3"></div>
                             <div id="listaProductos" class="row col-md-12">
 		                            <!-- LISTA DE PRODUCTOS
 		                        <c:forEach items="${sessionScope.LISTAPRODUCTOS}" var="item">
@@ -271,9 +272,10 @@
     <script type="text/javascript">
     
 	    function listarProductos(url){
+    		$('#listaProductos').html('<div class="loading text-center col-md-12 mb-5" id="idLoading"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</div>');
 	    	$.getJSON(url,{},function(lista, q, t){
-	    		console.log(lista);
 	    		$("#listaProductos").empty();
+	    		console.log(lista);
 	    		$.each(lista,function(index,item){
 	    			$("#listaProductos").append("<div class='col-md-4 col-lg-4 col-sm-4'> "
 	    					+ "	<div class='product-item'> "
@@ -302,15 +304,21 @@
 	    					+ "	</div> "
 	    					+ "</div>");
 	    		})
+	    		$('#idLoading').hide();
 	    		//$("#tbServicios img").css("width","100%");
 	        })
 	    	
 	    }
 	    
 	    function listarProductosByName(url,nom){
+    		$('#listaProductos').html('<div class="loading text-center col-md-12 mb-5" id="idLoading"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</div>');
 	    	$.getJSON(url,{nombre:nom},function(lista, q, t){
-	    		console.log(lista);
 	    		$("#listaProductos").empty();
+	    		console.log(lista);
+	    		if(nom.trim().length>0)
+	    			$("#idTotalProductos").html("<h6>Resultados de búsqueda para '"+nom+"'</h6>");
+	    		else
+	    			$("#idTotalProductos").empty();
 	    		$.each(lista,function(index,item){
 	    			$("#listaProductos").append("<div class='col-md-4'> "
 	    					+ "	<div class='product-item'> "
@@ -339,6 +347,7 @@
 	    					+ "	</div> "
 	    					+ "</div>");
 	    		})
+	    		$('#idLoading').hide();
 	    		//$("#tbServicios img").css("width","100%");
 	        })
 	    	

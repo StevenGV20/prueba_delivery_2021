@@ -31,6 +31,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 	<link rel="stylesheet" href="css/estilos.css">
 
+        <link href="css/layout.css" rel="stylesheet" type="text/css" media="all">
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
@@ -86,70 +87,112 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid text-center ">
+                <div class="container-fluid ">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 text-gray-800">Mis Pedidos</h1>
-                    <p class="">En esta seccion podras ver todos tus pedidos realizados y consultar el estado en que se encuentran.</p>
-					<input value="${sessionScope.objUsuario.idrol.idrol}" id="txtIdRol" hidden=""/>
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4 col-md-9" style="margin-left: 12%;">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Lista de Pedidos</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="tbPedido" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                        	<th>ID</th>
-                                        	<th hidden=""></th>
-                                            <th>Fecha de Registro</th>
-                                            <th>Estado</th>
-                                            <c:if test="${(sessionScope.objUsuario.idrol.idrol==2) or (sessionScope.objUsuario.idrol.idrol==3)}">
-                                            	<th>Cliente</th>
-                                            	<th></th>
-                                            </c:if>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                        	<th>ID</th>
-                                        	<th hidden=""></th>
-                                            <th>Nombre del cliente</th>
-                                            <th>Estado</th>
-                                            <c:if test="${(sessionScope.objUsuario.idrol.idrol==2) or (sessionScope.objUsuario.idrol.idrol==3)}">
-                                            	<th>Cliente</th>
-                                            	<th></th>
-                                            </c:if>
-                                            <th></th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    	<c:forEach items="${requestScope.pedidos}" var="item">
-                                    		<tr>
-	                                        	<td>${item.pedido.idpedido}</td>
-	                                        	<td hidden="">${item.idtracking}</td>
-	                                            <td>${item.pedido.fechaRegistro}</td>
-	                                            <td>${item.estado}</td>
-	                                            <c:if test="${sessionScope.objUsuario.idrol.idrol==2 || sessionScope.objUsuario.idrol.idrol==3}">
-	                                            	<td>${item.pedido.cliente.nombre} ${item.pedido.cliente.apellido}</td>
-	                                            	<c:if test="${item.estado!='PENDIENTE'}">
-	                                            		<td><button data-toggle='modal' disabled="disabled"  data-target='#asignar' class="btn btn-warning" id="btnAsignar">Asignar <i class="fas fa-user-check"></i></button></td>
-	                                            	</c:if>
-	                                            	<c:if test="${item.estado=='PENDIENTE'}">
-	                                            		<td><button data-toggle='modal'  data-target='#asignar' class="btn btn-warning" id="btnAsignar">Asignar <i class="fas fa-user-check"></i></button></td>
-	                                            	</c:if>
-	                                            </c:if>
-	                                            <td><a data-toggle='modal'  data-target='#nuevo' class="btn btn-danger" id="verPedido">Ver Boleta <i class="fas fa-money-check"></i></a></td>
-	                                        </tr>
-                                    	</c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="content"> 
+	              <header  class="marcos1 col-md-12 row">
+	              	<div class="col-md-9">
+			          <h6>Revisar Tracking de mi pedido</span></h6>
+			       	  <label for="name" style="font-size: 20px">Número de Orden de Pedido :  <span>${requestScope.tracking.pedido.idpedido}</span></label>
+			          <input class="btmspace-15" type="text" value="${requestScope.tracking.pedido.idpedido}" hidden="" placeholder="Ingrese Numero">	              	
+	              	</div>
+	              	<c:if test="${sessionScope.objUsuario.idrol.idrol>1}">
+		              	<c:if test="${requestScope.tracking.estado!='ENTREGADO'}">
+		              		<div class="col-md-3 row mt-5">
+			              		<form action="registraEntrega" class="row">
+			              			<input class="btmspace-15" type="text" value="${requestScope.tracking.idtracking}" hidden="" name="idtracking">	
+			              			<input class="btmspace-15" type="text" value="${requestScope.tracking.pedido.idpedido}" hidden="" name="pedido.idpedido">	
+			              			<input class="btmspace-15" type="text" value="${requestScope.tracking.pedido.cliente.direccion}" hidden="" name="destino">	
+			              			<input class="btmspace-15" type="text" value="${requestScope.tracking.trabajador.idusuario}" hidden="" name="trabajador.idusuario">
+				              		<h6 class="mt-3">Registrar Entrega: </h6>
+				              		<button type="submit" class="btn btn-succes ml-4">Entregado</button>	              		
+			              		</form>
+			              	</div>
+		              	</c:if>	              	
+	              	</c:if>
+	              	
+			        </header>
+	        <br><br>
+	     
+	       <div class="scrollable">
+	        <table>
+	          <thead>
+	            <tr>
+	              <th>Fecha de Registro</th>
+	              <th>Fecha de Entrega</th>
+	              <th>Origen</th>
+	              <th>Destino</th>
+	            </tr>
+	          </thead>
+	       <tbody>
+	            <tr>
+	              <td>${requestScope.tracking.pedido.fechaRegistro}</td>        
+	              <td>PENDIENTE</td>  
+	              <td>Veterinaria</td>  
+	              <td>${requestScope.tracking.pedido.cliente.direccion}</td>    
+	            </tr>
+	          
+	          </tbody>
+	        </table> <br><br>
+	      </div>
+	      
+	       
+	      
+	    <div class="col-md-12 row">
+	      <h6 class="col-md-12">Hoja de Tracking</h6>
+	      <div class="col-md-4 text-center">
+		          <c:if test="${requestScope.tracking.estado=='PENDIENTE'}">
+			          <div class="first">
+			            <h2>Registrado</h2>
+			            <img alt="" src="img/entregado.jpg">
+			            <h5>Pedido registrado y en proceso de ser Atendido.</h5>
+			          </div>	          
+		          </c:if>
+		          
+		          <c:if test="${requestScope.tracking.estado=='EN CAMINO'}">
+			          <div class="">
+			            <h2>En Ruta</h2>
+			             <img alt="" src="img/ruta.jpg">
+			              <h5>Pedido En Ruta</h5>
+			          </div>
+		          </c:if>
+		          <c:if test="${requestScope.tracking.estado=='ENTREGADO'}">
+			          <div class="">
+			            <h2>Entregado</h2>
+			             <img alt="" src="img/recibidop.jpg"> <br><br><br>
+			              <h5>Entrega Satisfactoria</h5>
+			          </div>
+		          </c:if>  
+	      
+	      </div>
+	      
+	      <div class="scrollable col-md-8 mt-5">
+	        <table>
+	          <thead>
+	            <tr>
+	              <th>Fecha/Hora de Modificacion</th>
+	              <th>Realizador por:</th>
+	              <th>Estado</th>
+	              <th>Motivo</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	          	<c:forEach items="${requestScope.historial}" var="item">
+		            <tr>
+		              <td>${item.fechaModificacion}</td>
+		              <td>${item.usuario.idrol.nombre}: ${item.usuario.nombre} ${item.usuario.apellido}</td>
+		              <td>${item.estado}</td>
+		              <td></td>
+		            </tr>	          	
+	          	</c:forEach>
+	            
+	          </tbody>
+	        </table>
+	        
+	      </div>
+	      </div>
+	
+	      </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -168,8 +211,7 @@
                     <div class="section-heading">
                       <h2>Detalle del Pedido</h2>
                     </div>
-                    <form  method="post" action="consultarTracking" id="idRegistrar" data-toggle="validator" class="mt-3 form-horizontal">
-                    	<label>Nro de Pedido:  </label><input hidden="" id="idCodigoPedido" name="cod" class="form-input"/><label id="lblCodigo">###</label>
+                    <form  method="post" action="" id="idRegistrar" data-toggle="validator" class="mt-3 form-horizontal">
                       	 <div class="cart-page">
 					            <div class="container-fluid">
 					                <div class="row">
@@ -215,7 +257,7 @@
                        <br>
                         <div class="col-md-12 mt-2">
                           <button type="button" class="btn__submit" id="btnCancelar" data-dismiss="modal">Cancelar</button>  		
-        				  <button type="submit" class="btn__reset" id="btnTracking" >Ver Tracking</button>
+        				  <button type="button" onclick="window.location='verTracking'" class="btn__reset" id="btnTracking" >Ver Tracking</button>
                         </div>
                         
                     </form>
@@ -229,36 +271,39 @@
 </div>
 
 
-<div class="modal fade bd-example-modal-lg" id="asignar"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sl modal-dialog-centered" role="document">
+<div class="modal fade bd-example-modal-lg" id="eliminar"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
     <div class="modal-header">
-      	 <h5 class="modal-title" id="exampleModalLabel">Asignar Repartidor</h5>
+      	 <h5 class="modal-title" id="exampleModalLabel">Atendiendo Pedidos</h5>
       </div>
       <!-- Modal body -->
         <div class="modal-body">
-	        <div class="col-md-12">
-	        	<div class="row">
-	        		<form action="asignaTrabajador" method="post" name="" data-toggle="validator" id="formAsignar" class="col-md-12">	
-		        		<input id="idCodigoTracking" name="idtracking" hidden=""/>
-		        		<input id="idTrackPedido" name="pedido.idpedido" hidden=""/>
-		                  <div class="">
-		                    <fieldset class="form-group">
-		                   		<label for="staticEmail">Repartidor</label>
-								<select id="idRepartidor" class="input col-md-12" name="trabajador.idusuario">
-									<option>[ Seleccione ]</option>
-								</select>
-		                    </fieldset>
-		                  </div>  
-		                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				          <button type="submit" id="btnAsignarRep" class="btn btn-primary">Asignar</button>
-	           		 </form> 
-	              </div>
-	          </div>
-	    </div>
+        <div class="col-md-12">
+        	<div class="row">
+                        <div class="col-md-6">
+                          <fieldset class="form-group">
+                          <label for="staticEmail">Ingresar Nombre del agente</label>
+							<input type="text" class="input"  name="prueba" id="idnomprue">
+                          </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                          <fieldset class="form-group">	
+                          <label for="staticEmail">Ingresar cotizacion para el cliente</label>
+							<input type="text" class="input"  name="prueba2" id="idregprue" >
+                          </fieldset>
+                        </div>    
+                      </div>
+                      </div>
+        </div>
         
         <!-- Modal footer -->
         <div class="modal-footer">
+          <form action="" method="post" name="formDelete" id="id_form_elimina">	
+		  	  <input type="hidden" id="idEliminar" name="id">
+	          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	          <button type="button" id="btn_eliminar" data-dismiss="modal" class="btn btn-primary">Responder</button>
+            </form>
         </div>
         
     </div>
@@ -339,8 +384,6 @@
 
 $(document).on("click","#verPedido",(function(){
 	var cod=$(this).parents('tr').find("td")[0].innerHTML;
-	$("#lblCodigo").text(cod);
-	$("#idCodigoPedido").val(cod);
 	//alert(cod);
 	$.getJSON("detallePedidoById",{id:cod},function(listar, q, t){
 		$("#detallePedido tbody").empty();
@@ -361,12 +404,9 @@ $(document).on("click","#verPedido",(function(){
 }));
 
 
-$(document).on("click","#btnAsignar",(function(){
-	var ped=$(this).parents('tr').find("td")[0].innerHTML;
-	var tr=$(this).parents('tr').find("td")[1].innerHTML;
-	$("#idCodigoTracking").val(tr);
-	$("#idTrackPedido").val(ped);
-	
+$(document).on("click","#btnEliminar",(function(){
+	var cod=$(this).parents('tr').find("td")[0].innerHTML;
+	$("#idEliminar").val(cod);
 }));
 
 function limpiarFormConsulta(){
@@ -377,9 +417,9 @@ function limpiarFormConsulta(){
 }
 
 //LISTAR CLIENTES/USUARIOS
-function listarTablas(lista){
+function listarTablas(){
 	$('#tbPedido tbody').append('<tr><td class="loading text-center mb-5" colspan="10"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</td> </tr>');
-	$.getJSON("listaPedido",{},function(listar, q, t){
+	$.getJSON("listaPedido2",{},function(listar, q, t){
 		console.log(listar);
 		
 		var editar="<button type='button' class='btn btn-success' id='btnEditar' data-toggle='modal'  data-target='#nuevo'>Editar</button>";
@@ -395,16 +435,6 @@ function listarTablas(lista){
 	
 }
 
-function listaRepartidor(){
-	//alert("hola");
-	$.getJSON("listaUsuarioByRol",{cod:4},function(listar, q, t){
-		console.log(listar);
-		$.each(listar,function(index,item){
-			$("#idRepartidor").append("<option value='"+item.idusuario+"'>"+item.nombre+" "+item.apellido+"</option>");
-		})
-	})
-}
-
 
 $(document).ready( function () {
 
@@ -414,11 +444,8 @@ $(document).ready( function () {
     
     //alert("Hola");
     //listarTablas();
-    listaRepartidor();
     $("#tbPedido").DataTable();
     
-    //if($("#txtIdRol")==4)
-   		
     /*$("#btnCancelar").click(function(){
 		//alert("hola");
 		//bloquear(false);
@@ -428,47 +455,6 @@ $(document).ready( function () {
 		$("#idRegistrar select").val("[ Seleccione ]");
     });
     */
-    /*
-    $("#btnAsignarRep").click(function(){
-    	//alert("hola");
-    	var validator = $('#formAsignar').data('bootstrapValidator');
-	    validator.validate();
-	    if (validator.isValid()) {
-	    	$.ajax({
-		          type: "POST",
-		          url: "asignaTrabajador", 
-		          data: $('#formAsignar').serialize(),
-		          success: function(data){
-		        	listarTablas(lista);
-		        	mostrarMensaje(data.mensaje);
-		        	//limpiarFormCliente();
-		          },
-		          error: function(){
-			          //listarTablas();
-		        	  mostrarMensaje(MSG_ERROR);
-		          }
-		     });
-		}
-		    
-	  });
-    */
-    
-    
-    $('#formAsignar').bootstrapValidator({      
-      	 fields:{
-      		Repartidor: {
-   	    	selector:'#idRepartidor',   
-                  validators: {    
-                      notEmpty: {    
-                          message: ''    
-                      },      
-                      integer: {    
-                          message: 'Elegir Repartidor'    
-                      },    
-                  }    
-              }
-      	 }
-      }); 
 		    
 });
     

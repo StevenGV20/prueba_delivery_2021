@@ -201,6 +201,16 @@
                         </div>
                         <div class="col-md-6">
                           <fieldset>
+                          	<label>Sexo</label>
+							<select id="idSexo"  class="input" name="sexo">	
+								<option>[ Seleccione ]</option>
+								<option value="1">MASCULINO</option>
+								<option value="2`">FEMENINO</option>
+							</select>
+						 </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                          <fieldset>
                           	<label>Distrito:</label>
 							<select id="idDistrito"  class="input" name="iddistrito">	
 								<option>[ Seleccione ]</option>
@@ -356,6 +366,7 @@ $(document).on("click","#btnEliminar",(function(){
 
 
 function listarTablas(){
+	$('#tbPersonal tbody').append('<tr><td class="loading text-center mb-5" colspan="10"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</td> </tr>');
 	$.getJSON("listaPersonalTrabajo",{},function(listar, q, t){
 		console.log(listar);
 		
@@ -524,6 +535,17 @@ $(document).ready( function () {
                         emailAddress: {
                             message: 'Por favor introduce un correo válido'
                         },    
+                    }    
+            },
+          Sexo: {
+     	    	selector:'#idSexo',   
+                    validators: {    
+                        notEmpty: {    
+                            message: ''    
+                        },      
+                        integer: {    
+                            message: 'Elija un Sexo'    
+                        },     
                     }    
             },
           Distrito: {

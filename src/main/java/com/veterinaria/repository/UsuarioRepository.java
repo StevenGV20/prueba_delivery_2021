@@ -15,6 +15,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 	@Query("Select u from Usuario u where u.idrol.idrol != 1")
 	public abstract List<Usuario> listaPersonalTrabajo();
 	
+	@Query("Select u from Usuario u where u.idrol.idrol = :cod")
+	public abstract List<Usuario> listaUsuarioByRol(@Param("cod") int cod);
+	
 	@Query("Select x from Usuario x where x.correo = :#{#usu.correo} or x.dni = :#{#usu.dni}")
 	public abstract List<Usuario> verificarRegistro(@Param(value = "usu") Usuario bean);
 	

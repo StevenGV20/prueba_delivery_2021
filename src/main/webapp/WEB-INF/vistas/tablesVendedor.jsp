@@ -298,6 +298,7 @@ function limpiarFormConsulta(){
 
 //LISTAR CLIENTES/USUARIOS
 function listarTablas(){
+	$('#tbPedido tbody').append('<tr><td class="loading text-center mb-5" colspan="10"><img src="img/cargando.gif" width="10%" alt="loading" /><br/>Un momento, por favor...</td> </tr>');
 	$.getJSON("listaPedido2",{},function(listar, q, t){
 		console.log(listar);
 		

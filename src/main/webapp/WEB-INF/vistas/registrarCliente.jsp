@@ -90,6 +90,14 @@
 										<option>[ Seleccione ]</option>
 									</select>
                         			</div>
+                        			 <div class="col-md-6">
+                       				<label>Sexo:</label>
+									<select id="idSexo"  class="form-control" name="sexo">	
+										<option>[ Seleccione ]</option>
+										<option value="1">MASCULINO</option>
+										<option value="2">FEMENINO</option>
+									</select>
+                        			</div>
 	                              <div class="col-md-6">
 	                                <label for="staticEmail">Direccion</label>
 									<input class="form-control" id="idDireccion" name="direccion" placeholder="Ingrese Direccion"/>
@@ -308,24 +316,35 @@
                          }    
                      },
                      Correo: {
-                	    	selector:'#idCorreo',   
-                               validators: {    
-                                   notEmpty: {    
-                                       message: 'Ingrese telefono'    
-                                   },      
-                                   emailAddress: {   
-                                       message: 'Ingrese un correo valido'    
-                                   },    
-                               }    
-                           },
-                           Password: {
-                      	    	selector:'#idPassword',   
-                                     validators: {    
-                                         notEmpty: {    
-                                             message: 'Ingrese telefono'    
-                                         },
-                                     }    
-                                 }
+           	    		selector:'#idCorreo',   
+                          validators: {    
+                              notEmpty: {    
+                                  message: 'Ingrese un correo'    
+                              },      
+                              emailAddress: {   
+                                  message: 'Ingrese un correo valido'    
+                              },    
+                          }    
+                      },
+                      Password: {
+                 	    	selector:'#idPassword',   
+                                validators: {    
+                                    notEmpty: {    
+                                        message: 'Ingrese su clave'    
+                                    },
+                                }    
+                            },
+                            Sexo: {
+                     	    	selector:'#idSexo',   
+                                    validators: {    
+                                        notEmpty: {    
+                                            message: ''    
+                                        },      
+                                        integer: {    
+                                            message: 'Elija un Sexo'    
+                                        },     
+                                    }    
+                            }
               
            }
          

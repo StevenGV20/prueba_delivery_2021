@@ -3,7 +3,6 @@ package com.veterinaria.controller;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -40,24 +39,44 @@ public class PedidoController {
 		return lista;
 	}*/
 	
-	@RequestMapping("/verMisPedidos")
-	public String verMisPedidos(HttpSession session,HttpServletRequest request) {
-		Usuario user=(Usuario)session.getAttribute("objUsuario");
-		List<Pedido> lista= pedidoService.listaPedidoByCliente(user.getIdusuario());
-		request.setAttribute("pedidos", lista);
-		return "misPedidos";
-	}
+
 	
 	@RequestMapping("/detallePedidoById")
 	@ResponseBody
 	public List<DetallePedido>  detallePedidoById(int id) {
+		
 		List<DetallePedido> lista=pedidoService.buscaDetallePedidoById(id);
-		for(DetallePedido det:lista){
+		//List<DetallePedido> lista=pedidoService.buscaDetallePedidoById(id);
+		/*for(DetallePedido det:lista){
 			System.out.println(det.getPedido().getIdpedido());
-		}
+		}*/
 		return lista;
 	}
 	
+	@RequestMapping("/boletaById")
+	@ResponseBody
+	public List<Seleccion>  boletaById(int id) {
+		
+		List<Seleccion> lista=pedidoService.buscaBoletaxid(id);
+		//List<DetallePedido> lista=pedidoService.buscaDetallePedidoById(id);
+		/*for(DetallePedido det:lista){
+			System.out.println(det.getPedido().getIdpedido());
+		}*/
+		return lista;
+	}
+	
+
+	@RequestMapping("/pedidoBYID")
+	@ResponseBody
+	public Optional<Pedido>  pedidoBYID(int id) {
+		 
+		Optional<Pedido> lista=pedidoService.buscaPedidoById(id);
+		//List<DetallePedido> lista=pedidoService.buscaDetallePedidoById(id);
+		/*for(DetallePedido det:lista){
+			System.out.println(det.getPedido().getIdpedido());
+		}*/
+		return lista;
+	}
 	
 	@RequestMapping("/procesarCarrito")
 	@ResponseBody
@@ -100,10 +119,10 @@ public class PedidoController {
 
 	    Pedido pedido=new Pedido();
 	    pedido.setCliente((Usuario) session.getAttribute("objUsuario"));
-	    pedido.setEstado("PENDIENTE");
-	    pedido.setDetalle(detalle);
+	   // pedido.setEstado("PENDIENTE");
+	    //pedido.setDetalle(detalle);
 	    
-	    Pedido objIns=pedidoService.registraPedido(pedido);
+	    Pedido objIns=pedidoService.registraPedido(pedido,detalle);
 	    //String salida="-1";
 	    Map<String, Object> salida = new HashMap<String, Object>();
 	    if(objIns!=null) {

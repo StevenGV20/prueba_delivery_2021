@@ -122,7 +122,14 @@
                                 </c:if>
 	                            <c:if test="${sessionScope.objUsuario!=null}">
                               		 <div class="nav-item dropdown mr-5">
-		                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">${sessionScope.objUsuario.nombre} ${sessionScope.objUsuario.apellido}</a>
+		                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">${sessionScope.objUsuario.nombre} ${sessionScope.objUsuario.apellido}
+		                                	<c:if test="${sessionScope.objUsuario.sexo=='MASCULINO'}">
+			                                	<img class="img-profile rounded-circle" src="img/profile_man.png">
+			                                </c:if>
+		                                	<c:if test="${sessionScope.objUsuario.sexo=='FEMENINO'}">
+			                                	<img class="img-profile rounded-circle" src="img/profile_woman.png">
+			                                </c:if>
+		                                </a>
 		                                <div class="dropdown-menu">
 		                                    <c:if test="${sessionScope.objUsuario!=null}">
 			                                    <c:if test="${sessionScope.objUsuario.idrol.idrol!=1}">

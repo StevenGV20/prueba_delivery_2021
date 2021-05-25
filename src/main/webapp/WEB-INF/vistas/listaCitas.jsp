@@ -103,38 +103,36 @@
                                     <thead>
                                         <tr>
                                         	<th>ID</th>
-                                        	<th hidden=""></th>
                                             <th>Fecha de Registro</th>
                                             <th>Estado</th>
+                                            <th>Servicio</th>
                                             <c:if test="${(sessionScope.objUsuario.idrol.idrol==2) or (sessionScope.objUsuario.idrol.idrol==3)}">
                                             	<th>Cliente</th>
                                             	<th></th>
                                             </c:if>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                         	<th>ID</th>
-                                        	<th hidden=""></th>
                                             <th>Nombre del cliente</th>
                                             <th>Estado</th>
+                                            <th>Servicio</th>
                                             <c:if test="${(sessionScope.objUsuario.idrol.idrol==2) or (sessionScope.objUsuario.idrol.idrol==3)}">
                                             	<th>Cliente</th>
                                             	<th></th>
                                             </c:if>
-                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<c:forEach items="${requestScope.pedidos}" var="item">
+                                    	<c:forEach items="${requestScope.citas}" var="item">
                                     		<tr>
-	                                        	<td>${item.pedido.idpedido}</td>
-	                                        	<td hidden="">${item.idtracking}</td>
-	                                            <td>${item.pedido.fechaRegistro}</td>
+	                                        	<td>${item.idcita}</td>
+	                                            <td>${item.fechaRegistro}</td>
 	                                            <td>${item.estado}</td>
+	                                            <td>${item.servicio.nombre}</td>
 	                                            <c:if test="${sessionScope.objUsuario.idrol.idrol==2 || sessionScope.objUsuario.idrol.idrol==3}">
-	                                            	<td>${item.pedido.cliente.nombre} ${item.pedido.cliente.apellido}</td>
+	                                            	<td>${item.cliente.nombre} ${item.cliente.apellido}</td>
 	                                            	<c:if test="${item.estado!='PENDIENTE'}">
 	                                            		<td><button data-toggle='modal' disabled="disabled"  data-target='#asignar' class="btn btn-warning" id="btnAsignar">Asignar <i class="fas fa-user-check"></i></button></td>
 	                                            	</c:if>
@@ -142,7 +140,6 @@
 	                                            		<td><button data-toggle='modal'  data-target='#asignar' class="btn btn-warning" id="btnAsignar">Asignar <i class="fas fa-user-check"></i></button></td>
 	                                            	</c:if>
 	                                            </c:if>
-	                                            <td><a data-toggle='modal'  data-target='#nuevo' class="btn btn-danger" id="verPedido">Ver Boleta <i class="fas fa-money-check"></i></a></td>
 	                                        </tr>
                                     	</c:forEach>
                                     </tbody>
@@ -156,103 +153,67 @@
 
             </div>
             <!-- End of Main Content -->
-            
-         
-<div class="modal fade bd-example-modal-lg" id="nuevo"  data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-    <div class="modal-content">
- 		 <section class="forms ml-4 mr-4 m-4">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="section-heading">
-                      <h2>Detalle del Pedido</h2>
-                    </div>
-                    <form  method="post" action="consultarTracking" id="idRegistrar" data-toggle="validator" class="mt-3 form-horizontal">
-                    	<label>Nro de Pedido:  </label><input hidden="" id="idCodigoPedido" name="cod" class="form-input"/><label id="lblCodigo">###</label>
-                      	 <div class="cart-page">
-					            <div class="container-fluid">
-					                <div class="row">
-					                    <div class="col-lg-8">
-					                        <table class="table table-bordered table-striped"  id="detallePedido">
-					                                    <thead class="thead-dark">
-					                                        <tr>
-					                                            <th>Producto</th>
-					                                            <th>Precio</th>
-					                                            <th>Cantidad</th>
-					                                            <th>Total</th>
-					                                        </tr>
-					                                    </thead>
-					                                    <tbody class="align-middle"">
-					                                       
-					                                    </tbody>
-					                                </table>
-					                    </div>
-					                    <div class="col-lg-4">
-					                        <div class="cart-page-inner">
-					                            <div class="row">
-					                                <div class="col-md-12">
-					                                    <div class="cart-summary">
-					                                    	<table class="table">
-					                                    		<thead><tr><td><h2>Totales</h2></td><td></td></tr></thead>
-						                                    	<tbody class="text-right">
-						                                    		<tr><td class="text-left"><p>Importe:</p></td><td>S/. <span id="idImporte"></span></td></tr>
-						                                    		<tr><td class="text-left"><p>Descuento:</p></td><td>S/. <span id="idDescuento"></span></td></tr>
-						                                    		<tr><td class="text-left"><p>IGV:</p></td><td>S/. <span id="idIGV"></span></td></tr>
-						                                    		<tr><td class="text-left"><h5>Monto Total:</h5></td><td><h5>S/. <span id="idTotal"></span></h5></td></tr>
-						                                    	</tbody>
-					                                    	</table>
-					                                    </div>
-					                                </div>
-					                            </div>
-					                        </div>
-					                    </div>
-					                </div>
-					            </div>
-					        </div>
-                      	
-                      	
-                       <br>
-                        <div class="col-md-12 mt-2">
-                          <button type="button" class="btn__submit" id="btnCancelar" data-dismiss="modal">Cancelar</button>  		
-        				  <button type="submit" class="btn__reset" id="btnTracking" >Ver Tracking</button>
-                        </div>
-                        
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </section>
-      
-    </div>
-  </div>
-</div>
-
-
+  
 <div class="modal fade bd-example-modal-lg" id="asignar"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sl modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
     <div class="modal-header">
-      	 <h5 class="modal-title" id="exampleModalLabel">Asignar Repartidor</h5>
+      	 <h5 class="modal-title" id="exampleModalLabel">Asignar Veterinario</h5>
       </div>
       <!-- Modal body -->
         <div class="modal-body">
 	        <div class="col-md-12">
 	        	<div class="row">
-	        		<form action="asignaTrabajador" method="post" name="" data-toggle="validator" id="formAsignar" class="col-md-12">	
-		        		<input id="idCodigoTracking" name="idtracking" hidden=""/>
-		        		<input id="idTrackPedido" name="pedido.idpedido" hidden=""/>
-		                  <div class="">
-		                    <fieldset class="form-group">
-		                   		<label for="staticEmail">Repartidor</label>
-								<select id="idRepartidor" class="input col-md-12" name="trabajador.idusuario">
-									<option>[ Seleccione ]</option>
-								</select>
-		                    </fieldset>
-		                  </div>  
-		                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				          <button type="submit" id="btnAsignarRep" class="btn btn-primary">Asignar</button>
-	           		 </form> 
+	        		<form  method="post" action="asignaVeterinario" id="idRegistrar" data-toggle="validator" enctype="multipart/form-data" class="mt-3 form-horizontal">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <fieldset class="form-group">
+                         	<label for="staticEmail">Fecha de Atención:</label>
+							<input class="form-control" id="idCodigoCita" name="idcita" hidden=""/>
+							<input class="form-control" type="date" id="idFecAtencion" name="fechaAtencion" placeholder="Ingrese Fecha de Atención"/>
+                          </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                          <fieldset>
+							<label for="staticEmail">Hora de Atención:</label>
+							<input class="form-control" type="time" id="idHoraAtencion" name="horaAtencion" placeholder="Ingrese Hora de Atención"/>
+                          </fieldset>
+                        </div>
+                        <div class="col-md-4">
+                          <fieldset>
+							<label for="staticEmail">Servicio:</label>
+							<input class="form-control" id="idServicio" name="servicio.idservicio" hidden=""/>
+							<input class="form-control" type="text" id="idNomServicio" placeholder="Nombre del Servicio"/>
+                          </fieldset>
+                        </div>
+                        <div class="col-md-4">
+                          <fieldset>
+							<label for="staticEmail">Cliente:</label>
+							<input class="form-control" id="idCliente" hidden="" name="cliente.idusuario"/>
+							<input class="form-control" type="text" id="idNomCliente" placeholder="Nombre del Cliente"/>
+                          </fieldset>
+                        </div>
+                        <div class="col-md-4">
+                          <fieldset>
+                         	<label>Elige un Veterinario:</label>    
+							<select id="idVeterinario"  class="input" name="veterinario.idusuario">	
+								<option>[ Seleccione ]</option>
+							</select>
+						 </fieldset>
+                        </div>
+                        <div class="col-md-12">
+                          <fieldset>
+							<label for="staticEmail">Observaciones</label>
+							<textarea class="form-control" id="idObservaciones" name="observacion"></textarea>
+                          </fieldset>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                          <button type="submit" class="btn__submit" id="btnRegistrar">Registrar</button>  		
+        				  <button type="button" class="btn__reset" id="btnCancelar" data-dismiss="modal">Cancelar</button>
+                        </div>
+                        
+                      </div>
+                    </form> 
 	              </div>
 	          </div>
 	    </div>
@@ -359,14 +320,64 @@ $(document).on("click","#verPedido",(function(){
 	
 	//bloquear(false);
 }));
+/*
+function formatDate(timestamp) {
+    console.log(timestamp);
+    //console.log(timestamp.split("/")[1].replace(/\D/g, ''));
+    var x = new Date(timestamp.split("-")[1].replace(/\D/g, ''));
+    var dd = x.getDate();
+    var mm = x.getMonth() + 1;
+    var yy = x.getFullYear();
+    return dd + "/" + mm + "/" + yy;
+}*/
+
+function getFormattedDate(date) {
+	  var year = date.getFullYear();
+
+	  var month = (1 + date.getMonth()).toString();
+	  month = month.length > 1 ? month : '0' + month;
+
+	  var day = date.getDate().toString();
+	  day = day.length > 1 ? day : '0' + day;
+	  
+	  return month + '/' + day + '/' + year;
+	}
+
+function formatAMPM(date) {
+	  var hours = date.getHours();
+	  var minutes = date.getMinutes();
+	  var ampm = hours >= 12 ? 'PM' : 'Am';
+	  hours = hours % 12;
+	  hours = hours ? hours : 12; // the hour '0' should be '12'
+	  minutes = minutes < 10 ? '0'+minutes : minutes;
+	  var strTime = hours + ':' + minutes + ' ' + ampm;
+	  return strTime;
+	}
 
 
 $(document).on("click","#btnAsignar",(function(){
-	var ped=$(this).parents('tr').find("td")[0].innerHTML;
-	var tr=$(this).parents('tr').find("td")[1].innerHTML;
-	$("#idCodigoTracking").val(tr);
-	$("#idTrackPedido").val(ped);
+	var cod=$(this).parents('tr').find("td")[0].innerHTML;
+	//alert(cod);
+	$.getJSON("buscaCitaById",{cod:cod},function(data, q, t){
+		console.log(data);
+		var date = new Date(data.fechaAtencion);
+		var time=new Date(data.horaAtencion);
+	    //alert(((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear());
+		$("#idCodigoCita").val(data.idcita);//alert(data.fechaAtencion);
+		//alert(date);
+		//alert(getFormattedDate(date));
+		$("#idFecAtencion").val(getFormattedDate(date));
+		$("#idHoraAtencion").val(formatAMPM(time));
+		$("#idServicio").val(data.servicio.idservicio);
+		$("#idNomServicio").val(data.servicio.nombre);
+		$("#idCliente").val(data.cliente.idusuario);
+		$("#idNomCliente").val(data.cliente.nombre +" "+data.cliente.apellido );
+		$("#idObservaciones").val(data.observacion);
+		if(data.veterinario.idusuario!=null)
+			$("#idVeterinario").val(data.veterinario.idusuario);
+	})
 	
+	//bloquear(false);
 }));
 
 function limpiarFormConsulta(){
@@ -395,12 +406,13 @@ function listarTablas(lista){
 	
 }
 
-function listaRepartidor(){
+
+function listaVeterinario(){
 	//alert("hola");
-	$.getJSON("listaUsuarioByRol",{cod:4},function(listar, q, t){
+	$.getJSON("listaUsuarioByRol",{cod:5},function(listar, q, t){
 		console.log(listar);
 		$.each(listar,function(index,item){
-			$("#idRepartidor").append("<option value='"+item.idusuario+"'>"+item.nombre+" "+item.apellido+"</option>");
+			$("#idVeterinario").append("<option value='"+item.idusuario+"'>"+item.nombre+" "+item.apellido+"</option>");
 		})
 	})
 }
@@ -414,12 +426,12 @@ $(document).ready( function () {
     
     //alert("Hola");
     //listarTablas();
-    listaRepartidor();
+    listaVeterinario();
     $("#tbPedido").DataTable();
     
     //if($("#txtIdRol")==4)
    		
-    /*$("#btnCancelar").click(function(){
+    $("#btnCancelar").click(function(){
 		//alert("hola");
 		//bloquear(false);
     	$("#idRegistrar").trigger("reset");
@@ -427,7 +439,7 @@ $(document).ready( function () {
 		$("#idCodigo").val("0");
 		$("#idRegistrar select").val("[ Seleccione ]");
     });
-    */
+    
     /*
     $("#btnAsignarRep").click(function(){
     	//alert("hola");
@@ -452,23 +464,66 @@ $(document).ready( function () {
 		    
 	  });
     */
-    
-    
-    $('#formAsignar').bootstrapValidator({      
+    $('#idRegistrar').bootstrapValidator({      
       	 fields:{
-      		Repartidor: {
-   	    	selector:'#idRepartidor',   
+      		 
+      		 Servicio: {
+   	    	selector:'#idServicio',   
                   validators: {    
                       notEmpty: {    
-                          message: ''    
+                          message: 'Elija un Servicio'    
                       },      
-                      integer: {    
-                          message: 'Elegir Repartidor'    
+                      integer: {       
+                          message: 'Elija un Servicio'    
                       },    
                   }    
-              }
-      	 }
-      }); 
+              },
+              Fecha: {
+        	    	selector:'#idFecAtencion',   
+                       validators: {    
+                     	  notEmpty: {    
+	                            
+                     		  message: 'Ingrese Hora de Atencion'    
+  	                          	},      
+  	                            	date: {        
+  	                                message: 'Ingrese una fecha valida'
+  	                            },   
+                       }    
+               },
+              HoraAte: {
+      	    	selector:'#idHoraAtencion',   
+                     validators: {    
+                         notEmpty: {    
+                             message: 'Ingrese Hora de Atencion'    
+                        	},      
+                          	time: {        
+                              message: 'Ingrese una hora valida'    
+                          },     
+                     }    
+                 },
+                Observaciones: {
+         	    	selector:'#idObservaciones',   
+                        validators: {    
+                            notEmpty: {    
+                                message: 'Ingrese alguna observacion'    
+                            },        	                             
+                        }    
+                    },
+                    Vetrinario: {
+              	    	selector:'#idVeterinario',   
+                             validators: {    
+                                 notEmpty: {    
+                                     message: ''    
+                                	},      
+                                  	integer: {        
+                                      message: 'Elija un veterinario'    
+                                  },     
+                             }    
+                         }
+              
+           }
+         
+      	 });
 		    
 });
     
