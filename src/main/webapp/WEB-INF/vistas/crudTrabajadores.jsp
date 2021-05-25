@@ -390,6 +390,7 @@ function limpiarForm(){
 	$("#idRegistrar").data("bootstrapValidator").resetForm(true);
 	$("#idDistrito").val("[ Seleccione ]");
 	$("#idRol").val("[ Seleccione ]");
+	$("#idSexo").val("[ Seleccione ]");
 	$("#idCodigo").val("0");
 	$("#idDivPassword").show();
 	$("#idCorreo").parent().parent().attr("class","col-md-6");
