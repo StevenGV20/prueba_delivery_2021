@@ -19,7 +19,7 @@ import com.veterinaria.repository.ProductoRepository;
 @Service
 public class ProductoServiceImpl implements ProductoService {
 	
-	private String ruta=".//src//main//resources//static//img//";
+	private String ruta="src//main//resources//static//img//";
 	
 	@Autowired
 	private ProductoRepository repository;
@@ -69,7 +69,7 @@ public class ProductoServiceImpl implements ProductoService {
 		for(MultipartFile file:files) {
 			if(file.isEmpty()) continue;
 			byte[] bytes=file.getBytes();
-			Path path=Paths.get(ruta + file.getOriginalFilename());
+			Path path=Paths.get(ruta +"//"+ file.getOriginalFilename());
 			Files.write(path, bytes);
 		}
 	}
